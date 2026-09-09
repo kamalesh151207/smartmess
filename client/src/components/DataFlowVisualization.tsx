@@ -44,15 +44,15 @@ export const DataFlowVisualization: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 rounded-3xl glass-panel border border-slate-200 shadow-xl overflow-hidden relative">
+    <div className="p-6 rounded-3xl glass-panel border border-slate-800 shadow-xl overflow-hidden relative">
       <div className="flex items-center gap-2 mb-6">
         <Activity className="w-5 h-5 text-indigo-500" />
-        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700">Live Architecture Data Flow</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200">Live Architecture Data Flow</h3>
       </div>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-2 w-full relative">
         {/* Connection Lines (Desktop only) */}
-        <div className="hidden md:block absolute top-1/2 left-8 right-8 h-0.5 bg-slate-100 -z-10 -translate-y-1/2"></div>
+        <div className="hidden md:block absolute top-1/2 left-8 right-8 h-0.5 bg-slate-800 -z-10 -translate-y-1/2"></div>
         
         {steps.map((step, index) => (
           <React.Fragment key={step.id}>
@@ -66,11 +66,11 @@ export const DataFlowVisualization: React.FC = () => {
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               className={`flex-1 w-full md:w-auto min-w-[140px] flex flex-col items-center text-center p-4 rounded-xl border ${step.color} transition-colors duration-500`}
             >
-              <div className="p-3 bg-white rounded-full shadow-sm mb-3">
+              <div className="p-3 bg-slate-950 rounded-full shadow-sm mb-3">
                 {step.icon}
               </div>
-              <h4 className="font-bold text-slate-800 text-xs mb-1">{step.title}</h4>
-              <p className="text-[10px] text-slate-500 leading-tight">{step.desc}</p>
+              <h4 className="font-bold text-slate-100 text-xs mb-1">{step.title}</h4>
+              <p className="text-[10px] text-slate-400 leading-tight">{step.desc}</p>
             </motion.div>
             
             {index < steps.length - 1 && (

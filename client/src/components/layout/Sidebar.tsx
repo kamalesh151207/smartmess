@@ -101,33 +101,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-slate-50 border-r border-slate-200 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand Header */}
-        <div className="h-16 px-5 flex items-center justify-between border-b border-slate-200">
+        <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800">
           <div
             onClick={() => onNavigate('/dashboard')}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-slate-900/20 via-cyan-500/20 to-slate-800/20 border border-slate-300/30 flex items-center justify-center text-slate-900 group-hover:border-emerald-400 transition-colors">
-              <UtensilsCrossed className="w-5 h-5 text-slate-900" />
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-slate-900/20 via-cyan-500/20 to-slate-800/20 border border-slate-700/30 flex items-center justify-center text-slate-50 group-hover:border-emerald-400 transition-colors">
+              <UtensilsCrossed className="w-5 h-5 text-slate-50" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-slate-900 tracking-wider text-base">SMART MESS</span>
-                <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-blue-100 text-slate-900 border border-blue-200/60">
+                <span className="font-bold text-slate-50 tracking-wider text-base">SMART MESS</span>
+                <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-blue-100 text-slate-50 border border-blue-200/60">
                   OPS
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">Smart Dining Platform</p>
+              <p className="text-[11px] text-slate-400 font-medium">Smart Dining Platform</p>
             </div>
           </div>
 
           <button
             onClick={onCloseMobile}
-            className="p-1 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 lg:hidden"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-50 hover:bg-slate-800 lg:hidden"
           >
             <X className="w-5 h-5" />
           </button>
@@ -137,10 +137,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="mx-3 my-2 px-3 py-1.5 rounded-lg bg-blue-100/40 border border-blue-200/40 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black0 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-900 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
             </span>
-            <span className="text-[10px] font-semibold text-slate-700 uppercase tracking-wider">
+            <span className="text-[10px] font-semibold text-slate-200 uppercase tracking-wider">
               OPERATIONAL DEMO
             </span>
           </div>
@@ -148,9 +148,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={handleReloadDemo}
             disabled={isResetting}
             title="Reload Demo Data"
-            className="p-1 text-slate-500 hover:text-slate-700 hover:bg-emerald-900/40 rounded transition-colors"
+            className="p-1 text-slate-400 hover:text-slate-200 hover:bg-emerald-900/40 rounded transition-colors"
           >
-            <RefreshCw className={`w-3 h-3 ${isResetting ? 'animate-spin text-slate-900' : ''}`} />
+            <RefreshCw className={`w-3 h-3 ${isResetting ? 'animate-spin text-slate-50' : ''}`} />
           </button>
         </div>
 
@@ -158,7 +158,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex-1 px-3 py-2 space-y-4 overflow-y-auto">
           {navSections.map((section) => (
             <div key={section.title}>
-              <h4 className="px-3 text-[10px] font-bold text-slate-500 tracking-wider uppercase mb-1">
+              <h4 className="px-3 text-[10px] font-bold text-slate-400 tracking-wider uppercase mb-1">
                 {section.title}
               </h4>
               <div className="space-y-0.5">
@@ -174,12 +174,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       }}
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                         isActive
-                          ? 'bg-gradient-to-r from-slate-900/20 to-cyan-500/10 text-slate-900 border border-slate-300/40 shadow-sm'
-                          : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100/60'
+                          ? 'bg-gradient-to-r from-slate-900/20 to-cyan-500/10 text-slate-50 border border-slate-700/40 shadow-sm'
+                          : 'text-slate-400 hover:text-slate-50 hover:bg-slate-800/60'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className={`w-4 h-4 ${isActive ? 'text-slate-900' : 'text-slate-500'}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-slate-50' : 'text-slate-400'}`} />
                         <span>{item.label}</span>
                       </div>
                       {item.badge && (
@@ -187,7 +187,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                           className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase tracking-wider ${
                             item.badge === 'AI'
                               ? 'bg-cyan-950 text-indigo-500 border border-cyan-800/50'
-                              : 'bg-blue-100 text-slate-900 border border-blue-200/50'
+                              : 'bg-blue-100 text-slate-50 border border-blue-200/50'
                           }`}
                         >
                           {item.badge}
@@ -202,21 +202,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* User Profile & Logout */}
-        <div className="p-3 border-t border-slate-200 bg-slate-50">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50/60 border border-slate-200/70">
+        <div className="p-3 border-t border-slate-800 bg-slate-900">
+          <div className="flex items-center justify-between p-2 rounded-lg bg-slate-900/60 border border-slate-800/70">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-cyan-600 flex items-center justify-center text-xs font-bold text-slate-900 shadow-inner flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-cyan-600 flex items-center justify-center text-xs font-bold text-slate-50 shadow-inner flex-shrink-0">
                 {user?.name ? user.name.slice(0, 2).toUpperCase() : 'AD'}
               </div>
               <div className="truncate">
-                <p className="text-xs font-semibold text-slate-700 truncate">{user?.name || 'Mess Admin'}</p>
-                <p className="text-[10px] text-slate-500 truncate">{user?.role || 'Administrator'}</p>
+                <p className="text-xs font-semibold text-slate-200 truncate">{user?.name || 'Mess Admin'}</p>
+                <p className="text-[10px] text-slate-400 truncate">{user?.role || 'Administrator'}</p>
               </div>
             </div>
             <button
               onClick={logout}
               title="Sign Out"
-              className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+              className="p-1.5 text-slate-400 hover:text-slate-50 hover:bg-slate-800 rounded transition-colors cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
             </button>

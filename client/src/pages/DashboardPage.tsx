@@ -74,21 +74,21 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       <div className="space-y-6 animate-pulse">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-28 rounded-xl bg-slate-50/60 border border-slate-200" />
+            <div key={i} className="h-28 rounded-xl bg-slate-900/60 border border-slate-800" />
           ))}
         </div>
-        <div className="h-64 rounded-xl bg-slate-50/60 border border-slate-200" />
+        <div className="h-64 rounded-xl bg-slate-900/60 border border-slate-800" />
       </div>
     );
   }
 
   if (!data) {
     return (
-      <div className="p-8 rounded-xl bg-slate-50 border border-slate-200 text-center">
-        <p className="text-slate-500">Failed to load dashboard. Ensure the backend server is active.</p>
+      <div className="p-8 rounded-xl bg-slate-900 border border-slate-800 text-center">
+        <p className="text-slate-400">Failed to load dashboard. Ensure the backend server is active.</p>
         <button
           onClick={loadDashboard}
-          className="mt-4 px-4 py-2 rounded-lg bg-white text-slate-900 text-xs font-semibold cursor-pointer"
+          className="mt-4 px-4 py-2 rounded-lg bg-slate-950 text-slate-50 text-xs font-semibold cursor-pointer"
         >
           Retry Connection
         </button>
@@ -150,24 +150,24 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             <div className="flex items-center gap-2">
               <span className="flex h-2.5 w-2.5 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-black0"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-slate-900"></span>
               </span>
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-900">
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-50">
                 ACTION REQUIRED • LUNCH POTENTIAL SHORTAGE RISK
               </span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 pt-1">
-              <span>Expected: <strong className="text-slate-900">420</strong></span>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 pt-1">
+              <span>Expected: <strong className="text-slate-50">420</strong></span>
               <span>•</span>
               <span>AI Prediction: <strong className="text-indigo-500">405</strong></span>
               <span>•</span>
-              <span>Recommended Preparation: <strong className="text-slate-900">415 meals</strong></span>
+              <span>Recommended Preparation: <strong className="text-slate-50">415 meals</strong></span>
               <span>•</span>
-              <span>Current Batch Target: <strong className="text-slate-900">390</strong></span>
+              <span>Current Batch Target: <strong className="text-slate-50">390</strong></span>
             </div>
 
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               Current kitchen batch is 25 meals below the recommended safety buffer. Late student walk-ins may encounter counter shortages.
             </p>
           </div>
@@ -175,7 +175,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => onNavigate('/kitchen')}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-black0 hover:bg-white text-slate-900 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-950 text-slate-50 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all cursor-pointer"
             >
               VIEW LUNCH PLAN & FIX BATCH <ArrowRight className="w-4 h-4" />
             </button>
@@ -184,18 +184,18 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       </motion.div>
 
       {/* 2. COMPACT QUICK ACTIONS BAR: Instant operations execution */}
-      <motion.div variants={itemVariants} className="p-4 rounded-3xl glass-panel border border-slate-200">
+      <motion.div variants={itemVariants} className="p-4 rounded-3xl glass-panel border border-slate-800">
         <div className="flex items-center justify-between mb-2 px-1">
-          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500">
+          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">
             FAST ACTIONS • OPERATIONS SHORTCUTS
           </span>
-          <span className="text-[10px] text-slate-500">1-click task launch</span>
+          <span className="text-[10px] text-slate-400">1-click task launch</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
           <button
             onClick={() => onNavigate('/predictions')}
-            className="p-2.5 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-indigo-400/40 text-xs font-semibold text-slate-700 hover:text-indigo-500 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-indigo-400/40 text-xs font-semibold text-slate-200 hover:text-indigo-500 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
           >
             <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
             <span>Generate Prediction</span>
@@ -203,15 +203,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
           <button
             onClick={() => onNavigate('/attendance')}
-            className="p-2.5 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-slate-300/40 text-xs font-semibold text-slate-700 hover:text-slate-900 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-700/40 text-xs font-semibold text-slate-200 hover:text-slate-50 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
           >
-            <Users className="w-3.5 h-3.5 text-slate-900" />
+            <Users className="w-3.5 h-3.5 text-slate-50" />
             <span>Record Attendance</span>
           </button>
 
           <button
             onClick={() => onNavigate('/meals')}
-            className="p-2.5 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-indigo-300 text-xs font-semibold text-slate-700 hover:text-indigo-600 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-indigo-300 text-xs font-semibold text-slate-200 hover:text-indigo-600 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
           >
             <Utensils className="w-3.5 h-3.5 text-indigo-600" />
             <span>Record Meal Data</span>
@@ -219,25 +219,25 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
           <button
             onClick={() => onNavigate('/kitchen')}
-            className="p-2.5 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-slate-300/40 text-xs font-semibold text-slate-700 hover:text-slate-700 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-700/40 text-xs font-semibold text-slate-200 hover:text-slate-200 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
           >
-            <ChefHat className="w-3.5 h-3.5 text-slate-900" />
+            <ChefHat className="w-3.5 h-3.5 text-slate-50" />
             <span>Kitchen View</span>
           </button>
 
           <button
             onClick={() => onNavigate('/waste')}
-            className="p-2.5 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-slate-600 text-xs font-semibold text-slate-700 hover:text-slate-900 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 text-xs font-semibold text-slate-200 hover:text-slate-50 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
           >
-            <Recycle className="w-3.5 h-3.5 text-slate-900" />
+            <Recycle className="w-3.5 h-3.5 text-slate-50" />
             <span>Record Waste</span>
           </button>
 
           <button
             onClick={() => onNavigate('/inventory')}
-            className="p-2.5 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-slate-200/40 text-xs font-semibold text-slate-700 hover:text-slate-500 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-800/40 text-xs font-semibold text-slate-200 hover:text-slate-400 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
           >
-            <Boxes className="w-3.5 h-3.5 text-slate-500" />
+            <Boxes className="w-3.5 h-3.5 text-slate-400" />
             <span>Check Inventory</span>
           </button>
         </div>
@@ -299,8 +299,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               <span className="text-[10px] uppercase font-bold text-indigo-500 tracking-wider block">
                 ACTIVE AI RECOMMENDATION • LUNCH
               </span>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                Prepare approximately <span className="text-slate-900">415 meals</span> for lunch service.
+              <h3 className="text-base sm:text-lg font-bold text-slate-50">
+                Prepare approximately <span className="text-slate-50">415 meals</span> for lunch service.
               </h3>
             </div>
           </div>
@@ -312,7 +312,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 setAcceptedRecommendation(true);
                 setTimeout(() => setAcceptedRecommendation(false), 3000);
               }}
-              className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-slate-800/20"
+              className="px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-slate-800/20"
             >
               {acceptedRecommendation ? (
                 <>
@@ -324,7 +324,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             </button>
             <button
               onClick={() => setShowAdjustModal(true)}
-              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer border border-slate-300"
+              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors cursor-pointer border border-slate-700"
             >
               Adjust Quantity
             </button>
@@ -332,36 +332,36 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Progressive Disclosure: "Why?" */}
-        <div className="pt-2 border-t border-slate-200">
+        <div className="pt-2 border-t border-slate-800">
           <button
             onClick={() => setShowAiWhy(!showAiWhy)}
-            className="text-xs font-semibold text-slate-500 hover:text-indigo-500 flex items-center gap-1 cursor-pointer transition-colors"
+            className="text-xs font-semibold text-slate-400 hover:text-indigo-500 flex items-center gap-1 cursor-pointer transition-colors"
           >
             <span>Why 415 meals? View operational factors</span>
             {showAiWhy ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
 
           {showAiWhy && (
-            <div className="mt-3 p-3.5 rounded-xl bg-slate-50/90 border border-slate-200 text-xs text-slate-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 animate-in fade-in duration-200">
-              <div className="p-2 rounded-lg bg-slate-50/60 border border-slate-200">
-                <span className="text-[10px] text-slate-500 uppercase font-bold block mb-0.5">1. Attendance Pool</span>
-                <p className="font-medium text-slate-900">420 Expected</p>
-                <span className="text-[10px] text-slate-500">Regular campus enrollment</span>
+            <div className="mt-3 p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-400 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 animate-in fade-in duration-200">
+              <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">1. Attendance Pool</span>
+                <p className="font-medium text-slate-50">420 Expected</p>
+                <span className="text-[10px] text-slate-400">Regular campus enrollment</span>
               </div>
-              <div className="p-2 rounded-lg bg-slate-50/60 border border-slate-200">
-                <span className="text-[10px] text-slate-500 uppercase font-bold block mb-0.5">2. Day of Week Factor</span>
+              <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">2. Day of Week Factor</span>
                 <p className="font-medium text-indigo-500">-6.8% Friday Dip</p>
-                <span className="text-[10px] text-slate-500">Weekend eve travel pattern</span>
+                <span className="text-[10px] text-slate-400">Weekend eve travel pattern</span>
               </div>
-              <div className="p-2 rounded-lg bg-slate-50/60 border border-slate-200">
-                <span className="text-[10px] text-slate-500 uppercase font-bold block mb-0.5">3. Menu Elasticity</span>
-                <p className="font-medium text-slate-900">+3.8% Paneer Draw</p>
-                <span className="text-[10px] text-slate-500">High recipe popularity</span>
+              <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">3. Menu Elasticity</span>
+                <p className="font-medium text-slate-50">+3.8% Paneer Draw</p>
+                <span className="text-[10px] text-slate-400">High recipe popularity</span>
               </div>
-              <div className="p-2 rounded-lg bg-slate-50/60 border border-slate-200">
-                <span className="text-[10px] text-slate-500 uppercase font-bold block mb-0.5">4. Safe Cushion</span>
+              <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">4. Safe Cushion</span>
                 <p className="font-medium text-indigo-600">+10 Buffer Meals</p>
-                <span className="text-[10px] text-slate-500">Guarantees zero shortage</span>
+                <span className="text-[10px] text-slate-400">Guarantees zero shortage</span>
               </div>
             </div>
           )}
@@ -372,16 +372,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       <motion.div variants={itemVariants}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-slate-900" /> Today's Shift Preparation & Status
+            <h3 className="text-base font-bold text-slate-50 tracking-tight flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-slate-50" /> Today's Shift Preparation & Status
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               Actionable shift targets with live kitchen status indicators
             </p>
           </div>
           <button
             onClick={() => onNavigate('/kitchen')}
-            className="text-xs text-slate-900 hover:text-slate-700 font-semibold flex items-center gap-1 cursor-pointer"
+            className="text-xs text-slate-50 hover:text-slate-200 font-semibold flex items-center gap-1 cursor-pointer"
           >
             Open Kitchen Workflow <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
@@ -398,40 +398,40 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 transition={{ delay: 0.4 + (idx * 0.1) }}
                 whileHover={{ y: -5 }}
                 className={`p-6 rounded-3xl glass-panel transition-all flex flex-col justify-between shadow-lg relative overflow-hidden group ${
-                  isShortage ? 'border-slate-600 ring-1 ring-slate-600 shadow-[0_0_30px_-5px_rgba(225,29,72,0.15)]' : 'border-slate-200 hover:border-slate-300 hover:shadow-indigo-500/5'
+                  isShortage ? 'border-slate-600 ring-1 ring-slate-600 shadow-[0_0_30px_-5px_rgba(225,29,72,0.15)]' : 'border-slate-800 hover:border-slate-700 hover:shadow-indigo-500/5'
                 }`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-extrabold uppercase tracking-wider text-slate-900">
+                    <span className="text-sm font-extrabold uppercase tracking-wider text-slate-50">
                       {item.meal}
                     </span>
                     <StatusBadge status={isShortage ? 'Critical' : 'Optimal'} />
                   </div>
 
-                  <div className="p-2.5 rounded-lg bg-slate-50/80 border border-slate-200/80 mb-4">
-                    <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Menu:</span>
-                    <p className="text-xs text-slate-700 font-medium line-clamp-2">{item.menu}</p>
+                  <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800/80 mb-4">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Menu:</span>
+                    <p className="text-xs text-slate-200 font-medium line-clamp-2">{item.menu}</p>
                   </div>
 
                   {/* Shift Stats Table */}
-                  <div className="space-y-1.5 text-xs text-slate-500 mb-4 bg-slate-50/60 p-3 rounded-xl border border-slate-200">
+                  <div className="space-y-1.5 text-xs text-slate-400 mb-4 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Expected Attendance:</span>
-                      <strong className="text-slate-900 font-mono">420</strong>
+                      <span className="text-slate-400">Expected Attendance:</span>
+                      <strong className="text-slate-50 font-mono">420</strong>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">AI Predicted Demand:</span>
+                      <span className="text-slate-400">AI Predicted Demand:</span>
                       <strong className="text-indigo-500 font-mono">{item.predicted}</strong>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Recommended Prep:</span>
-                      <strong className="text-slate-900 font-mono">{item.recommended}</strong>
+                      <span className="text-slate-400">Recommended Prep:</span>
+                      <strong className="text-slate-50 font-mono">{item.recommended}</strong>
                     </div>
-                    <div className="flex justify-between pt-1 border-t border-slate-200">
-                      <span className="text-slate-500">Actual Preparation:</span>
-                      <strong className={`font-mono ${isShortage ? 'text-slate-900' : 'text-slate-900'}`}>
+                    <div className="flex justify-between pt-1 border-t border-slate-800">
+                      <span className="text-slate-400">Actual Preparation:</span>
+                      <strong className={`font-mono ${isShortage ? 'text-slate-50' : 'text-slate-50'}`}>
                         {isShortage ? '390 (Under)' : `${item.recommended}`}
                       </strong>
                     </div>
@@ -439,10 +439,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 </div>
 
                 {/* Contextual Actions */}
-                <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between gap-2 relative z-10">
+                <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2 relative z-10">
                   <button
                     onClick={() => setSelectedMealModal(item)}
-                    className="px-4 py-2 rounded-xl bg-slate-100/80 hover:bg-slate-200 text-slate-500 hover:text-slate-900 text-xs font-semibold cursor-pointer transition-colors"
+                    className="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-50 text-xs font-semibold cursor-pointer transition-colors"
                   >
                     View Plan
                   </button>
@@ -451,8 +451,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                     onClick={() => onNavigate('/kitchen')}
                     className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       isShortage
-                        ? 'bg-black0 hover:bg-white text-slate-900 shadow-[0_0_15px_-3px_rgba(225,29,72,0.4)]'
-                        : 'bg-white/10 hover:bg-white/20 text-slate-900 border border-slate-300/30'
+                        ? 'bg-slate-900 hover:bg-slate-950 text-slate-50 shadow-[0_0_15px_-3px_rgba(225,29,72,0.4)]'
+                        : 'bg-slate-950/10 hover:bg-slate-950/20 text-slate-50 border border-slate-700/30'
                     }`}
                   >
                     {isShortage ? 'Fix Shortage' : 'Send to Kitchen'}
@@ -465,26 +465,26 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       </motion.div>
 
       {/* 6. DEMAND TREND RECHARTS WITH FILTERS */}
-      <motion.div variants={itemVariants} className="p-7 rounded-3xl glass-panel border border-slate-200 shadow-xl">
+      <motion.div variants={itemVariants} className="p-7 rounded-3xl glass-panel border border-slate-800 shadow-xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
-            <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <h3 className="text-base font-bold text-slate-50 tracking-tight flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-indigo-500" /> 7-Day Forecast vs Actual Turnout
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               Tracks continuous variance and models learning feedback
             </p>
           </div>
 
-          <div className="inline-flex p-1 rounded-lg bg-slate-50 border border-slate-200 self-start sm:self-auto">
+          <div className="inline-flex p-1 rounded-lg bg-slate-900 border border-slate-800 self-start sm:self-auto">
             {(['all', 'breakfast', 'lunch', 'dinner'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setMealFilter(tab)}
                 className={`px-3 py-1 rounded-md text-xs font-semibold capitalize transition-colors cursor-pointer ${
                   mealFilter === tab
-                    ? 'bg-slate-100 text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
+                    ? 'bg-slate-800 text-slate-50 shadow-sm'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {tab === 'all' ? 'All Meals' : tab}
@@ -506,11 +506,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                     const actualVal = payload[1]?.value;
                     const variance = Number(actualVal) - Number(forecastVal);
                     return (
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-300 shadow-2xl text-xs space-y-1">
-                        <p className="font-bold text-slate-700">{label} ({payload[0]?.payload?.date})</p>
+                      <div className="p-3 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl text-xs space-y-1">
+                        <p className="font-bold text-slate-200">{label} ({payload[0]?.payload?.date})</p>
                         <p className="text-indigo-500">Forecast: <strong>{forecastVal}</strong> meals</p>
-                        <p className="text-slate-900">Actual: <strong>{actualVal}</strong> meals</p>
-                        <p className={`font-semibold ${variance >= 0 ? 'text-indigo-600' : 'text-slate-500'}`}>
+                        <p className="text-slate-50">Actual: <strong>{actualVal}</strong> meals</p>
+                        <p className={`font-semibold ${variance >= 0 ? 'text-indigo-600' : 'text-slate-400'}`}>
                           Variance: {variance > 0 ? `+${variance}` : variance} portions
                         </p>
                       </div>
@@ -559,30 +559,30 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             initial={{ scale: 0.95, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            className="w-full max-w-md glass-panel-heavy border border-slate-300 rounded-3xl p-7 shadow-2xl relative"
+            className="w-full max-w-md glass-panel-heavy border border-slate-700 rounded-3xl p-7 shadow-2xl relative"
           >
             <button
               onClick={() => setShowAdjustModal(false)}
-              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-50 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-base font-bold text-slate-900 mb-1">Override Kitchen Preparation Target</h3>
-            <p className="text-xs text-slate-500 mb-4">Adjust target batch for Today's Lunch</p>
+            <h3 className="text-base font-bold text-slate-50 mb-1">Override Kitchen Preparation Target</h3>
+            <p className="text-xs text-slate-400 mb-4">Adjust target batch for Today's Lunch</p>
 
             <div className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-500 font-medium mb-1">Planned Meals to Cook</label>
+                <label className="block text-slate-400 font-medium mb-1">Planned Meals to Cook</label>
                 <input
                   type="number"
                   value={adjustedQty}
                   onChange={(e) => setAdjustedQty(Number(e.target.value))}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 font-mono text-lg font-bold"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-50 font-mono text-lg font-bold"
                 />
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-50/60 border border-slate-200 text-slate-500 text-[11px] space-y-1">
+              <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 text-[11px] space-y-1">
                 <p>• AI Recommended: <strong>415 meals</strong></p>
                 <p>• Difference: <strong className="text-indigo-500">{adjustedQty - 415 > 0 ? `+${adjustedQty - 415}` : adjustedQty - 415} meals</strong></p>
               </div>
@@ -591,7 +591,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => setShowAdjustModal(false)}
-                  className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 font-semibold"
+                  className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 font-semibold"
                 >
                   Cancel
                 </button>
@@ -601,7 +601,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                     setShowAdjustModal(false);
                     onNavigate('/kitchen');
                   }}
-                  className="flex-1 py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold"
+                  className="flex-1 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold"
                 >
                   Confirm & Push to Kitchen
                 </button>
@@ -614,34 +614,34 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       {/* Modal for Meal Details */}
       {selectedMealModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative">
             <button
               onClick={() => setSelectedMealModal(null)}
-              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-50 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-slate-900 border border-blue-200">
+              <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-slate-50 border border-blue-200">
                 {selectedMealModal.meal}
               </span>
               <StatusBadge status={selectedMealModal.confidence} />
             </div>
 
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Meal Service Parameters</h3>
-            <p className="text-xs text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-200 mb-4">
+            <h3 className="text-lg font-bold text-slate-50 mb-2">Meal Service Parameters</h3>
+            <p className="text-xs text-slate-400 bg-slate-900 p-3 rounded-xl border border-slate-800 mb-4">
               <strong>Menu:</strong> {selectedMealModal.menu}
             </p>
 
             <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                <span className="text-slate-500 block">Baseline Expected</span>
-                <span className="text-xl font-bold text-slate-900 font-mono">{selectedMealModal.predicted}</span>
+              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <span className="text-slate-400 block">Baseline Expected</span>
+                <span className="text-xl font-bold text-slate-50 font-mono">{selectedMealModal.predicted}</span>
               </div>
               <div className="p-3 rounded-xl bg-blue-100/40 border border-blue-200/40">
-                <span className="text-slate-700 block">Kitchen Preparation Cap</span>
-                <span className="text-xl font-bold text-slate-900 font-mono">{selectedMealModal.recommended}</span>
+                <span className="text-slate-200 block">Kitchen Preparation Cap</span>
+                <span className="text-xl font-bold text-slate-50 font-mono">{selectedMealModal.recommended}</span>
               </div>
             </div>
 
@@ -651,7 +651,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                   setSelectedMealModal(null);
                   onNavigate('/kitchen');
                 }}
-                className="w-full py-3 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-sm cursor-pointer shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all"
+                className="w-full py-3 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-sm cursor-pointer shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all"
               >
                 Go to Kitchen Prep
               </button>

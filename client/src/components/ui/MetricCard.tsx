@@ -27,8 +27,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 }) => {
   const colorMap = {
     emerald: {
-      border: 'border-slate-300/20 hover:border-slate-300/50',
-      iconBg: 'bg-white/10 text-slate-900',
+      border: 'border-slate-700/20 hover:border-slate-700/50',
+      iconBg: 'bg-slate-950/10 text-slate-50',
       glow: 'hover:shadow-slate-800/10',
       textGlow: 'drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]'
     },
@@ -46,13 +46,13 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     },
     rose: {
       border: 'border-slate-600 hover:border-slate-600',
-      iconBg: 'bg-blue-100 text-slate-900',
+      iconBg: 'bg-blue-100 text-slate-50',
       glow: 'hover:shadow-blue-100',
       textGlow: 'drop-shadow-[0_0_8px_rgba(225,29,72,0.5)]'
     },
     slate: {
-      border: 'border-slate-300/60 hover:border-slate-500/60',
-      iconBg: 'bg-slate-100 text-slate-500',
+      border: 'border-slate-700/60 hover:border-slate-500/60',
+      iconBg: 'bg-slate-800 text-slate-400',
       glow: 'hover:shadow-slate-500/10',
       textGlow: ''
     }
@@ -73,7 +73,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       <div className="flex items-start justify-between relative z-10">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 group-hover:text-slate-500 transition-colors">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 group-hover:text-slate-400 transition-colors">
               {title}
             </span>
             {badge && (
@@ -83,7 +83,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             )}
           </div>
           <motion.div 
-            className={`text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight font-heading ${scheme.textGlow} transition-all duration-300`}
+            className={`text-2xl lg:text-3xl font-bold text-slate-50 tracking-tight font-heading ${scheme.textGlow} transition-all duration-300`}
           >
             {value}
           </motion.div>
@@ -95,12 +95,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {(subtitle || trend) && (
-        <div className="mt-4 flex items-center justify-between text-xs pt-3 border-t border-slate-200/60 relative z-10">
-          {subtitle && <span className="text-slate-500">{subtitle}</span>}
+        <div className="mt-4 flex items-center justify-between text-xs pt-3 border-t border-slate-800/60 relative z-10">
+          {subtitle && <span className="text-slate-400">{subtitle}</span>}
           {trend && (
             <span
               className={`font-semibold ${
-                trendPositive ? 'text-slate-900' : 'text-indigo-600'
+                trendPositive ? 'text-slate-50' : 'text-indigo-600'
               }`}
             >
               {trend}

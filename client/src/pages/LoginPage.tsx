@@ -57,32 +57,32 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row overflow-hidden">
+    <div className="min-h-screen bg-slate-900 flex flex-col md:flex-row overflow-hidden">
       
       {/* LEFT PANE - Branding (Hidden on mobile, visible on md and up) */}
-      <div className="hidden md:flex md:w-1/2 bg-white p-12 flex-col justify-between relative overflow-hidden">
+      <div className="hidden md:flex md:w-1/2 bg-slate-950 p-12 flex-col justify-between relative overflow-hidden">
         {/* Abstract Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-black0/50 blur-[100px]"></div>
+          <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-slate-900/50 blur-[100px]"></div>
           <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-500/40 blur-[120px]"></div>
         </div>
 
         <div className="relative z-10">
           <button
             onClick={onGoHome}
-            className="text-blue-200 hover:text-slate-900 text-sm flex items-center gap-2 transition-colors font-medium mb-12"
+            className="text-blue-200 hover:text-slate-50 text-sm flex items-center gap-2 transition-colors font-medium mb-12"
           >
             ← Back to Overview
           </button>
           
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-slate-50/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-slate-900 shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-slate-900/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-slate-50 shadow-lg">
               <UtensilsCrossed className="w-7 h-7" />
             </div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">SMART MESS</h1>
+            <h1 className="text-3xl font-extrabold text-slate-50 tracking-tight">SMART MESS</h1>
           </div>
           
-          <h2 className="text-4xl font-bold text-slate-900 leading-tight mb-6">
+          <h2 className="text-4xl font-bold text-slate-50 leading-tight mb-6">
             Predict. Prepare.<br />
             <span className="text-blue-200">Zero Waste. Zero Shortages.</span>
           </h2>
@@ -95,7 +95,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
           <div className="flex -space-x-3">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="w-10 h-10 rounded-full border-2 border-slate-900 bg-blue-200 flex items-center justify-center shadow-sm">
-                <User className="w-5 h-5 text-slate-700" />
+                <User className="w-5 h-5 text-slate-200" />
               </div>
             ))}
           </div>
@@ -104,12 +104,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
       </div>
 
       {/* RIGHT PANE - Auth Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-12 relative bg-slate-50">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-12 relative bg-slate-900">
         
         {/* Mobile back button */}
         <button
           onClick={onGoHome}
-          className="md:hidden absolute top-6 left-6 text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1.5 transition-colors font-medium"
+          className="md:hidden absolute top-6 left-6 text-xs text-slate-400 hover:text-slate-50 flex items-center gap-1.5 transition-colors font-medium"
         >
           ← Back
         </button>
@@ -117,10 +117,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
         <div className="w-full max-w-md">
           {/* Form Header */}
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-slate-900 tracking-tight mb-2">
+            <h2 className="text-3xl font-bold text-slate-50 tracking-tight mb-2">
               {isRegistering ? 'Create an Account' : 'Welcome Back'}
             </h2>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-400">
               {isRegistering 
                 ? 'Join Smart Mess to streamline your dining operations.' 
                 : 'Sign in to access your operations dashboard.'}
@@ -130,24 +130,24 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
           {/* Demo Account Banner (Only on Login) */}
           {!isRegistering && (
             <div className="mb-8 p-4 rounded-xl bg-black border border-blue-200/60 shadow-sm relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-black0/10 rounded-full blur-[40px] -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-slate-900/10 rounded-full blur-[40px] -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700"></div>
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-bold text-blue-700 flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-slate-900" /> Hackathon Evaluation Access
+                    <Sparkles className="w-4 h-4 text-slate-50" /> Hackathon Evaluation Access
                   </span>
                   <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700 border border-blue-200">
                     1-Click
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mb-3">
+                <p className="text-xs text-slate-400 mb-3">
                   Instantly authenticate as Chief Warden with pre-seeded demo records.
                 </p>
                 <button
                   type="button"
                   onClick={handleDemoLogin}
                   disabled={isLoading}
-                  className="w-full py-2.5 px-4 rounded-lg bg-white hover:bg-blue-700 text-slate-900 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-slate-900/20 active:scale-[0.98]"
+                  className="w-full py-2.5 px-4 rounded-lg bg-slate-950 hover:bg-blue-700 text-slate-50 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-slate-900/20 active:scale-[0.98]"
                 >
                   Use Demo Account (Admin) <ArrowRight className="w-4 h-4" />
                 </button>
@@ -158,9 +158,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
           {/* Divider */}
           {!isRegistering && (
             <div className="relative flex py-2 items-center mb-8">
-              <div className="flex-grow border-t border-slate-200"></div>
-              <span className="flex-shrink mx-4 text-xs text-slate-500 uppercase font-semibold tracking-wider">Or continue with email</span>
-              <div className="flex-grow border-t border-slate-200"></div>
+              <div className="flex-grow border-t border-slate-800"></div>
+              <span className="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold tracking-wider">Or continue with email</span>
+              <div className="flex-grow border-t border-slate-800"></div>
             </div>
           )}
 
@@ -187,51 +187,51 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
           <form onSubmit={handleSubmit} className="space-y-5">
             {isRegistering && (
               <div className="space-y-1.5">
-                <label className="block text-sm font-semibold text-slate-500">Full Name</label>
+                <label className="block text-sm font-semibold text-slate-400">Full Name</label>
                 <div className="relative group">
-                  <UserPlus className="w-5 h-5 text-slate-500 absolute left-3.5 top-3 transition-colors group-focus-within:text-slate-900" />
+                  <UserPlus className="w-5 h-5 text-slate-400 absolute left-3.5 top-3 transition-colors group-focus-within:text-slate-50" />
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Dr. K. Sharma"
-                    className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:bg-slate-50 focus:outline-none focus:border-slate-200 focus:ring-4 focus:ring-slate-800/10 transition-all placeholder:text-slate-500 font-medium"
+                    className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-50 focus:bg-slate-900 focus:outline-none focus:border-slate-800 focus:ring-4 focus:ring-slate-800/10 transition-all placeholder:text-slate-400 font-medium"
                   />
                 </div>
               </div>
             )}
 
             <div className="space-y-1.5">
-              <label className="block text-sm font-semibold text-slate-500">Email Address</label>
+              <label className="block text-sm font-semibold text-slate-400">Email Address</label>
               <div className="relative group">
-                <Mail className="w-5 h-5 text-slate-500 absolute left-3.5 top-3 transition-colors group-focus-within:text-slate-900" />
+                <Mail className="w-5 h-5 text-slate-400 absolute left-3.5 top-3 transition-colors group-focus-within:text-slate-50" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@smartmess.edu"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:bg-slate-50 focus:outline-none focus:border-slate-200 focus:ring-4 focus:ring-slate-800/10 transition-all placeholder:text-slate-500 font-medium"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-50 focus:bg-slate-900 focus:outline-none focus:border-slate-800 focus:ring-4 focus:ring-slate-800/10 transition-all placeholder:text-slate-400 font-medium"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <label className="block text-sm font-semibold text-slate-500">Password</label>
+                <label className="block text-sm font-semibold text-slate-400">Password</label>
                 {!isRegistering && (
-                  <a href="#" className="text-xs font-semibold text-slate-900 hover:text-blue-700 transition-colors">
+                  <a href="#" className="text-xs font-semibold text-slate-50 hover:text-blue-700 transition-colors">
                     Forgot password?
                   </a>
                 )}
               </div>
               <div className="relative group">
-                <KeyRound className="w-5 h-5 text-slate-500 absolute left-3.5 top-3 transition-colors group-focus-within:text-slate-900" />
+                <KeyRound className="w-5 h-5 text-slate-400 absolute left-3.5 top-3 transition-colors group-focus-within:text-slate-50" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:bg-slate-50 focus:outline-none focus:border-slate-200 focus:ring-4 focus:ring-slate-800/10 transition-all placeholder:text-slate-500 font-medium"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-sm text-slate-50 focus:bg-slate-900 focus:outline-none focus:border-slate-800 focus:ring-4 focus:ring-slate-800/10 transition-all placeholder:text-slate-400 font-medium"
                 />
               </div>
             </div>
@@ -239,7 +239,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xl shadow-slate-900/10 active:scale-[0.98] mt-2"
+              className="w-full py-3.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xl shadow-slate-900/10 active:scale-[0.98] mt-2"
             >
               {isLoading 
                 ? (isRegistering ? 'Creating account...' : 'Signing in...') 
@@ -249,14 +249,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
 
           {/* Toggle Register/Login */}
           <div className="mt-8 text-center">
-            <p className="text-sm text-slate-500 font-medium">
+            <p className="text-sm text-slate-400 font-medium">
               {isRegistering ? "Already have an account?" : "Don't have an account?"}{' '}
               <button 
                 onClick={() => {
                   setIsRegistering(!isRegistering);
                   setError(null);
                 }}
-                className="text-slate-900 font-bold hover:text-blue-700 hover:underline transition-all"
+                className="text-slate-50 font-bold hover:text-blue-700 hover:underline transition-all"
               >
                 {isRegistering ? 'Sign in instead' : 'Create one now'}
               </button>
@@ -264,7 +264,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
           </div>
 
           {/* Security Footer */}
-          <div className="mt-12 text-center text-slate-500 text-xs font-medium flex items-center justify-center gap-3">
+          <div className="mt-12 text-center text-slate-400 text-xs font-medium flex items-center justify-center gap-3">
             <span>Protected by Campus Security Layer</span>
             <span className="w-1 h-1 rounded-full bg-slate-300"></span>
             <span>RBAC Secured</span>

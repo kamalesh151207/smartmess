@@ -19,7 +19,7 @@ export const Layout: React.FC<LayoutProps> = ({
   const [isOpenMobile, setIsOpenMobile] = useState(false);
 
   return (
-    <div className="min-h-screen bg-mesh text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-mesh text-slate-50 flex flex-col">
       {/* Sidebar */}
       <Sidebar
         currentRoute={currentRoute}
@@ -41,16 +41,16 @@ export const Layout: React.FC<LayoutProps> = ({
         </main>
 
         {/* Operational Footer */}
-        <footer className="border-t border-slate-200 px-6 py-4 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2 bg-slate-50">
+        <footer className="border-t border-slate-800 px-6 py-4 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2 bg-slate-900">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-500">SMART MESS</span>
+            <span className="font-semibold text-slate-400">SMART MESS</span>
             <span>•</span>
             <span>Predict • Prepare • Reduce Waste • Prevent Shortages</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-slate-900 font-mono text-[11px]">System Status: Nominal</span>
+            <span className="text-slate-50 font-mono text-[11px]">System Status: Nominal</span>
             <span>•</span>
-            <span className="text-slate-500">SIH AI Operations v2.4</span>
+            <span className="text-slate-400">SIH AI Operations v2.4</span>
           </div>
         </footer>
       </div>

@@ -80,55 +80,55 @@ export const MealsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-xl lg:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <h2 className="text-xl lg:text-2xl font-bold text-slate-50 tracking-tight flex items-center gap-2">
               <UtensilsCrossed className="w-6 h-6 text-indigo-600" /> Meal Management & Preparation Ledger
             </h2>
             <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 border border-indigo-300">
               DEMO DATA
             </span>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-400">
             Log and reconcile planned quantities against actual kitchen preparation and leftovers
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
+          className="px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Log New Meal Service
         </button>
       </div>
 
       {/* Filter Bar */}
-      <div className="p-4 rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg flex flex-wrap gap-4 items-center justify-between">
+      <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg flex flex-wrap gap-4 items-center justify-between">
         <div className="flex items-center gap-3">
-          <label className="text-xs font-medium text-slate-500">Filter Date:</label>
+          <label className="text-xs font-medium text-slate-400">Filter Date:</label>
           <input
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none"
+            className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none"
           />
           {selectedDate && (
             <button
               onClick={() => setSelectedDate('')}
-              className="text-xs text-slate-500 hover:text-slate-900"
+              className="text-xs text-slate-400 hover:text-slate-50"
             >
               Clear
             </button>
           )}
         </div>
 
-        <div className="inline-flex p-1 rounded-lg bg-slate-50 border border-slate-200">
+        <div className="inline-flex p-1 rounded-lg bg-slate-900 border border-slate-800">
           {['All', 'Breakfast', 'Lunch', 'Dinner'].map((type) => (
             <button
               key={type}
               onClick={() => setFilterMeal(type)}
               className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
                 filterMeal === type
-                  ? 'bg-slate-100 text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
+                  ? 'bg-slate-800 text-slate-50 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               {type}
@@ -138,10 +138,10 @@ export const MealsPage: React.FC = () => {
       </div>
 
       {/* Meals Table */}
-      <div className="rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg overflow-hidden">
+      <div className="rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="text-slate-500 uppercase bg-slate-50/80 border-b border-slate-200">
+            <thead className="text-slate-400 uppercase bg-slate-900/80 border-b border-slate-800">
               <tr>
                 <th className="py-3 px-4">Date</th>
                 <th className="py-3 px-4">Meal</th>
@@ -154,33 +154,33 @@ export const MealsPage: React.FC = () => {
                 <th className="py-3 px-4">Service Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-500">
+            <tbody className="divide-y divide-slate-800/60 text-slate-400">
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-8 text-slate-500">
+                  <td colSpan={9} className="text-center py-8 text-slate-400">
                     Loading meal ledger...
                   </td>
                 </tr>
               ) : filteredMeals.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-8 text-slate-500">
+                  <td colSpan={9} className="text-center py-8 text-slate-400">
                     No meal records match the criteria.
                   </td>
                 </tr>
               ) : (
                 filteredMeals.map((m) => (
-                  <tr key={m.id} className="hover:bg-slate-100/30 transition-colors">
+                  <tr key={m.id} className="hover:bg-slate-800/30 transition-colors">
                     <td className="py-3 px-4 font-mono">{m.date}</td>
-                    <td className="py-3 px-4 font-bold text-slate-900">{m.meal}</td>
-                    <td className="py-3 px-4 max-w-xs truncate text-slate-500" title={m.menu}>
+                    <td className="py-3 px-4 font-bold text-slate-50">{m.meal}</td>
+                    <td className="py-3 px-4 max-w-xs truncate text-slate-400" title={m.menu}>
                       {m.menu}
                     </td>
                     <td className="py-3 px-4 text-center font-mono text-indigo-500">{m.predicted_qty}</td>
-                    <td className="py-3 px-4 text-center font-mono text-slate-900 font-semibold">{m.recommended_qty}</td>
-                    <td className="py-3 px-4 text-center font-mono text-slate-900 font-bold">{m.prepared_qty}</td>
-                    <td className="py-3 px-4 text-center font-mono text-slate-700">{m.consumed_qty}</td>
+                    <td className="py-3 px-4 text-center font-mono text-slate-50 font-semibold">{m.recommended_qty}</td>
+                    <td className="py-3 px-4 text-center font-mono text-slate-50 font-bold">{m.prepared_qty}</td>
+                    <td className="py-3 px-4 text-center font-mono text-slate-200">{m.consumed_qty}</td>
                     <td className="py-3 px-4 text-center font-mono">
-                      <span className={m.leftover_qty > 20 ? 'text-slate-900 font-bold' : 'text-slate-500'}>
+                      <span className={m.leftover_qty > 20 ? 'text-slate-50 font-bold' : 'text-slate-400'}>
                         {m.leftover_qty}
                       </span>
                     </td>
@@ -198,35 +198,35 @@ export const MealsPage: React.FC = () => {
       {/* Add Meal Service Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-50 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-900 mb-1">Record Meal Preparation</h3>
-            <p className="text-xs text-slate-500 mb-4">Input kitchen shift metrics and leftovers</p>
+            <h3 className="text-lg font-bold text-slate-50 mb-1">Record Meal Preparation</h3>
+            <p className="text-xs text-slate-400 mb-4">Input kitchen shift metrics and leftovers</p>
 
             <form onSubmit={handleCreateMeal} className="space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Date</label>
+                  <label className="block text-slate-400 font-medium mb-1">Date</label>
                   <input
                     type="date"
                     required
                     value={modalDate}
                     onChange={(e) => setModalDate(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Meal Slot</label>
+                  <label className="block text-slate-400 font-medium mb-1">Meal Slot</label>
                   <select
                     value={modalMealType}
                     onChange={(e) => setModalMealType(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
                   >
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>
@@ -236,61 +236,61 @@ export const MealsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-500 font-medium mb-1">Menu Description</label>
+                <label className="block text-slate-400 font-medium mb-1">Menu Description</label>
                 <input
                   type="text"
                   required
                   value={modalMenu}
                   onChange={(e) => setModalMenu(e.target.value)}
                   placeholder="e.g. Palak Paneer, Jeera Rice, Tawa Roti & Gulab Jamun"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Planned</label>
+                  <label className="block text-slate-400 font-medium mb-1">Planned</label>
                   <input
                     type="number"
                     value={modalPlanned}
                     onChange={(e) => setModalPlanned(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Prepared</label>
+                  <label className="block text-slate-400 font-medium mb-1">Prepared</label>
                   <input
                     type="number"
                     value={modalPrepared}
                     onChange={(e) => setModalPrepared(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Consumed</label>
+                  <label className="block text-slate-400 font-medium mb-1">Consumed</label>
                   <input
                     type="number"
                     value={modalConsumed}
                     onChange={(e) => setModalConsumed(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-500 font-medium mb-1">Kitchen Notes</label>
+                <label className="block text-slate-400 font-medium mb-1">Kitchen Notes</label>
                 <input
                   type="text"
                   value={modalNotes}
                   onChange={(e) => setModalNotes(e.target.value)}
                   placeholder="e.g. Smooth service, rain delayed turnout by 20 mins"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs transition-colors cursor-pointer mt-2"
+                className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-xs transition-colors cursor-pointer mt-2"
               >
                 Save Meal Ledger Entry
               </button>
