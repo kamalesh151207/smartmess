@@ -124,7 +124,7 @@ export const AttendancePage: React.FC = () => {
           </button>
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add Attendance
           </button>
@@ -346,7 +346,7 @@ export const AttendancePage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs transition-colors cursor-pointer mt-2"
+                className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors cursor-pointer mt-2"
               >
                 Submit Record
               </button>

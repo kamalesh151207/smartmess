@@ -313,7 +313,7 @@ export const PredictionsPage: React.FC = () => {
                   onClick={() => {
                     alert(`Target of ${result.recommended_preparation} meals dispatched to Kitchen Operations for ${result.meal}!`);
                   }}
-                  className="w-full sm:w-auto px-4 py-2 rounded-lg bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow"
+                  className="w-full sm:w-auto px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow"
                 >
                   <CheckCircle className="w-3.5 h-3.5" /> Push Target to Kitchen
                 </button>

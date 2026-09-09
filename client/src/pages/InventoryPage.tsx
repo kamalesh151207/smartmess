@@ -220,7 +220,7 @@ export const InventoryPage: React.FC = () => {
             </div>
             <button
               onClick={() => handleTriggerPurchaseAlert(items.find((i) => i.item_name === 'Fresh Paneer') || items[0])}
-              className="px-2.5 py-1 rounded-lg bg-black0 hover:bg-white text-slate-900 text-[11px] font-bold transition-all cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-black0 hover:bg-blue-600 text-white text-[11px] font-bold transition-all cursor-pointer"
             >
               {alertSentId === 'inv_5' ? 'Alert Sent ✓' : 'CREATE ALERT'}
             </button>
@@ -414,7 +414,7 @@ export const InventoryPage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-sm transition-all cursor-pointer mt-2 shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]"
+                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all cursor-pointer mt-2 shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]"
               >
                 Update Commodity Level
               </button>

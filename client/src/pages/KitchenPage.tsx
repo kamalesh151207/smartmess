@@ -219,7 +219,7 @@ export const KitchenPage: React.FC<KitchenPageProps> = ({ onNavigate }) => {
               </div>
               <button
                 onClick={handleStartPrep}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-slate-800/20"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-slate-800/20"
               >
                 <Play className="w-4 h-4" /> START PREPARATION
               </button>
@@ -337,7 +337,7 @@ export const KitchenPage: React.FC<KitchenPageProps> = ({ onNavigate }) => {
 
               <button
                 onClick={handleSubmitAll}
-                className="w-full py-3.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-slate-800/20"
+                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-slate-800/20"
               >
                 <Save className="w-4 h-4" /> SUBMIT MEAL DATA TO RECONCILIATION
               </button>

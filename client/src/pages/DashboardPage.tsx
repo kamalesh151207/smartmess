@@ -88,7 +88,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         <p className="text-slate-500">Failed to load dashboard. Ensure the backend server is active.</p>
         <button
           onClick={loadDashboard}
-          className="mt-4 px-4 py-2 rounded-lg bg-white text-slate-900 text-xs font-semibold cursor-pointer"
+          className="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-xs font-semibold cursor-pointer"
         >
           Retry Connection
         </button>
@@ -175,7 +175,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => onNavigate('/kitchen')}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-black0 hover:bg-white text-slate-900 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-black0 hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all cursor-pointer"
             >
               VIEW LUNCH PLAN & FIX BATCH <ArrowRight className="w-4 h-4" />
             </button>
@@ -312,7 +312,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 setAcceptedRecommendation(true);
                 setTimeout(() => setAcceptedRecommendation(false), 3000);
               }}
-              className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-slate-800/20"
+              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-slate-800/20"
             >
               {acceptedRecommendation ? (
                 <>
@@ -601,7 +601,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                     setShowAdjustModal(false);
                     onNavigate('/kitchen');
                   }}
-                  className="flex-1 py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold"
+                  className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold"
                 >
                   Confirm & Push to Kitchen
                 </button>
@@ -651,7 +651,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                   setSelectedMealModal(null);
                   onNavigate('/kitchen');
                 }}
-                className="w-full py-3 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-sm cursor-pointer shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all"
+                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm cursor-pointer shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] transition-all"
               >
                 Go to Kitchen Prep
               </button>

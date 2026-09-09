@@ -147,7 +147,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
                   type="button"
                   onClick={handleDemoLogin}
                   disabled={isLoading}
-                  className="w-full py-2.5 px-4 rounded-lg bg-white hover:bg-blue-700 text-slate-900 font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-slate-900/20 active:scale-[0.98]"
+                  className="w-full py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-slate-900/20 active:scale-[0.98]"
                 >
                   Use Demo Account (Admin) <ArrowRight className="w-4 h-4" />
                 </button>
@@ -239,7 +239,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onGoHome }) => 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xl shadow-slate-900/10 active:scale-[0.98] mt-2"
+              className="w-full py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-slate-100 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xl shadow-slate-900/10 active:scale-[0.98] mt-2"
             >
               {isLoading 
                 ? (isRegistering ? 'Creating account...' : 'Signing in...') 
