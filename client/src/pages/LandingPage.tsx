@@ -89,7 +89,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGoToDashboard, onGoT
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <button
               onClick={onGoToDashboard}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-base bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 shadow-xl shadow-slate-800/25 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-base bg-white hover:bg-black0 text-slate-900 flex items-center justify-center gap-2 shadow-xl shadow-slate-800/25 transition-all cursor-pointer"
             >
               Open Smart Dashboard <ArrowRight className="w-5 h-5" />
             </button>
@@ -133,7 +133,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGoToDashboard, onGoT
 
               {/* Step 3 */}
               <div className="p-4 rounded-xl bg-slate-50/90 border border-slate-300/30 flex flex-col items-center text-center group hover:border-emerald-400 transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-blue-600/10 border border-slate-300/30 flex items-center justify-center text-white mb-2">
+                <div className="w-8 h-8 rounded-lg bg-white/10 border border-slate-300/30 flex items-center justify-center text-slate-900 mb-2">
                   3
                 </div>
                 <span className="text-xs text-slate-500 font-medium">Recommended Prep</span>
@@ -153,7 +153,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGoToDashboard, onGoT
 
               {/* Step 5 */}
               <div className="p-4 rounded-xl bg-slate-50/90 border border-slate-300/40 bg-blue-100/20 flex flex-col items-center text-center">
-                <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-slate-300/40 flex items-center justify-center text-white mb-2">
+                <div className="w-8 h-8 rounded-lg bg-white/20 border border-slate-300/40 flex items-center justify-center text-slate-900 mb-2">
                   5
                 </div>
                 <span className="text-xs text-slate-700 font-medium">Food Leftover</span>
@@ -270,7 +270,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGoToDashboard, onGoT
             </div>
 
             <div className="p-6 rounded-xl bg-slate-50/60 border border-slate-200">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/10 text-white flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/10 text-slate-900 flex items-center justify-center mb-4">
                 <Sliders className="w-5 h-5" />
               </div>
               <h4 className="font-bold text-slate-900 mb-2">3. Safeguard Buffer</h4>
