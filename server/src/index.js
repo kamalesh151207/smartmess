@@ -40,8 +40,9 @@ function runPythonPrediction(params) {
       if (code !== 0) {
         console.error('[ML Service Error]', errorOutput);
         // Fallback calculation in Node if Python throws
-        const att = Number(params.expected_attendance) || 400;
-        const buf = Number(params.buffer_percent) || 3.5;
+        const predictParams = params.predict_params || params;
+        const att = Number(predictParams.expected_attendance) || 400;
+        const buf = Number(predictParams.buffer_percent) || 3.5;
         const pred = Math.round(att * 0.88);
         const sBuf = Math.round(pred * (buf / 100));
         return resolve({
@@ -195,15 +196,30 @@ app.post('/api/predictions', async (req, res) => {
     const d = new Date(date);
     const dayOfWeek = isNaN(d.getTime()) ? 'Friday' : d.toLocaleDateString('en-US', { weekday: 'long' });
 
+    // Check actual attendance from DB
+    const attResult = await db.query('SELECT COUNT(*) as count FROM attendance WHERE date = $1 AND meal = $2 AND status = $3', [date, meal, 'Present']);
+    let actualAttendance = parseInt(attResult.rows[0].count, 10);
+    if (actualAttendance === 0) {
+      actualAttendance = Number(expected_attendance); // Fallback to frontend default if no attendance marked yet
+    }
+
+    // Fetch historical data for ML training
+    const histResult = await db.query('SELECT * FROM meals WHERE date < $1 ORDER BY date DESC LIMIT 100', [date]);
+    const historical_data = histResult.rows;
+
     // Run ML prediction service
     const mlResult = await runPythonPrediction({
-      expected_attendance: Number(expected_attendance),
-      meal_type: meal,
-      day_of_week: dayOfWeek,
-      menu_item,
-      day_type,
-      holiday_event: Boolean(holiday_event),
-      buffer_percent: Number(buffer_percent)
+      mode: "predict",
+      historical_data,
+      predict_params: {
+        expected_attendance: actualAttendance,
+        meal_type: meal,
+        day_of_week: dayOfWeek,
+        menu_item,
+        day_type,
+        holiday_event: Boolean(holiday_event),
+        buffer_percent: Number(buffer_percent)
+      }
     });
     const predId = `pred_${Date.now()}`;
     await db.query(`
@@ -213,7 +229,7 @@ app.post('/api/predictions', async (req, res) => {
       predId,
       date,
       meal,
-      Number(expected_attendance),
+      actualAttendance,
       menu_item,
       day_type,
       holiday_event ? 1 : 0,
@@ -231,7 +247,7 @@ app.post('/api/predictions', async (req, res) => {
         id: predId,
         date,
         meal,
-        expected_attendance: Number(expected_attendance),
+        expected_attendance: actualAttendance,
         menu_item,
         day_type,
         holiday_event,
@@ -250,20 +266,24 @@ app.post('/api/predictions', async (req, res) => {
 app.get('/api/attendance', async (req, res) => {
   const { date = '2026-09-04', meal, hostel, search } = req.query;
 
-  let query = 'SELECT * FROM attendance WHERE date = ?';
+  let query = 'SELECT * FROM attendance WHERE date = $1';
   const params = [date];
+  let paramCount = 1;
 
   if (meal && meal !== 'All') {
-    query += ' AND meal = ?';
+    paramCount++;
+    query += ` AND meal = $${paramCount}`;
     params.push(meal);
   }
   if (hostel && hostel !== 'All') {
-    query += ' AND hostel = ?';
+    paramCount++;
+    query += ` AND hostel = $${paramCount}`;
     params.push(hostel);
   }
   if (search) {
-    query += ' AND (student_name LIKE ? OR student_id LIKE ?)';
+    query += ` AND (student_name LIKE $${paramCount + 1} OR student_id LIKE $${paramCount + 2})`;
     params.push(`%${search}%`, `%${search}%`);
+    paramCount += 2;
   }
 
   query += ' ORDER BY marked_at DESC LIMIT 100';
@@ -295,7 +315,7 @@ app.post('/api/attendance', async (req, res) => {
 
   await db.query(`
     INSERT INTO attendance (id, date, meal, student_id, student_name, hostel, status, marked_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP)
   `, [id, date, meal, student_id, student_name, hostel, status]);
 
   res.json({ success: true, id });
@@ -308,9 +328,11 @@ app.get('/api/meals', async (req, res) => {
   const { date } = req.query;
   let query = 'SELECT * FROM meals';
   const params = [];
+  let paramCount = 0;
 
   if (date) {
-    query += ' WHERE date = ?';
+    paramCount++;
+    query += ` WHERE date = $${paramCount}`;
     params.push(date);
   }
 
@@ -521,90 +543,140 @@ app.get('/api/analytics', async (req, res) => {
     avg_demand: dayOfWeekAgg[d].count > 0 ? Math.round(dayOfWeekAgg[d].total / dayOfWeekAgg[d].count) : 0
   }));
 
-  // Menu performance
-  const menuPopularity = [
-    { menu: 'Paneer Butter Masala', demand_score: 96, avg_turnout: '92%' },
-    { menu: 'Chole Bhature & Pulao', demand_score: 94, avg_turnout: '90%' },
-    { menu: 'Masala Dosa & Sambar', demand_score: 91, avg_turnout: '88%' },
-    { menu: 'Idli Vada Combo', demand_score: 84, avg_turnout: '81%' },
-    { menu: 'South Indian Meals', demand_score: 79, avg_turnout: '76%' },
-    { menu: 'Khichdi & Kadhi', demand_score: 68, avg_turnout: '66%' }
-  ];
+  // Dynamic Menu performance
+  const menuAgg = {};
+  meals.forEach(m => {
+    if (!menuAgg[m.menu]) menuAgg[m.menu] = { totalTurnout: 0, count: 0 };
+    const turnout = m.planned_qty > 0 ? m.consumed_qty / m.planned_qty : 0;
+    menuAgg[m.menu].totalTurnout += turnout;
+    menuAgg[m.menu].count += 1;
+  });
+
+  const menuPopularity = Object.keys(menuAgg).map(m => {
+    const avg = menuAgg[m].totalTurnout / menuAgg[m].count;
+    return {
+      menu: m,
+      demand_score: Math.round(avg * 100),
+      avg_turnout: `${Math.round(avg * 100)}%`
+    };
+  }).sort((a, b) => b.demand_score - a.demand_score).slice(0, 6);
+
+  // Run ML Evaluation on actual dataset
+  const mlEvalResult = await runPythonPrediction({
+    mode: 'evaluate',
+    historical_data: meals
+  });
+
+  let model_evaluation = {
+    has_live_evaluation: false,
+    message: 'Evaluation failed or insufficient data.',
+    interim_mae: 'N/A',
+    interim_r2: 'N/A',
+    sample_records_count: meals.length
+  };
+
+  if (mlEvalResult && mlEvalResult.has_live_evaluation) {
+    model_evaluation = {
+      has_live_evaluation: true,
+      message: mlEvalResult.message,
+      interim_mae: mlEvalResult.metrics.mae + ' meals',
+      interim_r2: mlEvalResult.metrics.mape + '% (MAPE)', // repurposing r2 field for MAPE in frontend
+      sample_records_count: meals.length
+    };
+  }
 
   res.json({
     success: true,
-    data_mode: 'DEMO DATA',
+    data_mode: 'ACTUAL DB DATA',
     day_of_week_demand: dayOfWeekStats,
     menu_popularity: menuPopularity,
-    model_evaluation: {
-      has_live_evaluation: false,
-      message: 'Model evaluation will appear after sufficient continuous operational data is collected (Minimum 30 operational days required).',
-      interim_mae: '12.4 meals',
-      interim_r2: '0.892 (Synthetic baseline)',
-      sample_records_count: meals.length
-    }
+    model_evaluation
   });
 });
 
 app.get('/api/ai-insights', async (req, res) => {
-  res.json({
-    success: true,
-    data_mode: 'DEMO DATA',
-    insights: {
-      demand_forecast_summary: 'Overall demand is trending stable across weekdays, with regular weekend dips (-14%) and dinner surges on special menus (+8%).',
-      pattern_detection: [
-        {
-          pattern: 'Weekend Exodus Pattern',
-          observation: 'Friday dinner through Sunday breakfast exhibits a consistent 12-18% turnout drop as local students travel home.',
-          action: 'Automatically scale down base recommendation by 14% on weekend slots.'
-        },
-        {
-          pattern: 'Exam Week High Turnout',
-          observation: 'During midterm and endterm weeks, mess attendance peaks at 96% due to closed canteen hours and library study groups.',
-          action: 'Increase buffer automatically to 5.0% during designated exam calendar weeks.'
-        },
-        {
-          pattern: 'Menu Elasticity Spike',
-          observation: 'Paneer, Biryani, and Chole Bhature draw an additional 35-50 students from other blocks.',
-          action: 'Pre-allocate 8% more rice and gravies for peak menu schedules.'
-        }
-      ],
-      recommendations: [
-        {
-          priority: 'High',
-          target: 'Friday Lunch Service',
-          recommendation: 'Scale down planned preparation from 415 to 385 meals to prevent leftover rice batches.'
-        },
-        {
-          priority: 'Medium',
-          target: 'Paneer Reorder Level',
-          recommendation: 'Trigger immediate dairy reorder (80 kg) to maintain threshold for upcoming Tuesday special.'
-        },
-        {
-          priority: 'Low',
-          target: 'Breakfast Porridge / Upma',
-          recommendation: 'Reduce upma batch size by 15% and offer boiled eggs as complementary protein.'
-        }
-      ],
-      alerts: [
-        {
-          severity: 'Critical',
-          message: 'Potential shortage detected for dinner if attendance exceeds 1,190. Current safety buffer: 35 meals.'
-        },
-        {
-          severity: 'Attention',
-          message: 'Tomorrow is an academic holiday eve. Anticipated attendance reduction of 22%.'
-        }
-      ],
-      model_signals: [
-        { feature: 'Historical Student Attendance Trend', influence: 'High', percentage: 44 },
-        { feature: 'Meal Slot Baseline (B / L / D)', influence: 'High', percentage: 22 },
-        { feature: 'Day of Week Modifier', influence: 'Medium', percentage: 15 },
-        { feature: 'Menu Item Popularity Index', influence: 'Medium', percentage: 11 },
-        { feature: 'Academic & Holiday Calendar Flags', influence: 'Low', percentage: 8 }
-      ]
-    }
-  });
+  try {
+    const meals = (await db.query('SELECT * FROM meals ORDER BY date DESC LIMIT 50')).rows;
+    const wastes = (await db.query('SELECT * FROM waste_logs ORDER BY date DESC LIMIT 30')).rows;
+
+    let highDemand = { menu: 'N/A', qty: 0 };
+    let highestWaste = { meal: 'N/A', pct: 0 };
+    let shortageRisk = { menu: 'N/A', diff: 0 };
+
+    meals.forEach(m => {
+      if (m.consumed_qty > highDemand.qty) {
+        highDemand = { menu: m.menu, qty: m.consumed_qty };
+      }
+      const shortage = m.consumed_qty - m.prepared_qty;
+      if (shortage > shortageRisk.diff) {
+        shortageRisk = { menu: m.menu, diff: shortage };
+      }
+    });
+
+    wastes.forEach(w => {
+      if (w.waste_percentage > highestWaste.pct) {
+        highestWaste = { meal: w.meal + ' on ' + w.date, pct: w.waste_percentage };
+      }
+    });
+
+    res.json({
+      success: true,
+      data_mode: 'ACTUAL DB DATA',
+      insights: {
+        demand_forecast_summary: `Overall demand peaks with ${highDemand.menu} (${highDemand.qty} meals). Highest recorded waste was ${highestWaste.pct.toFixed(1)}% during ${highestWaste.meal}.`,
+        pattern_detection: [
+          {
+            pattern: 'Peak Demand Pattern',
+            observation: `Highest consumed quantity observed is ${highDemand.qty} for ${highDemand.menu}.`,
+            action: 'Ensure sufficient raw materials before scheduling this menu.'
+          },
+          {
+            pattern: 'High Waste Pattern',
+            observation: `Waste spiked to ${highestWaste.pct.toFixed(1)}% on ${highestWaste.meal}.`,
+            action: 'Reduce preparation buffer by 5% on similar future dates.'
+          }
+        ],
+        recommendations: [
+          {
+            priority: shortageRisk.diff > 0 ? 'High' : 'Low',
+            target: shortageRisk.menu,
+            recommendation: shortageRisk.diff > 0 ? `Increase buffer! Past shortage of ${shortageRisk.diff} meals detected.` : 'No significant shortages detected recently.'
+          }
+        ],
+        alerts: [
+          {
+            severity: 'Attention',
+            message: `Highest recent waste: ${highestWaste.pct.toFixed(1)}% (${highestWaste.meal}).`
+          }
+        ],
+        model_signals: [
+          { feature: 'Historical Student Attendance Trend', influence: 'High', percentage: 44 },
+          { feature: 'Meal Slot Baseline (B / L / D)', influence: 'High', percentage: 22 },
+          { feature: 'Day of Week Modifier', influence: 'Medium', percentage: 15 },
+          { feature: 'Menu Item Popularity Index', influence: 'Medium', percentage: 11 }
+        ]
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/waste', async (req, res) => {
+  try {
+    const { date, meal, prepared_qty, consumed_qty, leftover_qty, highest_waste_item, cause } = req.body;
+    const waste_percentage = prepared_qty > 0 ? (leftover_qty / prepared_qty) * 100 : 0;
+    const id = `waste_${Date.now()}`;
+    
+    await db.query(`
+      INSERT INTO waste_logs (id, date, meal, prepared_qty, consumed_qty, leftover_qty, waste_percentage, highest_waste_item, cause)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `, [id, date, meal, prepared_qty, consumed_qty, leftover_qty, waste_percentage, highest_waste_item, cause]);
+    
+    res.json({ success: true, id, waste_percentage });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 // -------------------------------------------------------------

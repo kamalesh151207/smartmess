@@ -33,6 +33,7 @@ import {
 } from 'recharts';
 import { MetricCard } from '../components/ui/MetricCard';
 import { StatusBadge } from '../components/ui/StatusBadge';
+import { DataFlowVisualization } from '../components/DataFlowVisualization';
 import { DashboardData, MealForecast } from '../types';
 import { api } from '../services/api';
 
@@ -538,6 +539,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             </LineChart>
           </ResponsiveContainer>
         </div>
+      </motion.div>
+
+      {/* 5. ARCHITECTURE DATA FLOW (NEW) */}
+      <motion.div variants={itemVariants}>
+        <DataFlowVisualization />
       </motion.div>
 
       {/* Adjust Quantity Modal */}

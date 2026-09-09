@@ -1,117 +1,154 @@
 #!/usr/bin/env python3
-"""
-SMART MESS - Machine Learning Demand Prediction Service
-Predicts hostel meal demand using Random Forest Regression with
-heuristic fallback for robust operations.
-"""
-
 import sys
 import json
 import math
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, root_mean_squared_error, mean_absolute_percentage_error
 
-def calculate_heuristic_prediction(data):
-    attendance = float(data.get("expected_attendance", 400))
-    meal_type = str(data.get("meal_type", "Lunch")).capitalize()
-    day_of_week = str(data.get("day_of_week", "Monday")).capitalize()
-    menu_item = str(data.get("menu_item", "")).lower()
-    day_type = str(data.get("day_type", "Regular")).capitalize()
-    holiday_event = bool(data.get("holiday_event", False))
-    buffer_percent = float(data.get("buffer_percent", 3.0)) # % buffer
+def prepare_features(df):
+    """Convert raw historical meal records into ML features."""
+    # We expect columns: date, meal, menu, planned_qty, predicted_qty, recommended_qty, prepared_qty, consumed_qty
+    # Add day of week
+    df['date'] = pd.to_datetime(df['date'])
+    df['day_of_week'] = df['date'].dt.day_name()
+    
+    # Simple feature encoding
+    # Meal mapping
+    meal_map = {'Breakfast': 0, 'Lunch': 1, 'Dinner': 2}
+    df['meal_num'] = df['meal'].map(meal_map).fillna(1)
+    
+    # Day mapping
+    day_map = {'Monday':0, 'Tuesday':1, 'Wednesday':2, 'Thursday':3, 'Friday':4, 'Saturday':5, 'Sunday':6}
+    df['day_num'] = df['day_of_week'].map(day_map).fillna(0)
+    
+    # Extract attendance proxy (using planned_qty as proxy for expected attendance if true attendance not joined)
+    df['expected_attendance'] = df['planned_qty'].astype(float)
+    
+    features = ['meal_num', 'day_num', 'expected_attendance']
+    
+    X = df[features]
+    y = df['consumed_qty'].astype(float)
+    
+    return X, y
 
-    # Base attendance conversion ratio by meal
-    # In university hostels, breakfast has lower turnout, lunch is steady, dinner is highest
-    base_ratio = {
-        "Breakfast": 0.82,
-        "Lunch": 0.88,
-        "Dinner": 0.91
-    }.get(meal_type, 0.86)
+def evaluate_model(historical_data):
+    if not historical_data or len(historical_data) < 10:
+        return {
+            "has_live_evaluation": False,
+            "message": "Insufficient historical data for ML training.",
+            "metrics": None
+        }
+        
+    df = pd.DataFrame(historical_data)
+    X, y = prepare_features(df)
+    
+    # Train test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    
+    rf = RandomForestRegressor(n_estimators=50, random_state=42)
+    rf.fit(X_train, y_train)
+    
+    preds = rf.predict(X_test)
+    
+    mae = mean_absolute_error(y_test, preds)
+    rmse = root_mean_squared_error(y_test, preds)
+    mape = mean_absolute_percentage_error(y_test, preds)
+    
+    return {
+        "has_live_evaluation": True,
+        "message": "Model evaluated on actual historical SQLite dataset.",
+        "metrics": {
+            "mae": round(mae, 2),
+            "rmse": round(rmse, 2),
+            "mape": round(mape * 100, 2), # percentage
+            "training_samples": len(X_train),
+            "testing_samples": len(X_test)
+        }
+    }
 
-    # Day of week adjustments
-    # Fri night / Sat / Sun see outing or home visits
-    day_multiplier = {
-        "Monday": 1.01,
-        "Tuesday": 1.00,
-        "Wednesday": 1.02,
-        "Thursday": 0.99,
-        "Friday": 0.93 if meal_type in ["Lunch", "Dinner"] else 0.98,
-        "Saturday": 0.78 if meal_type == "Breakfast" else 0.84,
-        "Sunday": 0.75 if meal_type == "Breakfast" else 0.82
-    }.get(day_of_week, 1.0)
+def predict_demand(historical_data, predict_params):
+    # Train the model on ALL historical data
+    attendance = float(predict_params.get("expected_attendance", 400))
+    meal_type = str(predict_params.get("meal_type", "Lunch")).capitalize()
+    day_of_week = str(predict_params.get("day_of_week", "Monday")).capitalize()
+    buffer_percent = float(predict_params.get("buffer_percent", 3.0))
 
-    # Day Type adjustment
-    day_type_multiplier = {
-        "Regular": 1.0,
-        "Weekend": 0.86,
-        "Exam": 1.08,      # During exams, most students stay in hostel
-        "Festival": 0.70   # Holidays / festivals mean students go home
-    }.get(day_type, 1.0)
-
-    # Menu popularity weighting
-    menu_boost = 1.0
-    popular_keywords = ["paneer", "biryani", "chicken", "dosa", "chole bhature", "poori", "ice cream", "gulab jamun", "special"]
-    low_keywords = ["khichdi", "tinda", "lauki", "upma", "porridge"]
-
-    if any(k in menu_item for k in popular_keywords):
-        menu_boost = 1.05
-    elif any(k in menu_item for k in low_keywords):
-        menu_boost = 0.94
-
-    # Holiday event reduction
-    holiday_factor = 0.65 if holiday_event else 1.0
-
-    # Composite factor
-    effective_ratio = base_ratio * day_multiplier * day_type_multiplier * menu_boost * holiday_factor
-    # Cap ratio reasonably
-    effective_ratio = max(0.40, min(0.99, effective_ratio))
-
-    raw_predicted = attendance * effective_ratio
-    predicted_demand = int(round(raw_predicted))
-
-    # Safety buffer calculation
+    meal_map = {'Breakfast': 0, 'Lunch': 1, 'Dinner': 2}
+    day_map = {'Monday':0, 'Tuesday':1, 'Wednesday':2, 'Thursday':3, 'Friday':4, 'Saturday':5, 'Sunday':6}
+    
+    meal_num = meal_map.get(meal_type, 1)
+    day_num = day_map.get(day_of_week, 0)
+    
+    input_X = pd.DataFrame([{
+        'meal_num': meal_num,
+        'day_num': day_num,
+        'expected_attendance': attendance
+    }])
+    
+    if historical_data and len(historical_data) >= 5:
+        # Use ML Model
+        df = pd.DataFrame(historical_data)
+        X_train, y_train = prepare_features(df)
+        
+        rf = RandomForestRegressor(n_estimators=50, random_state=42)
+        rf.fit(X_train, y_train)
+        
+        raw_pred = rf.predict(input_X)[0]
+        confidence = "High" if len(historical_data) > 30 else "Medium"
+        model_type = "RandomForestRegressor (Trained on actual historical data)"
+        
+        feature_importance = [
+            {"feature": "Expected Student Attendance", "importance": round(float(rf.feature_importances_[2]), 2), "impact": "High"},
+            {"feature": "Meal Category", "importance": round(float(rf.feature_importances_[0]), 2), "impact": "Medium"},
+            {"feature": "Day of Week", "importance": round(float(rf.feature_importances_[1]), 2), "impact": "Medium"}
+        ]
+    else:
+        # Fallback heuristic
+        base_ratio = {"Breakfast": 0.82, "Lunch": 0.88, "Dinner": 0.91}.get(meal_type, 0.86)
+        raw_pred = attendance * base_ratio
+        confidence = "Low"
+        model_type = "Heuristic Fallback (Insufficient Data)"
+        feature_importance = []
+    
+    predicted_demand = int(round(raw_pred))
     buffer_meals = max(5, int(math.ceil(predicted_demand * (buffer_percent / 100.0))))
     recommended_prep = predicted_demand + buffer_meals
-
-    # Confidence rating
-    confidence = "High"
-    if holiday_event or day_type in ["Festival", "Exam"]:
-        confidence = "Medium"
-    if attendance < 100:
-        confidence = "Low"
-
+    
     return {
         "predicted_demand": predicted_demand,
         "recommended_preparation": recommended_prep,
         "safety_buffer": buffer_meals,
         "buffer_percent": buffer_percent,
         "confidence": confidence,
-        "model_type": "RandomForestRegressor Ensemble (Hybrid Heuristic)",
-        "is_mock": False,
-        "attendance_ratio_pct": round(effective_ratio * 100, 1),
-        "feature_importance": [
-            {"feature": "Expected Student Attendance", "importance": 0.44, "impact": f"{attendance} students base"},
-            {"feature": "Meal Category Baseline", "importance": 0.22, "impact": f"{meal_type} base ({int(base_ratio*100)}%)"},
-            {"feature": "Day of Week Variance", "importance": 0.15, "impact": f"{day_of_week} factor ({round((day_multiplier-1)*100, 1)}%)"},
-            {"feature": "Menu Item Popularity", "importance": 0.11, "impact": f"{'Special/High' if menu_boost > 1 else 'Standard'}"},
-            {"feature": "Academic/Holiday Calendar", "importance": 0.08, "impact": f"{day_type}{' + Event' if holiday_event else ''}"}
-        ],
-        "explanation": f"Forecast for {day_of_week} {meal_type}: baseline turnout {int(base_ratio*100)}% with {day_type} schedule and safety buffer of {buffer_meals} meals ({buffer_percent}%)."
+        "model_type": model_type,
+        "feature_importance": feature_importance
     }
 
 def main():
     if len(sys.argv) > 1:
-        # Passed via argument
         raw_input = sys.argv[1]
     else:
-        # Read from stdin
         raw_input = sys.stdin.read()
 
     try:
         data = json.loads(raw_input) if raw_input.strip() else {}
-    except Exception:
-        data = {}
+    except Exception as e:
+        print(json.dumps({"error": f"Invalid JSON input: {e}"}))
+        return
 
-    result = calculate_heuristic_prediction(data)
-    print(json.dumps(result, indent=2))
+    mode = data.get("mode", "predict")
+    historical_data = data.get("historical_data", [])
+    
+    if mode == "evaluate":
+        result = evaluate_model(historical_data)
+    else:
+        params = data.get("predict_params", data) # fallback to top-level for backward compat
+        result = predict_demand(historical_data, params)
+        
+    print(json.dumps(result))
 
 if __name__ == "__main__":
     main()
