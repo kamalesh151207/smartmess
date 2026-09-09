@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+.env
+smart_mess.db
+smart_mess.db-journal
+smart_mess.db-wal
+smart_mess.db-shm
+dist/
+build/
+*.log
