@@ -143,7 +143,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       className="space-y-7"
     >
       {/* 1. ACTION-ORIENTED CRITICAL BANNER: Answers "What needs attention right now?" */}
-      <motion.div variants={itemVariants} className="p-5 rounded-2xl bg-gradient-to-r from-rose-50/40 via-white to-slate-100 border-2 border-slate-600 shadow-[0_0_40px_-10px_rgba(225,29,72,0.3)] relative overflow-hidden group">
+      <motion.div variants={itemVariants} className="p-5 rounded-2xl bg-gradient-to-r from-rose-50/40 via-white to-slate-100 border-2 border-slate-600 relative overflow-hidden group">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] animate-[bg-pan_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
           <div className="space-y-1.5">
@@ -398,7 +398,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                 transition={{ delay: 0.4 + (idx * 0.1) }}
                 whileHover={{ y: -5 }}
                 className={`p-6 rounded-3xl glass-panel transition-all flex flex-col justify-between shadow-lg relative overflow-hidden group ${
-                  isShortage ? 'border-slate-600 ring-1 ring-slate-600 shadow-[0_0_30px_-5px_rgba(225,29,72,0.15)]' : 'border-slate-200 hover:border-slate-300 hover:shadow-indigo-500/5'
+                  isShortage ? 'border-slate-600 ring-1 ring-slate-600' : 'border-slate-200 hover:border-slate-300 hover:shadow-indigo-500/5'
                 }`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -451,7 +451,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                     onClick={() => onNavigate('/kitchen')}
                     className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       isShortage
-                        ? 'bg-black0 hover:bg-white text-slate-900 shadow-[0_0_15px_-3px_rgba(225,29,72,0.4)]'
+                        ? 'bg-black0 hover:bg-white text-slate-900'
                         : 'bg-white/10 hover:bg-white/20 text-slate-900 border border-slate-300/30'
                     }`}
                   >
