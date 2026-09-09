@@ -131,23 +131,23 @@ export const Navbar: React.FC<NavbarProps> = ({
     : 0;
 
   return (
-    <header className="sticky top-0 z-30 glass-panel-heavy border-b border-slate-300/50 px-4 lg:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+    <header className="sticky top-0 z-30 glass-panel-heavy border-b border-slate-300/50 px-4 lg:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.3)] group hover:bg-blue-600 transition-colors duration-300">
       {/* Left: Mobile Menu & Breadcrumbs */}
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenMobileMenu}
-          className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 lg:hidden"
+          className="p-1.5 rounded-lg text-slate-500 group-hover:text-white hover:bg-slate-100 lg:hidden"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         {/* Breadcrumb Navigation */}
         <div className="flex items-center gap-1.5 text-xs">
-          <span className="text-slate-500 font-medium">Smart Mess</span>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
-          <span className="text-slate-500 font-medium">{breadcrumb.category}</span>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
-          <span className="text-slate-900 font-semibold">{breadcrumb.page}</span>
+          <span className="text-slate-500 group-hover:text-blue-100 font-medium">Smart Mess</span>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-200" />
+          <span className="text-slate-500 group-hover:text-blue-100 font-medium">{breadcrumb.category}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-200" />
+          <span className="text-slate-900 group-hover:text-white font-semibold">{breadcrumb.page}</span>
         </div>
       </div>
 
