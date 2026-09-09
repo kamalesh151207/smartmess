@@ -131,7 +131,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     : 0;
 
   return (
-    <header className="sticky top-0 z-30 glass-panel-heavy border-b border-slate-300/50 px-4 lg:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.3)] group hover:bg-blue-600 transition-colors duration-300">
+    <header className="sticky top-0 z-30 glass-panel-heavy border-b border-slate-300/50 px-4 lg:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.3)] group hover:bg-blue-900 transition-colors duration-300">
       {/* Left: Mobile Menu & Breadcrumbs */}
       <div className="flex items-center gap-3">
         <button
