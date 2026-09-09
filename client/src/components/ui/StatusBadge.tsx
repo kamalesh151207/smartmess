@@ -12,7 +12,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm' })
       case 'Healthy':
       case 'Present':
       case 'High':
-        return 'bg-blue-100/80 text-slate-50 border-blue-200/60';
+        return 'bg-blue-100/80 text-slate-900 border-blue-200/60';
       case 'Medium':
       case 'Low Stock':
       case 'Attention':
@@ -21,11 +21,11 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm' })
       case 'Critical':
       case 'Absent':
       case 'Low':
-        return 'bg-black text-slate-50 border-blue-200';
+        return 'bg-black text-slate-900 border-blue-200';
       case 'Overprepared':
         return 'bg-purple-950/80 text-purple-400 border-purple-800/60';
       default:
-        return 'bg-slate-800 text-slate-400 border-slate-700';
+        return 'bg-slate-100 text-slate-500 border-slate-300';
     }
   };
 

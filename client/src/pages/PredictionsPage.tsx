@@ -98,14 +98,14 @@ export const PredictionsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-xl lg:text-2xl font-bold text-slate-50 tracking-tight flex items-center gap-2">
+            <h2 className="text-xl lg:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
               <Cpu className="w-6 h-6 text-indigo-500" /> AI Demand Prediction Workspace
             </h2>
             <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 border border-indigo-300">
               DEMO DATA
             </span>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500">
             Random Forest regression engine calibrated on hostel turnout history, dietary preferences, and calendar factors
           </p>
         </div>
@@ -114,33 +114,33 @@ export const PredictionsPage: React.FC = () => {
       {/* Main Grid: Parameter Form on Left, Output & Feature Signals on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Simulator Controls */}
-        <motion.div variants={itemVariants} className="lg:col-span-5 p-7 rounded-3xl glass-panel border border-slate-800 shadow-xl space-y-5">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Sliders className="w-4 h-4 text-slate-50" /> Input Parameters
+        <motion.div variants={itemVariants} className="lg:col-span-5 p-7 rounded-3xl glass-panel border border-slate-200 shadow-xl space-y-5">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+              <Sliders className="w-4 h-4 text-slate-900" /> Input Parameters
             </span>
-            <span className="text-[11px] text-slate-400 font-mono">Service Simulator</span>
+            <span className="text-[11px] text-slate-500 font-mono">Service Simulator</span>
           </div>
 
           <div className="space-y-4 text-xs">
             {/* Date & Meal */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Date</label>
+                <label className="block text-slate-500 font-medium mb-1">Date</label>
                 <input
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 focus:outline-none focus:border-indigo-400"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-indigo-400"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Meal Slot</label>
+                <label className="block text-slate-500 font-medium mb-1">Meal Slot</label>
                 <select
                   value={meal}
                   onChange={(e) => setMeal(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 focus:outline-none focus:border-indigo-400"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-indigo-400"
                 >
                   <option value="Breakfast">Breakfast</option>
                   <option value="Lunch">Lunch</option>
@@ -152,7 +152,7 @@ export const PredictionsPage: React.FC = () => {
             {/* Expected Attendance */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-slate-400 font-medium">Expected Attendance (Turnout Pool)</label>
+                <label className="text-slate-500 font-medium">Expected Attendance (Turnout Pool)</label>
                 <span className="font-bold text-indigo-500 font-mono">{expectedAttendance} students</span>
               </div>
               <input
@@ -164,7 +164,7 @@ export const PredictionsPage: React.FC = () => {
                 onChange={(e) => setExpectedAttendance(Number(e.target.value))}
                 className="w-full accent-cyan-500 cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
                 <span>100 (Minimal)</span>
                 <span>700 (Avg)</span>
                 <span>1,400 (Max Capacity)</span>
@@ -173,24 +173,24 @@ export const PredictionsPage: React.FC = () => {
 
             {/* Planned Menu Item */}
             <div>
-              <label className="block text-slate-400 font-medium mb-1">Planned Menu Recipe</label>
+              <label className="block text-slate-500 font-medium mb-1">Planned Menu Recipe</label>
               <input
                 type="text"
                 value={menuItem}
                 onChange={(e) => setMenuItem(e.target.value)}
                 placeholder="e.g. Paneer Butter Masala, Dal Makhani"
-                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 focus:outline-none focus:border-indigo-400"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-indigo-400"
               />
             </div>
 
             {/* Day Type & Holiday Flag */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Academic Schedule</label>
+                <label className="block text-slate-500 font-medium mb-1">Academic Schedule</label>
                 <select
                   value={dayType}
                   onChange={(e) => setDayType(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 focus:outline-none focus:border-indigo-400"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-indigo-400"
                 >
                   <option value="Regular">Regular Weekday</option>
                   <option value="Weekend">Weekend Eve / Holiday</option>
@@ -200,7 +200,7 @@ export const PredictionsPage: React.FC = () => {
               </div>
 
               <div className="flex flex-col justify-end">
-                <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-900 border border-slate-800 cursor-pointer text-slate-400 hover:text-slate-50">
+                <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer text-slate-500 hover:text-slate-900">
                   <input
                     type="checkbox"
                     checked={holidayEvent}
@@ -215,8 +215,8 @@ export const PredictionsPage: React.FC = () => {
             {/* Safety Buffer Slider */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-slate-400 font-medium">Safety Reserve Buffer</label>
-                <span className="font-bold text-slate-50 font-mono">+{bufferPercent}%</span>
+                <label className="text-slate-500 font-medium">Safety Reserve Buffer</label>
+                <span className="font-bold text-slate-900 font-mono">+{bufferPercent}%</span>
               </div>
               <input
                 type="range"
@@ -227,7 +227,7 @@ export const PredictionsPage: React.FC = () => {
                 onChange={(e) => setBufferPercent(Number(e.target.value))}
                 className="w-full accent-slate-800 cursor-pointer"
               />
-              <span className="text-[10px] text-slate-400 block mt-1">
+              <span className="text-[10px] text-slate-500 block mt-1">
                 Adds a small cushion to protect against sudden walk-ins while preventing bulk spoilage.
               </span>
             </div>
@@ -236,7 +236,7 @@ export const PredictionsPage: React.FC = () => {
           <button
             onClick={handleGenerate}
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 via-teal-500 to-emerald-500 hover:opacity-90 text-slate-50 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 transition-all cursor-pointer"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 via-teal-500 to-emerald-500 hover:opacity-90 text-slate-900 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 transition-all cursor-pointer"
           >
             <Sparkles className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             {loading ? 'Running Random Forest Model...' : 'GENERATE PREDICTION'}
@@ -256,7 +256,7 @@ export const PredictionsPage: React.FC = () => {
             >
               <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] animate-[bg-pan_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
               <div className="relative z-10">
-              <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-start justify-between border-b border-slate-200 pb-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-bold uppercase tracking-wider text-indigo-500">
@@ -264,31 +264,31 @@ export const PredictionsPage: React.FC = () => {
                     </span>
                     <StatusBadge status={result.confidence} />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-50 tracking-tight">{result.menu_item}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 tracking-tight">{result.menu_item}</h3>
                 </div>
 
                 <div className="text-right">
-                  <span className="text-[11px] text-slate-400 block">Model Architecture</span>
-                  <span className="text-xs font-mono text-slate-200">{result.model_type}</span>
+                  <span className="text-[11px] text-slate-500 block">Model Architecture</span>
+                  <span className="text-xs font-mono text-slate-700">{result.model_type}</span>
                 </div>
               </div>
 
               {/* Three Output Metric Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                  <span className="text-xs text-slate-400 block mb-1">Predicted Demand</span>
-                  <span className="text-3xl font-extrabold text-slate-50 tracking-tight">
+                <div className="p-4 rounded-xl bg-slate-50/90 border border-slate-200">
+                  <span className="text-xs text-slate-500 block mb-1">Predicted Demand</span>
+                  <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
                     {result.predicted_demand}
                   </span>
-                  <span className="text-[10px] text-slate-400 block mt-1">Expected students</span>
+                  <span className="text-[10px] text-slate-500 block mt-1">Expected students</span>
                 </div>
 
                 <div className="p-4 rounded-xl bg-blue-100/40 border border-blue-200/60">
-                  <span className="text-xs text-slate-200 block mb-1">Recommended Preparation</span>
-                  <span className="text-3xl font-extrabold text-slate-50 tracking-tight">
+                  <span className="text-xs text-slate-700 block mb-1">Recommended Preparation</span>
+                  <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
                     {result.recommended_preparation}
                   </span>
-                  <span className="text-[10px] text-slate-50/80 block mt-1">
+                  <span className="text-[10px] text-slate-900/80 block mt-1">
                     Meals kitchen should cook
                   </span>
                 </div>
@@ -305,23 +305,23 @@ export const PredictionsPage: React.FC = () => {
               </div>
 
               {/* Push to Kitchen Direct Action */}
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="text-xs text-slate-400">
-                  <strong className="text-slate-50">Ready for production?</strong> Push this recommendation ({result.recommended_preparation} meals) directly to kitchen staff shift.
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="text-xs text-slate-500">
+                  <strong className="text-slate-900">Ready for production?</strong> Push this recommendation ({result.recommended_preparation} meals) directly to kitchen staff shift.
                 </div>
                 <button
                   onClick={() => {
                     alert(`Target of ${result.recommended_preparation} meals dispatched to Kitchen Operations for ${result.meal}!`);
                   }}
-                  className="w-full sm:w-auto px-4 py-2 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow"
+                  className="w-full sm:w-auto px-4 py-2 rounded-lg bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow"
                 >
                   <CheckCircle className="w-3.5 h-3.5" /> Push Target to Kitchen
                 </button>
               </div>
 
               {/* Contributing Factors & Feature Importance (Progressive Disclosure) */}
-              <div className="border-t border-slate-800 pt-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
                   <TrendingUp className="w-3.5 h-3.5 text-indigo-500" /> Key Contributing Factors
                 </h4>
 
@@ -346,10 +346,10 @@ export const PredictionsPage: React.FC = () => {
                           if (active && payload && payload.length) {
                             const dataItem = payload[0].payload;
                             return (
-                              <div className="p-2 rounded-lg bg-slate-900 border border-slate-700 text-xs">
-                                <p className="font-bold text-slate-50">{dataItem.feature}</p>
+                              <div className="p-2 rounded-lg bg-slate-50 border border-slate-300 text-xs">
+                                <p className="font-bold text-slate-900">{dataItem.feature}</p>
                                 <p className="text-indigo-500">Weight: {(dataItem.importance * 100).toFixed(0)}%</p>
-                                {dataItem.impact && <p className="text-slate-400 mt-0.5">{dataItem.impact}</p>}
+                                {dataItem.impact && <p className="text-slate-500 mt-0.5">{dataItem.impact}</p>}
                               </div>
                             );
                           }
@@ -370,8 +370,8 @@ export const PredictionsPage: React.FC = () => {
               </div>
 
               {/* Natural Language Explanation */}
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 flex items-start gap-2.5 shadow-inner">
-                <CheckCircle className="w-4 h-4 text-slate-50 flex-shrink-0 mt-0.5" />
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 flex items-start gap-2.5 shadow-inner">
+                <CheckCircle className="w-4 h-4 text-slate-900 flex-shrink-0 mt-0.5" />
                 <span>{result.explanation}</span>
               </div>
               </div>
@@ -381,7 +381,7 @@ export const PredictionsPage: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="p-12 rounded-3xl glass-panel border border-slate-800 text-center text-slate-400 text-xs shadow-lg"
+              className="p-12 rounded-3xl glass-panel border border-slate-200 text-center text-slate-500 text-xs shadow-lg"
             >
               Click Generate Prediction to compute meal demand.
             </motion.div>
@@ -389,13 +389,13 @@ export const PredictionsPage: React.FC = () => {
           </AnimatePresence>
 
           {/* Recent Prediction Audit Table */}
-          <div className="p-6 rounded-3xl glass-panel border border-slate-800 shadow-xl">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+          <div className="p-6 rounded-3xl glass-panel border border-slate-200 shadow-xl">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
               Recent Model Outputs
             </h4>
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
-                <thead className="text-slate-400 uppercase bg-slate-900/60 border-b border-slate-800">
+                <thead className="text-slate-500 uppercase bg-slate-50/60 border-b border-slate-200">
                   <tr>
                     <th className="py-2.5 px-3">Date</th>
                     <th className="py-2.5 px-3">Meal</th>
@@ -405,14 +405,14 @@ export const PredictionsPage: React.FC = () => {
                     <th className="py-2.5 px-3">Confidence</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-400">
+                <tbody className="divide-y divide-slate-800/60 text-slate-500">
                   {recentPredictions.slice(0, 5).map((p) => (
-                    <tr key={p.id || Math.random()} className="hover:bg-slate-800/30">
+                    <tr key={p.id || Math.random()} className="hover:bg-slate-100/30">
                       <td className="py-2.5 px-3 font-mono">{p.date}</td>
-                      <td className="py-2.5 px-3 font-semibold text-slate-50">{p.meal}</td>
+                      <td className="py-2.5 px-3 font-semibold text-slate-900">{p.meal}</td>
                       <td className="py-2.5 px-3">{p.expected_attendance}</td>
                       <td className="py-2.5 px-3 text-indigo-500 font-bold">{p.predicted_demand}</td>
-                      <td className="py-2.5 px-3 text-slate-50 font-bold">{p.recommended_prep || p.recommended_preparation}</td>
+                      <td className="py-2.5 px-3 text-slate-900 font-bold">{p.recommended_prep || p.recommended_preparation}</td>
                       <td className="py-2.5 px-3">
                         <StatusBadge status={p.confidence} />
                       </td>

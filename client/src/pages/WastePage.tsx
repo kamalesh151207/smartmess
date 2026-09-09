@@ -147,48 +147,48 @@ export const WastePage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-xl lg:text-2xl font-bold text-slate-50 tracking-tight flex items-center gap-2">
-              <Recycle className="w-6 h-6 text-slate-50" /> Food Waste Auditing & Reduction
+            <h2 className="text-xl lg:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <Recycle className="w-6 h-6 text-slate-900" /> Food Waste Auditing & Reduction
             </h2>
             <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 border border-indigo-300">
               OPERATIONAL AUDIT
             </span>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500">
             Identify repeat leftovers, adjust kitchen batch thresholds, and ensure zero-waste standards
           </p>
         </div>
 
         <button
           onClick={() => setShowModal(true)}
-          className="px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
+          className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Log Waste Audit
         </button>
       </div>
 
       {/* ACTIONABLE WASTE INSIGHT CARDS (Per Prompt Section 9) */}
-      <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-700/30 shadow-xl">
+      <div className="p-5 rounded-2xl bg-slate-50/90 border border-slate-300/30 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-100 text-slate-50 border border-blue-200/60">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-100 text-slate-900 border border-blue-200/60">
                 ACTIONABLE WASTE INSIGHT
               </span>
-              <span className="text-xs text-slate-400">Dinner Shift Pattern</span>
+              <span className="text-xs text-slate-500">Dinner Shift Pattern</span>
             </div>
-            <h3 className="text-base font-bold text-slate-50">
+            <h3 className="text-base font-bold text-slate-900">
               “Dinner leftovers have increased slightly during the last 3 days (+14 portions average).”
             </h3>
-            <p className="text-xs text-slate-400">
-              <strong className="text-slate-50">Recommendation:</strong> Consider reducing the dinner preparation buffer from 3.5% down to 2.2% for upcoming regular weeknights.
+            <p className="text-xs text-slate-500">
+              <strong className="text-slate-900">Recommendation:</strong> Consider reducing the dinner preparation buffer from 3.5% down to 2.2% for upcoming regular weeknights.
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleApplyBufferAdjustment}
-              className="px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-slate-800/20"
+              className="px-4 py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-slate-800/20"
             >
               {appliedBuffer ? (
                 <>
@@ -240,15 +240,15 @@ export const WastePage: React.FC = () => {
 
       {/* Charts: 14-Day Waste Trend Area Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
+        <div className="lg:col-span-7 p-6 rounded-2xl bg-slate-50/90 border border-slate-200 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-50 tracking-tight">
+              <h3 className="text-sm font-bold text-slate-900 tracking-tight">
                 Food Leftover Trend (% of Prepared Volume)
               </h3>
-              <p className="text-xs text-slate-400">Aiming for university zero-waste certification (&lt;2.5%)</p>
+              <p className="text-xs text-slate-500">Aiming for university zero-waste certification (&lt;2.5%)</p>
             </div>
-            <span className="text-xs text-slate-50 font-mono font-bold">Target: &lt; 2.5%</span>
+            <span className="text-xs text-slate-900 font-mono font-bold">Target: &lt; 2.5%</span>
           </div>
 
           <div className="h-60 w-full">
@@ -267,9 +267,9 @@ export const WastePage: React.FC = () => {
                   content={({ active, payload, label }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-xs">
-                          <p className="font-bold text-slate-50">{label}</p>
-                          <p className="text-slate-50">Waste: {payload[0]?.value}%</p>
+                        <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-300 text-xs">
+                          <p className="font-bold text-slate-900">{label}</p>
+                          <p className="text-slate-900">Waste: {payload[0]?.value}%</p>
                         </div>
                       );
                     }
@@ -290,12 +290,12 @@ export const WastePage: React.FC = () => {
         </div>
 
         {/* Top Leftover Commodities */}
-        <div className="lg:col-span-5 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl flex flex-col justify-between">
+        <div className="lg:col-span-5 p-6 rounded-2xl bg-slate-50/90 border border-slate-200 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-50 tracking-tight mb-1">
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight mb-1">
               Top Leftover Preparation Items
             </h3>
-            <p className="text-xs text-slate-400 mb-3">
+            <p className="text-xs text-slate-500 mb-3">
               Items most frequently returned to kitchen cold storage
             </p>
 
@@ -303,15 +303,15 @@ export const WastePage: React.FC = () => {
               {topItems.map((item, idx) => (
                 <div
                   key={item.item}
-                  className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between"
+                  className="p-2.5 rounded-xl bg-slate-50/80 border border-slate-200 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-xs font-bold">
+                    <div className="w-5 h-5 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold">
                       {idx + 1}
                     </div>
                     <div>
-                      <span className="text-xs font-bold text-slate-50 block">{item.item}</span>
-                      <span className="text-[10px] text-slate-400">{item.frequency}</span>
+                      <span className="text-xs font-bold text-slate-900 block">{item.item}</span>
+                      <span className="text-[10px] text-slate-500">{item.frequency}</span>
                     </div>
                   </div>
                   <span className="text-xs font-bold text-indigo-600 font-mono">{item.kg_wasted} kg</span>
@@ -320,38 +320,38 @@ export const WastePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-4 p-3 rounded-xl bg-blue-100/40 border border-blue-200/40 text-[11px] text-slate-200">
+          <div className="mt-4 p-3 rounded-xl bg-blue-100/40 border border-blue-200/40 text-[11px] text-slate-700">
             <strong>Action Trigger:</strong> Items with &gt; 25 kg return trigger an automatic recipe yield revision for kitchen staff.
           </div>
         </div>
       </div>
 
       {/* FILTERABLE & SEARCHABLE WASTE AUDIT TABLE */}
-      <div className="rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg overflow-hidden">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+      <div className="rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg overflow-hidden">
+        <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Search */}
           <div className="relative flex-1 max-w-sm">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+            <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-2.5" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search date, meal, item, or cause..."
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-slate-700"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
             />
           </div>
 
           {/* Meal Filter Tabs */}
           <div className="flex items-center gap-2">
-            <div className="inline-flex p-1 rounded-lg bg-slate-900 border border-slate-800 text-xs">
+            <div className="inline-flex p-1 rounded-lg bg-slate-50 border border-slate-200 text-xs">
               {['All', 'Breakfast', 'Lunch', 'Dinner'].map((t) => (
                 <button
                   key={t}
                   onClick={() => setFilterMeal(t)}
                   className={`px-3 py-1 rounded-md font-medium transition-colors cursor-pointer ${
                     filterMeal === t
-                      ? 'bg-slate-800 text-slate-50 shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-slate-100 text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700'
                   }`}
                 >
                   {t}
@@ -369,10 +369,10 @@ export const WastePage: React.FC = () => {
                   setSortOrder('desc');
                 }
               }}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-400 hover:text-slate-50 flex items-center gap-1 cursor-pointer"
+              className="px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1 cursor-pointer"
               title="Sort by Waste %"
             >
-              <ArrowUpDown className="w-3.5 h-3.5 text-slate-50" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-slate-900" />
               <span>Waste %</span>
             </button>
           </div>
@@ -380,7 +380,7 @@ export const WastePage: React.FC = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="text-slate-400 uppercase bg-slate-900/80 border-b border-slate-800">
+            <thead className="text-slate-500 uppercase bg-slate-50/80 border-b border-slate-200">
               <tr>
                 <th className="py-3 px-4">Date</th>
                 <th className="py-3 px-4">Meal</th>
@@ -392,34 +392,34 @@ export const WastePage: React.FC = () => {
                 <th className="py-3 px-4">Attributed Cause</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-400">
+            <tbody className="divide-y divide-slate-800/60 text-slate-500">
               {filteredAndSortedLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-slate-400">
+                  <td colSpan={8} className="py-8 text-center text-slate-500">
                     No matching waste records found.
                   </td>
                 </tr>
               ) : (
                 filteredAndSortedLogs.map((l) => (
-                  <tr key={l.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={l.id} className="hover:bg-slate-100/30 transition-colors">
                     <td className="py-3 px-4 font-mono">{l.date}</td>
-                    <td className="py-3 px-4 font-bold text-slate-50">{l.meal}</td>
+                    <td className="py-3 px-4 font-bold text-slate-900">{l.meal}</td>
                     <td className="py-3 px-4 text-center font-mono">{l.prepared_qty}</td>
-                    <td className="py-3 px-4 text-center font-mono text-slate-200">{l.consumed_qty}</td>
+                    <td className="py-3 px-4 text-center font-mono text-slate-700">{l.consumed_qty}</td>
                     <td className="py-3 px-4 text-center font-mono text-indigo-600 font-bold">{l.leftover_qty}</td>
                     <td className="py-3 px-4 text-center font-mono">
                       <span
                         className={`px-2 py-0.5 rounded font-bold ${
                           l.waste_percentage > 4.0
-                            ? 'bg-black text-slate-50 border border-blue-200'
-                            : 'bg-blue-100 text-slate-50 border border-blue-200'
+                            ? 'bg-black text-slate-900 border border-blue-200'
+                            : 'bg-blue-100 text-slate-900 border border-blue-200'
                         }`}
                       >
                         {l.waste_percentage}%
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-medium text-slate-400">{l.highest_waste_item || 'Mixed'}</td>
-                    <td className="py-3 px-4 text-slate-400 max-w-xs truncate">{l.cause || 'Standard variance'}</td>
+                    <td className="py-3 px-4 font-medium text-slate-500">{l.highest_waste_item || 'Mixed'}</td>
+                    <td className="py-3 px-4 text-slate-500 max-w-xs truncate">{l.cause || 'Standard variance'}</td>
                   </tr>
                 ))
               )}
@@ -431,35 +431,35 @@ export const WastePage: React.FC = () => {
       {/* Log Waste Audit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative">
+          <div className="w-full max-w-md bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-50 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-50 mb-1">Log Food Waste Audit</h3>
-            <p className="text-xs text-slate-400 mb-4">Record weigh-scale findings at kitchen return counter</p>
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Log Food Waste Audit</h3>
+            <p className="text-xs text-slate-500 mb-4">Record weigh-scale findings at kitchen return counter</p>
 
             <form onSubmit={handleLogWaste} className="space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Date</label>
+                  <label className="block text-slate-500 font-medium mb-1">Date</label>
                   <input
                     type="date"
                     required
                     value={modalDate}
                     onChange={(e) => setModalDate(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Meal</label>
+                  <label className="block text-slate-500 font-medium mb-1">Meal</label>
                   <select
                     value={modalMeal}
                     onChange={(e) => setModalMeal(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                   >
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>
@@ -470,59 +470,59 @@ export const WastePage: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Prepared</label>
+                  <label className="block text-slate-500 font-medium mb-1">Prepared</label>
                   <input
                     type="number"
                     value={modalPrepared}
                     onChange={(e) => setModalPrepared(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Consumed</label>
+                  <label className="block text-slate-500 font-medium mb-1">Consumed</label>
                   <input
                     type="number"
                     value={modalConsumed}
                     onChange={(e) => setModalConsumed(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Leftover</label>
+                  <label className="block text-slate-500 font-medium mb-1">Leftover</label>
                   <input
                     type="number"
                     value={modalLeftover}
                     onChange={(e) => setModalLeftover(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Highest Waste Item</label>
+                <label className="block text-slate-500 font-medium mb-1">Highest Waste Item</label>
                 <input
                   type="text"
                   value={modalHighestItem}
                   onChange={(e) => setModalHighestItem(e.target.value)}
                   placeholder="e.g. Cooked Basmati Rice, Sambar"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Primary Cause</label>
+                <label className="block text-slate-500 font-medium mb-1">Primary Cause</label>
                 <input
                   type="text"
                   value={modalCause}
                   onChange={(e) => setModalCause(e.target.value)}
                   placeholder="e.g. Turnout drop, recipe portion overestimation"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-xs transition-colors cursor-pointer mt-2"
+                className="w-full py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs transition-colors cursor-pointer mt-2"
               >
                 Submit Waste Audit
               </button>

@@ -103,14 +103,14 @@ export const AttendancePage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-xl lg:text-2xl font-bold text-slate-50 tracking-tight flex items-center gap-2">
-              <Users className="w-6 h-6 text-slate-50" /> Student Attendance Operations
+            <h2 className="text-xl lg:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <Users className="w-6 h-6 text-slate-900" /> Student Attendance Operations
             </h2>
             <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 border border-indigo-300">
               DEMO DATA
             </span>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-500">
             Biometric & RFID entry points synced with dining hall counters
           </p>
         </div>
@@ -118,13 +118,13 @@ export const AttendancePage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowCsvModal(true)}
-            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-700"
+            className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-300"
           >
             <FileSpreadsheet className="w-4 h-4 text-indigo-500" /> Import CSV
           </button>
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add Attendance
           </button>
@@ -164,17 +164,17 @@ export const AttendancePage: React.FC = () => {
       </div>
 
       {/* Filter Toolbar */}
-      <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+      <div className="p-4 rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
         <div className="flex-1 flex flex-col sm:flex-row gap-3">
           {/* Search */}
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search student name or ID..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-slate-700"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
             />
           </div>
 
@@ -183,14 +183,14 @@ export const AttendancePage: React.FC = () => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-slate-700"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
           />
 
           {/* Meal Filter */}
           <select
             value={meal}
             onChange={(e) => setMeal(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-slate-700"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
           >
             <option value="All">All Meals</option>
             <option value="Breakfast">Breakfast</option>
@@ -202,7 +202,7 @@ export const AttendancePage: React.FC = () => {
           <select
             value={hostel}
             onChange={(e) => setHostel(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-slate-700"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
           >
             <option value="All">All Hostels</option>
             <option value="Aryabhata North">Aryabhata North</option>
@@ -214,15 +214,15 @@ export const AttendancePage: React.FC = () => {
       </div>
 
       {/* Attendance Roster Table */}
-      <div className="rounded-2xl bg-slate-900/90 border border-slate-800 shadow-lg overflow-hidden">
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+      <div className="rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg overflow-hidden">
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between text-xs text-slate-500">
           <span>Showing {records.length} attendance records</span>
           <span className="font-mono text-[11px]">Last biometric sync: 2 mins ago</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="text-slate-400 uppercase bg-slate-900/80 border-b border-slate-800">
+            <thead className="text-slate-500 uppercase bg-slate-50/80 border-b border-slate-200">
               <tr>
                 <th className="py-3 px-4">Student ID</th>
                 <th className="py-3 px-4">Student Name</th>
@@ -232,30 +232,30 @@ export const AttendancePage: React.FC = () => {
                 <th className="py-3 px-4">Time Recorded</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-400">
+            <tbody className="divide-y divide-slate-800/60 text-slate-500">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-8 text-slate-400">
+                  <td colSpan={6} className="text-center py-8 text-slate-500">
                     Loading attendance records...
                   </td>
                 </tr>
               ) : records.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-8 text-slate-400">
+                  <td colSpan={6} className="text-center py-8 text-slate-500">
                     No matching attendance logs found for selected filters.
                   </td>
                 </tr>
               ) : (
                 records.map((r) => (
-                  <tr key={r.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={r.id} className="hover:bg-slate-100/40 transition-colors">
                     <td className="py-3 px-4 font-mono text-indigo-500 font-semibold">{r.student_id}</td>
-                    <td className="py-3 px-4 font-bold text-slate-50">{r.student_name}</td>
-                    <td className="py-3 px-4 text-slate-400">{r.hostel}</td>
-                    <td className="py-3 px-4 font-medium text-slate-200">{r.meal}</td>
+                    <td className="py-3 px-4 font-bold text-slate-900">{r.student_name}</td>
+                    <td className="py-3 px-4 text-slate-500">{r.hostel}</td>
+                    <td className="py-3 px-4 font-medium text-slate-700">{r.meal}</td>
                     <td className="py-3 px-4">
                       <StatusBadge status={r.status} />
                     </td>
-                    <td className="py-3 px-4 font-mono text-slate-400">{r.marked_at}</td>
+                    <td className="py-3 px-4 font-mono text-slate-500">{r.marked_at}</td>
                   </tr>
                 ))
               )}
@@ -267,49 +267,49 @@ export const AttendancePage: React.FC = () => {
       {/* Modal: Manual Add Attendance */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative">
+          <div className="w-full max-w-md bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
             <button
               onClick={() => setShowAddModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-50 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-50 mb-1">Add Attendance Record</h3>
-            <p className="text-xs text-slate-400 mb-4">Log manual walk-in or RFID override</p>
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Add Attendance Record</h3>
+            <p className="text-xs text-slate-500 mb-4">Log manual walk-in or RFID override</p>
 
             <form onSubmit={handleManualAdd} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Student ID</label>
+                <label className="block text-slate-500 font-medium mb-1">Student ID</label>
                 <input
                   type="text"
                   required
                   value={newStudentId}
                   onChange={(e) => setNewStudentId(e.target.value)}
                   placeholder="e.g. STU-2024-031"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 focus:outline-none focus:border-slate-700"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-slate-300"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Student Name</label>
+                <label className="block text-slate-500 font-medium mb-1">Student Name</label>
                 <input
                   type="text"
                   required
                   value={newStudentName}
                   onChange={(e) => setNewStudentName(e.target.value)}
                   placeholder="e.g. Varun Sharma"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 focus:outline-none focus:border-slate-700"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-slate-300"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Hostel Block</label>
+                  <label className="block text-slate-500 font-medium mb-1">Hostel Block</label>
                   <select
                     value={newHostel}
                     onChange={(e) => setNewHostel(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                   >
                     <option value="Aryabhata North">Aryabhata North</option>
                     <option value="Kalpana Chawla">Kalpana Chawla</option>
@@ -319,11 +319,11 @@ export const AttendancePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Meal</label>
+                  <label className="block text-slate-500 font-medium mb-1">Meal</label>
                   <select
                     value={newMeal}
                     onChange={(e) => setNewMeal(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                   >
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>
@@ -333,11 +333,11 @@ export const AttendancePage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Status</label>
+                <label className="block text-slate-500 font-medium mb-1">Status</label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as 'Present' | 'Absent')}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
                 >
                   <option value="Present">Present (Checked In)</option>
                   <option value="Absent">Absent</option>
@@ -346,7 +346,7 @@ export const AttendancePage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-50 font-bold text-xs transition-colors cursor-pointer mt-2"
+                className="w-full py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs transition-colors cursor-pointer mt-2"
               >
                 Submit Record
               </button>
@@ -358,36 +358,36 @@ export const AttendancePage: React.FC = () => {
       {/* Modal: CSV Upload Simulation */}
       {showCsvModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative">
+          <div className="w-full max-w-md bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
             <button
               onClick={() => setShowCsvModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-50 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-50 mb-1">Batch Import CSV Attendance</h3>
-            <p className="text-xs text-slate-400 mb-4">
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Batch Import CSV Attendance</h3>
+            <p className="text-xs text-slate-500 mb-4">
               Upload biometric log files exported from campus turnstiles
             </p>
 
-            <div className="border-2 border-dashed border-slate-700 rounded-2xl p-8 text-center bg-slate-900/60 mb-4">
+            <div className="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center bg-slate-50/60 mb-4">
               <UploadCloud className="w-10 h-10 text-indigo-500 mx-auto mb-2" />
-              <p className="text-xs font-semibold text-slate-200">
+              <p className="text-xs font-semibold text-slate-700">
                 Drag and drop student_attendance.csv here
               </p>
-              <p className="text-[10px] text-slate-400 mt-1">Columns: ID, Name, Hostel, Meal, Timestamp</p>
+              <p className="text-[10px] text-slate-500 mt-1">Columns: ID, Name, Hostel, Meal, Timestamp</p>
             </div>
 
             {csvSuccess ? (
-              <div className="p-3 rounded-xl bg-blue-100/60 border border-blue-200 text-slate-200 text-xs flex items-center justify-center gap-2">
+              <div className="p-3 rounded-xl bg-blue-100/60 border border-blue-200 text-slate-700 text-xs flex items-center justify-center gap-2">
                 <Check className="w-4 h-4" />
                 <span>Successfully imported 48 records!</span>
               </div>
             ) : (
               <button
                 onClick={handleSimulateCsv}
-                className="w-full py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-slate-50 font-bold text-xs transition-colors cursor-pointer"
+                className="w-full py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-slate-900 font-bold text-xs transition-colors cursor-pointer"
               >
                 Simulate CSV Ingestion (Demo Mode)
               </button>
