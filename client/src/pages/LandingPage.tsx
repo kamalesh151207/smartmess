@@ -55,7 +55,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGoToDashboard, onGoT
             </button>
             <button
               onClick={onGoToDashboard}
-              className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-slate-900 to-indigo-500 hover:from-slate-800 hover:to-indigo-400 text-slate-900 flex items-center gap-2 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-500 hover:bg-blue-400 text-white flex items-center gap-2 shadow-lg shadow-blue-500/20 transition-all cursor-pointer"
             >
               Launch Dashboard <ArrowRight className="w-4 h-4" />
             </button>

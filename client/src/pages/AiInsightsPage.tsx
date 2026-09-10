@@ -66,14 +66,14 @@ export const AiInsightsPage: React.FC = () => {
       </div>
 
       {/* 1. Demand Forecast Overview Banner */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-[#0F172A] via-[#102033] to-indigo-50 border border-indigo-400/30 shadow-xl relative overflow-hidden">
-        <div className="flex items-center gap-2 text-indigo-500 text-xs font-bold uppercase tracking-wider mb-2">
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-indigo-100 via-white to-blue-50 border border-indigo-200 shadow-sm relative overflow-hidden">
+        <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-2">
           <Sparkles className="w-4 h-4" /> Macro Demand Projection
         </div>
         <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">
           Current Trajectory: Balanced Turnout with Friday Eve Dispersion
         </h3>
-        <p className="text-xs text-slate-500 max-w-3xl leading-relaxed">
+        <p className="text-xs text-slate-600 max-w-3xl leading-relaxed">
           {data.demand_forecast_summary}
         </p>
       </div>

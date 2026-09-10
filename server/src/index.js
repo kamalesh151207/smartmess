@@ -75,6 +75,17 @@ function runPythonPrediction(params) {
 // -------------------------------------------------------------
 // AUTH
 // -------------------------------------------------------------
+app.post('/api/auth/register', async (req, res) => {
+  const { email, password, name } = req.body;
+  const existing = (await db.query('SELECT id FROM users WHERE email = $1', [email])).rows[0];
+  if (existing) {
+    return res.status(400).json({ success: false, error: 'Email already registered' });
+  }
+  const id = `usr_${Date.now()}`;
+  await db.query('INSERT INTO users (id, email, password, name, role) VALUES ($1, $2, $3, $4, $5)', [id, email, password, name, 'Admin']);
+  res.json({ success: true });
+});
+
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
   const user = (await db.query('SELECT id, email, name, role, hostel_assigned FROM users WHERE email = $1 AND password = $2', [email, password])).rows[0];

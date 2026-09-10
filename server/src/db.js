@@ -1,25 +1,44 @@
-import pg from 'pg';
-import 'dotenv/config';
+import Database from 'better-sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const { Pool } = pg;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.join(__dirname, '../smart_mess.db');
 
-const db = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+const sqliteDb = new Database(dbPath);
 
 export async function initDatabase() {
-  try {
-    const client = await db.connect();
-    console.log('[Database] Connected successfully to Supabase Postgres (Pool).');
-    client.release();
-  } catch (err) {
-    console.error('[Database] Failed to connect to Supabase:', err);
-  }
+  console.log('[Database] Connected successfully to SQLite wrapper.');
 }
 
-// Map db.query to act properly (Pool handles it natively but we export db so index.js can use it)
-// index.js will use `await db.query(...)` and `await db.connect()` (as `db.getClient()` in my scripts usually, wait I need to check)
-db.getClient = () => db.connect();
+const db = {
+  query: async (sql, params = []) => {
+    // Convert $1, $2 etc to ?
+    let sqliteSql = sql.replace(/\$\d+/g, '?');
+    
+    try {
+      const stmt = sqliteDb.prepare(sqliteSql);
+      if (sqliteSql.trim().toUpperCase().startsWith('SELECT') || sqliteSql.trim().toUpperCase().startsWith('PRAGMA')) {
+        const rows = stmt.all(params);
+        return { rows };
+      } else {
+        const info = stmt.run(params);
+        return { rows: [], rowCount: info.changes };
+      }
+    } catch (err) {
+      console.error('[DB Query Error]', err, sqliteSql, params);
+      throw err;
+    }
+  },
+  getClient: async () => {
+    return {
+      query: async (sql, params = []) => {
+        return db.query(sql, params);
+      },
+      release: () => {}
+    };
+  }
+};
 
 export default db;

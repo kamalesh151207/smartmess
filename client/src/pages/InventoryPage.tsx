@@ -189,10 +189,10 @@ export const InventoryPage: React.FC = () => {
       </motion.div>
 
       {/* CRITICAL DEMAND SUFFICIENCY BANNER (Per Prompt Section 10) */}
-      <motion.div variants={itemVariants} className="p-6 rounded-3xl glass-panel border border-slate-600 shadow-[0_0_30px_-5px_rgba(225,29,72,0.15)] space-y-4">
+      <motion.div variants={itemVariants} className="p-6 rounded-3xl glass-panel border border-slate-200 shadow-sm space-y-4">
         <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black text-slate-900 border border-blue-200">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white text-slate-900 border border-slate-300">
               SUFFICIENCY AUDIT FOR TODAY'S FORECAST
             </span>
             <span className="text-xs text-slate-500">Target: 415 Lunch & 400 Dinner Meals</span>
@@ -213,14 +213,14 @@ export const InventoryPage: React.FC = () => {
           </div>
 
           {/* Item 2: Paneer (Critical) */}
-          <div className="p-3 rounded-xl bg-black border border-slate-600 flex items-center justify-between">
+          <div className="p-3 rounded-xl bg-white border border-rose-200 flex items-center justify-between shadow-sm">
             <div>
               <span className="text-xs font-bold text-slate-900 block">Fresh Paneer</span>
               <span className="text-[11px] text-blue-700">Stock: 18 kg • Demand: 36 kg</span>
             </div>
             <button
               onClick={() => handleTriggerPurchaseAlert(items.find((i) => i.item_name === 'Fresh Paneer') || items[0])}
-              className="px-2.5 py-1 rounded-lg bg-black0 hover:bg-white text-slate-900 text-[11px] font-bold transition-all cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-slate-900 text-[11px] font-bold transition-all cursor-pointer border border-rose-200"
             >
               {alertSentId === 'inv_5' ? 'Alert Sent ✓' : 'CREATE ALERT'}
             </button>

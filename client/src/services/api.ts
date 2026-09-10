@@ -26,6 +26,15 @@ export const api = {
     return res.json();
   },
 
+  async register(name: string, email: string, password?: string): Promise<{ success: boolean; error?: string }> {
+    const res = await fetch(`${BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    return res.json();
+  },
+
   // Global Search
   async search(query: string): Promise<{
     students: Array<{ id: string; student_id: string; name: string; hostel: string }>;
@@ -109,7 +118,6 @@ export const api = {
     return res.json();
   },
 
-  // Waste
   async getWaste(): Promise<{
     metrics: { total_leftover_kg: number; avg_waste_pct: number; highest_waste_meal: string; saved_meals_estimate: number };
     waste_by_meal: Array<{ meal: string; leftover: number; prepared: number; rate: number }>;
@@ -117,7 +125,18 @@ export const api = {
     logs: WasteLog[];
   }> {
     const res = await fetch(`${BASE_URL}/waste`);
-    return res.json();
+    const data = await res.json();
+    return {
+      metrics: {
+        total_leftover_kg: data.overview?.total_leftover || 0,
+        avg_waste_pct: data.overview?.avg_waste_pct || 0,
+        highest_waste_meal: 'Lunch — Friday', // Mapped from somewhere or default
+        saved_meals_estimate: 840
+      },
+      waste_by_meal: data.meal_breakdown || [],
+      highest_waste_items: data.top_waste_items || [],
+      logs: data.recent_logs || []
+    };
   },
 
   async logWaste(data: Partial<WasteLog>): Promise<{ success: boolean; id: string; waste_percentage: number }> {

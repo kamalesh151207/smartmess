@@ -144,7 +144,7 @@ export const KitchenPage: React.FC<KitchenPageProps> = ({ onNavigate }) => {
       </motion.div>
 
       {/* Main Target Card for Mess Staff */}
-      <motion.div variants={itemVariants} className="p-7 rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#102235] to-indigo-50 border-2 border-slate-300/40 shadow-[0_0_40px_-10px_rgba(16,185,129,0.2)] relative overflow-hidden group">
+      <motion.div variants={itemVariants} className="p-7 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden group">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] animate-[bg-pan_3s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
         <div className="relative z-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
