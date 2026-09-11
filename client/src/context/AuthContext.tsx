@@ -9,7 +9,39 @@ interface AuthContextType {
   login: (email: string, password?: string) => Promise<boolean>;
   useDemoAccount: () => Promise<boolean>;
   logout: () => void;
+  switchProfile: (user: User) => void;
 }
+
+export const MOCK_PROFILES: User[] = [
+  {
+    id: 'usr_admin_1',
+    email: 'admin@smartmess.edu',
+    name: 'Dr. K. Sharma',
+    role: 'Chief Warden',
+    hostel_assigned: 'Aryabhata Dining Hall'
+  },
+  {
+    id: 'usr_kitchen_1',
+    email: 'kitchen@smartmess.edu',
+    name: 'Chef R. Kumar',
+    role: 'Kitchen Manager',
+    hostel_assigned: 'Central Kitchen Block A'
+  },
+  {
+    id: 'usr_supervisor_1',
+    email: 'supervisor@smartmess.edu',
+    name: 'Prof. S. Mehra',
+    role: 'Hostel Supervisor',
+    hostel_assigned: 'Ramanujam Hostel Wing'
+  },
+  {
+    id: 'usr_student_1',
+    email: 'student.rep@smartmess.edu',
+    name: 'Aarav Gupta',
+    role: 'Student Mess Rep',
+    hostel_assigned: 'Aryabhata Resident Block'
+  }
+];
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -69,8 +101,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
   };
 
+  const switchProfile = (newUser: User) => {
+    setUser(newUser);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, useDemoAccount, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, useDemoAccount, logout, switchProfile }}>
       {children}
     </AuthContext.Provider>
   );

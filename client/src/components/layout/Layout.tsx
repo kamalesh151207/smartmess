@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { Navbar } from './Navbar';
 import { AlertItem } from '../../types';
+import { ArrowLeft } from 'lucide-react';
 
 interface LayoutProps {
   currentRoute: string;
@@ -37,6 +38,17 @@ export const Layout: React.FC<LayoutProps> = ({
           alerts={alerts}
         />
         <main className="flex-1 p-4 lg:p-8 max-w-7xl w-full mx-auto space-y-8">
+          {currentRoute !== '/dashboard' && (
+            <div>
+              <button
+                onClick={() => window.history.back()}
+                className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm w-fit mb-2"
+              >
+                <ArrowLeft size={16} />
+                Back
+              </button>
+            </div>
+          )}
           {children}
         </main>
 
