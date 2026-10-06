@@ -12,6 +12,6 @@
     "test:server": "npm --prefix server test",
     "test": "npm run test:ml && npm run test:server",
     "seed": "npm --prefix server run seed",
-    "build": "npm --prefix client run build"
+    "build": "npm --prefix client install && npm --prefix client run build"
   }
 }
