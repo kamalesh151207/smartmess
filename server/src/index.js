@@ -2,6 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import db, { initDatabase } from './db.js';
 import apiRouter from './routes/api.js';
@@ -25,7 +26,7 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (e.g., curl, mobile apps, server-to-server)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || origin.endsWith('.onrender.com') || origin.endsWith('.netlify.app')) {
       return callback(null, true);
     }
     console.warn(`[CORS] Blocked request from unlisted origin: ${origin}`);
@@ -37,22 +38,6 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Root API Welcome / Health endpoint
-app.get('/', (req, res) => {
-  res.json({
-    name: 'SmartMess API Gateway',
-    status: 'online',
-    version: '1.0.0',
-    documentation: '/api/docs',
-    endpoints: {
-      health: '/api/system/health',
-      predictions: '/api/predictions',
-      attendance: '/api/attendance',
-      model_evaluation: '/api/model/evaluation'
-    }
-  });
-});
-
 // Mount API routes
 app.use('/api', apiRouter);
 
@@ -60,6 +45,34 @@ app.use('/api', apiRouter);
 app.get('/docs/api', (req, res) => {
   res.redirect('/api/docs');
 });
+
+// Serve compiled React production frontend from client/dist if present
+const clientDistPath = path.join(__dirname, '../../client/dist');
+if (fs.existsSync(clientDistPath)) {
+  console.log(`[Server] Serving static React frontend from ${clientDistPath}`);
+  app.use(express.static(clientDistPath));
+
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+} else {
+  // Fallback JSON welcome message if client/dist is not built
+  app.get('/', (req, res) => {
+    res.json({
+      name: 'SmartMess API Gateway',
+      status: 'online',
+      version: '1.0.0',
+      documentation: '/api/docs',
+      endpoints: {
+        health: '/api/system/health',
+        predictions: '/api/predictions',
+        attendance: '/api/attendance',
+        model_evaluation: '/api/model/evaluation'
+      }
+    });
+  });
+}
 
 // Centralized Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -88,11 +101,10 @@ async function startServer() {
     }
 
     app.listen(PORT, () => {
-      console.log(`[SmartMess API Server] Running on http://localhost:${PORT}`);
-      console.log(`[SmartMess API Docs] OpenAPI documentation available at http://localhost:${PORT}/docs/api`);
+      console.log(`[SmartMess Server] Running on port ${PORT}`);
     });
   } catch (err) {
-    console.error('[SmartMess API Server] Startup failed:', err.message);
+    console.error('[SmartMess Server] Startup failed:', err.message);
     process.exit(1);
   }
 }
