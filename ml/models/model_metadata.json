@@ -1,0 +1,27 @@
+{
+  "model_name": "Random Forest Regressor",
+  "version": "1.0",
+  "trained_at": "2026-10-06T15:54:32Z",
+  "features": [
+    "meal_num",
+    "day_of_week",
+    "hostel_population",
+    "historical_attendance",
+    "rolling_7_day_attendance",
+    "rolling_14_day_attendance",
+    "prev_same_day_attendance",
+    "menu_rating",
+    "menu_popularity",
+    "weekend_flag",
+    "exam_period",
+    "holiday_flag",
+    "event_flag"
+  ],
+  "metrics": {
+    "mae": 16.8,
+    "rmse": 21.55,
+    "mape": 1.56,
+    "r2": 0.919
+  },
+  "is_synthetic": true
+}

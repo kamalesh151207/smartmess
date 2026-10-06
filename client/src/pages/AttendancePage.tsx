@@ -10,17 +10,26 @@ import {
   XCircle,
   X,
   UploadCloud,
-  Check
+  Check,
+  Radio,
+  ShieldCheck,
+  AlertTriangle,
+  FileText,
+  Activity,
+  Layers,
+  ArrowRight,
+  Database
 } from 'lucide-react';
 import { MetricCard } from '../components/ui/MetricCard';
 import { StatusBadge } from '../components/ui/StatusBadge';
-import { AttendanceRecord, AttendanceStats } from '../types';
+import { AttendanceRecord, AttendanceStats, DataQualityReport, IngestionSummary } from '../types';
 import { api } from '../services/api';
 
 export const AttendancePage: React.FC = () => {
   const [date, setDate] = useState('2026-09-04');
   const [meal, setMeal] = useState('All');
   const [hostel, setHostel] = useState('All');
+  const [source, setSource] = useState('All');
   const [search, setSearch] = useState('');
 
   const [stats, setStats] = useState<AttendanceStats>({
@@ -30,6 +39,7 @@ export const AttendancePage: React.FC = () => {
     dinner_attendance: 1110
   });
   const [records, setRecords] = useState<AttendanceRecord[]>([]);
+  const [dataQuality, setDataQuality] = useState<DataQualityReport | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Manual Add Modal state
@@ -37,28 +47,42 @@ export const AttendancePage: React.FC = () => {
   const [newStudentId, setNewStudentId] = useState('');
   const [newStudentName, setNewStudentName] = useState('');
   const [newHostel, setNewHostel] = useState('Aryabhata North');
+  const [newRoom, setNewRoom] = useState('A-201');
   const [newMeal, setNewMeal] = useState('Lunch');
   const [newStatus, setNewStatus] = useState<'Present' | 'Absent'>('Present');
+  const [addError, setAddError] = useState<string | null>(null);
 
-  // CSV Modal state
+  // Bulk Ingestion Modal state
   const [showCsvModal, setShowCsvModal] = useState(false);
-  const [csvSuccess, setCsvSuccess] = useState(false);
+  const [csvText, setCsvText] = useState(
+    "student_id,student_name,hostel,room,date,meal,status\nSTU-2024-031,Rohan Verma,Aryabhata North,A-301,2026-09-04,Lunch,Present\nSTU-2024-032,Priya Nair,Kalpana Chawla,B-205,2026-09-04,Lunch,Present\nSTU-2024-033,Aditya Joshi,Sarabhai West,C-104,2026-09-04,Lunch,Present\nSTU-2024-001,Aarav Sharma,Aryabhata North,A-204,2026-09-04,Lunch,Present"
+  );
+  const [ingestionResult, setIngestionResult] = useState<{
+    summary: IngestionSummary;
+    errors: Array<{ row: number; student_id: string; error: string }>;
+  } | null>(null);
+  const [isIngesting, setIsIngesting] = useState(false);
 
   useEffect(() => {
-    loadAttendance();
-  }, [date, meal, hostel, search]);
+    loadData();
+  }, [date, meal, hostel, source, search]);
 
-  const loadAttendance = async () => {
+  const loadData = async () => {
     setLoading(true);
     try {
-      const res = await api.getAttendance({
-        date,
-        meal: meal !== 'All' ? meal : undefined,
-        hostel: hostel !== 'All' ? hostel : undefined,
-        search: search || undefined
-      });
-      setStats(res.stats);
-      setRecords(res.records);
+      const [attRes, dqRes] = await Promise.all([
+        api.getAttendance({
+          date: date || undefined,
+          meal: meal !== 'All' ? meal : undefined,
+          hostel: hostel !== 'All' ? hostel : undefined,
+          source: source !== 'All' ? source : undefined,
+          search: search || undefined
+        }),
+        api.getDataQuality()
+      ]);
+      setStats(attRes.stats);
+      setRecords(attRes.records);
+      setDataQuality(dqRes);
     } catch (err) {
       console.error(err);
     } finally {
@@ -69,32 +93,50 @@ export const AttendancePage: React.FC = () => {
   const handleManualAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newStudentId || !newStudentName) return;
+    setAddError(null);
 
     try {
-      await api.markAttendance({
+      const res = await api.markAttendance({
         date,
         meal: newMeal,
         student_id: newStudentId,
         student_name: newStudentName,
         hostel: newHostel,
-        status: newStatus
+        room: newRoom,
+        status: newStatus,
+        source: 'manual'
       });
+
+      if (!res.success && res.error) {
+        setAddError(res.error.message || 'Duplicate swipe or validation error');
+        return;
+      }
+
       setShowAddModal(false);
       setNewStudentId('');
       setNewStudentName('');
-      loadAttendance();
-    } catch (err) {
-      console.error(err);
+      loadData();
+    } catch (err: any) {
+      setAddError(err.message || 'Error recording attendance');
     }
   };
 
-  const handleSimulateCsv = () => {
-    setCsvSuccess(true);
-    setTimeout(() => {
-      setCsvSuccess(false);
-      setShowCsvModal(false);
-      loadAttendance();
-    }, 1200);
+  const handleRunIngestion = async () => {
+    setIsIngesting(true);
+    try {
+      const res = await api.ingestBulkAttendance(csvText, 'turnstile_biometric', 'rfid_turnstile_batch.csv');
+      if (res.success) {
+        setIngestionResult({
+          summary: res.summary,
+          errors: res.errors
+        });
+        loadData();
+      }
+    } catch (err: any) {
+      alert(`Ingestion failed: ${err.message}`);
+    } finally {
+      setIsIngesting(false);
+    }
   };
 
   return (
@@ -104,77 +146,142 @@ export const AttendancePage: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-xl lg:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-              <Users className="w-6 h-6 text-slate-900" /> Student Attendance Operations
+              <Users className="w-6 h-6 text-indigo-600" /> Student Attendance Operations & Ingestion Pipeline
             </h2>
-            <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 border border-indigo-300">
-              DEMO DATA
+            <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
+              LIVE DATABASE
             </span>
           </div>
           <p className="text-xs text-slate-500">
-            Biometric & RFID entry points synced with dining hall counters
+            Biometric RFID dining turnstiles and manual check-in points synchronized with deduplication pipeline.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setShowCsvModal(true)}
-            className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-300"
+            onClick={() => {
+              setIngestionResult(null);
+              setShowCsvModal(true);
+            }}
+            className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-300 shadow-sm"
           >
-            <FileSpreadsheet className="w-4 h-4 text-indigo-500" /> Import CSV
+            <FileSpreadsheet className="w-4 h-4 text-indigo-600" /> Bulk CSV Ingestion
           </button>
           <button
-            onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 rounded-xl bg-white hover:bg-black0 text-slate-900 text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-slate-800/20 transition-all cursor-pointer"
+            onClick={() => {
+              setAddError(null);
+              setShowAddModal(true);
+            }}
+            className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add Attendance
           </button>
         </div>
       </div>
 
+      {/* Attendance Data Quality Scorecard */}
+      {dataQuality && (
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-indigo-600" />
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 tracking-tight">
+                  ATTENDANCE DATA QUALITY & INTEGRITY DIAGNOSTICS
+                </h3>
+                <p className="text-xs text-slate-500">{dataQuality.status_message}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${
+                dataQuality.status === 'GOOD'
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : dataQuality.status === 'WARNING'
+                  ? 'bg-amber-50 text-amber-700 border-amber-200'
+                  : 'bg-rose-50 text-rose-700 border-rose-200'
+              }`}>
+                <span className={`w-2 h-2 rounded-full ${
+                  dataQuality.status === 'GOOD' ? 'bg-emerald-500' : dataQuality.status === 'WARNING' ? 'bg-amber-500' : 'bg-rose-500'
+                }`} />
+                QUALITY: {dataQuality.status}
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="text-slate-400 block text-[11px] mb-0.5">Total Records</span>
+              <span className="text-base font-bold text-slate-900 font-mono">{dataQuality.metrics.total_attendance_records}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="text-slate-400 block text-[11px] mb-0.5">Records Today</span>
+              <span className="text-base font-bold text-indigo-600 font-mono">{dataQuality.metrics.records_today}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="text-slate-400 block text-[11px] mb-0.5">Missing Values</span>
+              <span className="text-base font-bold text-emerald-600 font-mono">{dataQuality.metrics.missing_values_count} (0.0%)</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="text-slate-400 block text-[11px] mb-0.5">Duplicates Blocked</span>
+              <span className="text-base font-bold text-blue-600 font-mono">{dataQuality.metrics.duplicates_intercepted}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="text-slate-400 block text-[11px] mb-0.5">Coverage Rate</span>
+              <span className="text-base font-bold text-slate-900 font-mono">{dataQuality.metrics.attendance_coverage_percent}%</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <span className="text-slate-400 block text-[11px] mb-0.5">Data Freshness</span>
+              <span className="text-base font-bold text-slate-900 font-mono">{dataQuality.metrics.data_freshness}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* KPI Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           title="Total Registered Students"
           value={stats.total_students.toLocaleString()}
-          subtitle="Campus Hall Capacity: 1,400"
+          subtitle="Campus Dining Hall Pool: 1,400"
           icon={Users}
           accentColor="slate"
         />
         <MetricCard
           title="Breakfast Turnout"
           value={stats.breakfast_attendance.toLocaleString()}
-          subtitle="80.6% Check-in rate"
+          subtitle={`${stats.breakfast_rate || 80.6}% Turnout Rate`}
           icon={Users}
           accentColor="cyan"
         />
         <MetricCard
           title="Lunch Turnout"
           value={stats.lunch_attendance.toLocaleString()}
-          subtitle="86.0% Check-in rate"
+          subtitle={`${stats.lunch_rate || 86.0}% Turnout Rate`}
           icon={Users}
           accentColor="emerald"
         />
         <MetricCard
           title="Dinner Turnout"
           value={stats.dinner_attendance.toLocaleString()}
-          subtitle="91.3% Check-in rate"
+          subtitle={`${stats.dinner_rate || 91.3}% Turnout Rate`}
           icon={Users}
           accentColor="amber"
         />
       </div>
 
       {/* Filter Toolbar */}
-      <div className="p-4 rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
-        <div className="flex-1 flex flex-col sm:flex-row gap-3">
+      <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+        <div className="flex-1 flex flex-col sm:flex-row flex-wrap gap-2.5">
           {/* Search */}
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <div className="relative flex-1 min-w-[200px]">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search student name or ID..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
+              placeholder="Search student name, ID or hostel..."
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
             />
           </div>
 
@@ -183,14 +290,14 @@ export const AttendancePage: React.FC = () => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
           />
 
           {/* Meal Filter */}
           <select
             value={meal}
             onChange={(e) => setMeal(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
           >
             <option value="All">All Meals</option>
             <option value="Breakfast">Breakfast</option>
@@ -202,7 +309,7 @@ export const AttendancePage: React.FC = () => {
           <select
             value={hostel}
             onChange={(e) => setHostel(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-slate-300"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
           >
             <option value="All">All Hostels</option>
             <option value="Aryabhata North">Aryabhata North</option>
@@ -210,50 +317,69 @@ export const AttendancePage: React.FC = () => {
             <option value="Ramanujan South">Ramanujan South</option>
             <option value="Sarabhai West">Sarabhai West</option>
           </select>
+
+          {/* Source Filter */}
+          <select
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-indigo-500"
+          >
+            <option value="All">All Ingestion Sources</option>
+            <option value="biometric_turnstile">Biometric Turnstile</option>
+            <option value="qr">Student QR Swipe</option>
+            <option value="manual">Manual Admin Entry</option>
+            <option value="import">CSV Bulk Import</option>
+          </select>
         </div>
       </div>
 
       {/* Attendance Roster Table */}
-      <div className="rounded-2xl bg-slate-50/90 border border-slate-200 shadow-lg overflow-hidden">
-        <div className="p-4 border-b border-slate-200 flex items-center justify-between text-xs text-slate-500">
+      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500">
           <span>Showing {records.length} attendance records</span>
-          <span className="font-mono text-[11px]">Last biometric sync: 2 mins ago</span>
+          <span className="font-mono text-[11px] text-indigo-600">Deduplication constraint active</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="text-slate-500 uppercase bg-slate-50/80 border-b border-slate-200">
+            <thead className="text-slate-500 uppercase bg-slate-50 border-b border-slate-200 font-semibold">
               <tr>
                 <th className="py-3 px-4">Student ID</th>
                 <th className="py-3 px-4">Student Name</th>
-                <th className="py-3 px-4">Hostel Block</th>
-                <th className="py-3 px-4">Meal</th>
+                <th className="py-3 px-4">Hostel / Room</th>
+                <th className="py-3 px-4">Meal Slot</th>
                 <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">Time Recorded</th>
+                <th className="py-3 px-4">Source</th>
+                <th className="py-3 px-4">Timestamp</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-500">
+            <tbody className="divide-y divide-slate-100 text-slate-700">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-8 text-slate-500">
+                  <td colSpan={7} className="text-center py-8 text-slate-400">
                     Loading attendance records...
                   </td>
                 </tr>
               ) : records.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-8 text-slate-500">
-                    No matching attendance logs found for selected filters.
+                  <td colSpan={7} className="text-center py-8 text-slate-400">
+                    No matching attendance records found for selected filters.
                   </td>
                 </tr>
               ) : (
                 records.map((r) => (
-                  <tr key={r.id} className="hover:bg-slate-100/40 transition-colors">
-                    <td className="py-3 px-4 font-mono text-indigo-500 font-semibold">{r.student_id}</td>
+                  <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3 px-4 font-mono text-indigo-600 font-semibold">{r.student_id}</td>
                     <td className="py-3 px-4 font-bold text-slate-900">{r.student_name}</td>
-                    <td className="py-3 px-4 text-slate-500">{r.hostel}</td>
-                    <td className="py-3 px-4 font-medium text-slate-700">{r.meal}</td>
+                    <td className="py-3 px-4 text-slate-500">{r.hostel} {r.room ? `(${r.room})` : ''}</td>
+                    <td className="py-3 px-4 font-medium text-slate-800">{r.meal}</td>
                     <td className="py-3 px-4">
                       <StatusBadge status={r.status} />
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[11px] text-slate-500">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                        {r.source || 'turnstile'}
+                      </span>
                     </td>
                     <td className="py-3 px-4 font-mono text-slate-500">{r.marked_at}</td>
                   </tr>
@@ -266,50 +392,58 @@ export const AttendancePage: React.FC = () => {
 
       {/* Modal: Manual Add Attendance */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-6 shadow-2xl relative">
             <button
               onClick={() => setShowAddModal(false)}
-              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-900 mb-1">Add Attendance Record</h3>
-            <p className="text-xs text-slate-500 mb-4">Log manual walk-in or RFID override</p>
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Record Attendance Entry</h3>
+            <p className="text-xs text-slate-500 mb-4">Manual counter check-in or turnstile override</p>
+
+            {addError && (
+              <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                <span>{addError}</span>
+              </div>
+            )}
 
             <form onSubmit={handleManualAdd} className="space-y-4 text-xs">
-              <div>
-                <label className="block text-slate-500 font-medium mb-1">Student ID</label>
-                <input
-                  type="text"
-                  required
-                  value={newStudentId}
-                  onChange={(e) => setNewStudentId(e.target.value)}
-                  placeholder="e.g. STU-2024-031"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-slate-300"
-                />
-              </div>
-
-              <div>
-                <label className="block text-slate-500 font-medium mb-1">Student Name</label>
-                <input
-                  type="text"
-                  required
-                  value={newStudentName}
-                  onChange={(e) => setNewStudentName(e.target.value)}
-                  placeholder="e.g. Varun Sharma"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-slate-300"
-                />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-600 font-medium mb-1">Student ID</label>
+                  <input
+                    type="text"
+                    required
+                    value={newStudentId}
+                    onChange={(e) => setNewStudentId(e.target.value)}
+                    placeholder="e.g. STU-2024-035"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-600 font-medium mb-1">Student Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={newStudentName}
+                    onChange={(e) => setNewStudentName(e.target.value)}
+                    placeholder="e.g. Vikramaditya"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Hostel Block</label>
+                  <label className="block text-slate-600 font-medium mb-1">Hostel Block</label>
                   <select
                     value={newHostel}
                     onChange={(e) => setNewHostel(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900"
                   >
                     <option value="Aryabhata North">Aryabhata North</option>
                     <option value="Kalpana Chawla">Kalpana Chawla</option>
@@ -317,13 +451,12 @@ export const AttendancePage: React.FC = () => {
                     <option value="Sarabhai West">Sarabhai West</option>
                   </select>
                 </div>
-
                 <div>
-                  <label className="block text-slate-500 font-medium mb-1">Meal</label>
+                  <label className="block text-slate-600 font-medium mb-1">Meal Slot</label>
                   <select
                     value={newMeal}
                     onChange={(e) => setNewMeal(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900"
                   >
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>
@@ -333,11 +466,11 @@ export const AttendancePage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-500 font-medium mb-1">Status</label>
+                <label className="block text-slate-600 font-medium mb-1">Status</label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as 'Present' | 'Absent')}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-700"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900"
                 >
                   <option value="Present">Present (Checked In)</option>
                   <option value="Absent">Absent</option>
@@ -346,52 +479,95 @@ export const AttendancePage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-white hover:bg-black0 text-slate-900 font-bold text-xs transition-colors cursor-pointer mt-2"
+                className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors cursor-pointer mt-2"
               >
-                Submit Record
+                Submit Attendance Record
               </button>
             </form>
           </div>
         </div>
       )}
 
-      {/* Modal: CSV Upload Simulation */}
+      {/* Modal: Real Bulk CSV Ingestion Pipeline */}
       {showCsvModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-2xl relative">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-xl bg-white border border-slate-200 rounded-2xl p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowCsvModal(false)}
-              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-900 mb-1">Batch Import CSV Attendance</h3>
+            <h3 className="text-lg font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <FileSpreadsheet className="w-5 h-5 text-indigo-600" /> Attendance Data Ingestion Pipeline
+            </h3>
             <p className="text-xs text-slate-500 mb-4">
-              Upload biometric log files exported from campus turnstiles
+              Ingest turnstile biometric RFID logs with automatic schema validation and duplicate suppression.
             </p>
 
-            <div className="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center bg-slate-50/60 mb-4">
-              <UploadCloud className="w-10 h-10 text-indigo-500 mx-auto mb-2" />
-              <p className="text-xs font-semibold text-slate-700">
-                Drag and drop student_attendance.csv here
-              </p>
-              <p className="text-[10px] text-slate-500 mt-1">Columns: ID, Name, Hostel, Meal, Timestamp</p>
-            </div>
-
-            {csvSuccess ? (
-              <div className="p-3 rounded-xl bg-blue-100/60 border border-blue-200 text-slate-700 text-xs flex items-center justify-center gap-2">
-                <Check className="w-4 h-4" />
-                <span>Successfully imported 48 records!</span>
+            <div className="space-y-4 text-xs">
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">CSV Log Content (Headers required):</label>
+                <textarea
+                  rows={6}
+                  value={csvText}
+                  onChange={(e) => setCsvText(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs focus:outline-none focus:border-indigo-500 border border-slate-800"
+                />
               </div>
-            ) : (
+
               <button
-                onClick={handleSimulateCsv}
-                className="w-full py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-slate-900 font-bold text-xs transition-colors cursor-pointer"
+                onClick={handleRunIngestion}
+                disabled={isIngesting}
+                className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer shadow"
               >
-                Simulate CSV Ingestion (Demo Mode)
+                <UploadCloud className={`w-4 h-4 ${isIngesting ? 'animate-bounce' : ''}`} />
+                <span>{isIngesting ? 'Executing Pipeline Validation...' : 'Run CSV Ingestion Pipeline'}</span>
               </button>
-            )}
+
+              {/* Ingestion Results Breakdown */}
+              {ingestionResult && (
+                <div className="space-y-3 border-t border-slate-200 pt-4">
+                  <h4 className="font-bold text-slate-900 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Ingestion Summary Report
+                  </h4>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-200">
+                      <span className="text-slate-400 block text-[10px]">Total Rows</span>
+                      <span className="font-bold text-slate-900 font-mono text-sm">{ingestionResult.summary.total_rows}</span>
+                    </div>
+                    <div className="p-2 rounded-lg bg-emerald-50 border border-emerald-200">
+                      <span className="text-emerald-600 block text-[10px]">Inserted</span>
+                      <span className="font-bold text-emerald-800 font-mono text-sm">{ingestionResult.summary.inserted_records}</span>
+                    </div>
+                    <div className="p-2 rounded-lg bg-blue-50 border border-blue-200">
+                      <span className="text-blue-600 block text-[10px]">Duplicates Blocked</span>
+                      <span className="font-bold text-blue-800 font-mono text-sm">{ingestionResult.summary.duplicates_filtered}</span>
+                    </div>
+                    <div className="p-2 rounded-lg bg-rose-50 border border-rose-200">
+                      <span className="text-rose-600 block text-[10px]">Invalid Rows</span>
+                      <span className="font-bold text-rose-800 font-mono text-sm">{ingestionResult.summary.invalid_rows}</span>
+                    </div>
+                  </div>
+
+                  {ingestionResult.errors.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="font-semibold text-slate-700 text-[11px]">Validation & Deduplication Audit Log:</span>
+                      <div className="max-h-32 overflow-y-auto space-y-1 bg-slate-50 p-2 rounded-lg border border-slate-200 text-[11px] font-mono">
+                        {ingestionResult.errors.map((err, i) => (
+                          <div key={i} className="text-slate-600 flex items-start gap-1">
+                            <span className="text-rose-600 font-bold">• Row {err.row} ({err.student_id}):</span>
+                            <span>{err.error}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

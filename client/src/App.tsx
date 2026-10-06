@@ -14,11 +14,14 @@ import { AnalyticsPage } from './pages/AnalyticsPage';
 import { AiInsightsPage } from './pages/AiInsightsPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { ModelEvaluationPage } from './pages/ModelEvaluationPage';
+import { SystemHealthPage } from './pages/SystemHealthPage';
+import { ApiDocsPage } from './pages/ApiDocsPage';
 import { AlertItem } from './types';
 import { api } from './services/api';
 
 function MainApp() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [currentRoute, setCurrentRoute] = useState<string>(() => {
     return window.location.pathname === '/' || window.location.pathname === '' ? '/' : window.location.pathname;
   });
@@ -95,12 +98,18 @@ function MainApp() {
         return <WastePage />;
       case '/inventory':
         return <InventoryPage />;
+      case '/model-evaluation':
+        return <ModelEvaluationPage />;
       case '/analytics':
         return <AnalyticsPage />;
       case '/ai-insights':
         return <AiInsightsPage />;
       case '/history':
         return <HistoryPage />;
+      case '/system-health':
+        return <SystemHealthPage />;
+      case '/api-docs':
+        return <ApiDocsPage />;
       case '/settings':
         return <SettingsPage />;
       default:

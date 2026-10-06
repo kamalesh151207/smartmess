@@ -100,8 +100,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
   // Chart series formatting
   const chartData = seven_day_trend.map((point) => {
-    let forecast = point.all_forecast;
-    let actual = point.all_actual;
+    let forecast = Number(point.all_forecast ?? point.predicted ?? 0);
+    let actual = Number(point.all_actual ?? point.consumed ?? 0);
     if (mealFilter === 'breakfast') {
       forecast = point.breakfast_forecast || 0;
       actual = point.breakfast_actual || 0;
@@ -114,7 +114,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
     }
     return {
       date: point.date,
-      day: point.day,
+      day: point.day || point.date,
       Forecast: forecast,
       Actual: actual,
       Variance: actual - forecast

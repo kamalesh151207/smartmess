@@ -10,14 +10,17 @@ import {
   MenuPopularity,
   ModelEvaluation,
   HistoryRecord,
-  User
+  User,
+  DataQualityReport,
+  SystemHealthReport,
+  IngestionSummary
 } from '../types';
 
 const BASE_URL = '/api';
 
 export const api = {
   // Auth
-  async login(email: string, password?: string): Promise<{ success: boolean; user?: User; error?: string }> {
+  async login(email: string, password?: string): Promise<{ success: boolean; user?: User; token?: string; error?: string }> {
     const res = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -69,9 +72,10 @@ export const api = {
     menu_item: string;
     day_type: string;
     holiday_event: boolean;
+    event_flag?: boolean;
     buffer_percent: number;
   }): Promise<PredictionResult> {
-    const res = await fetch(`${BASE_URL}/predictions`, {
+    const res = await fetch(`${BASE_URL}/forecast/predict`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params)
@@ -82,22 +86,71 @@ export const api = {
   },
 
   // Attendance
-  async getAttendance(params?: { date?: string; meal?: string; hostel?: string; search?: string }): Promise<{
+  async getAttendance(params?: {
+    date?: string;
+    meal?: string;
+    hostel?: string;
+    status?: string;
+    source?: string;
+    search?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<{
     stats: AttendanceStats;
     records: AttendanceRecord[];
+    pagination?: { page: number; limit: number; total_count: number; total_pages: number };
   }> {
     const query = new URLSearchParams(params as Record<string, string>).toString();
     const res = await fetch(`${BASE_URL}/attendance?${query}`);
     const data = await res.json();
-    return { stats: data.stats, records: data.records };
+    return { stats: data.stats, records: data.records, pagination: data.pagination };
   },
 
-  async markAttendance(record: Partial<AttendanceRecord>): Promise<{ success: boolean; id: string }> {
+  async markAttendance(record: Partial<AttendanceRecord>): Promise<{ success: boolean; id?: string; error?: { message: string } }> {
     const res = await fetch(`${BASE_URL}/attendance`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(record)
     });
+    return res.json();
+  },
+
+  async ingestBulkAttendance(csv_data: string, source = 'import', filename = 'attendance_upload.csv'): Promise<{
+    success: boolean;
+    summary: IngestionSummary;
+    errors: Array<{ row: number; student_id: string; error: string }>;
+  }> {
+    const res = await fetch(`${BASE_URL}/attendance/bulk`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ csv_data, source, filename })
+    });
+    return res.json();
+  },
+
+  // Model Evaluation & Benchmarks
+  async getModelEvaluation(): Promise<ModelEvaluation> {
+    const res = await fetch(`${BASE_URL}/model/evaluation`);
+    if (!res.ok) throw new Error('Failed to load model evaluation');
+    return res.json();
+  },
+
+  async getModelStatus(): Promise<{ success: boolean; status: Record<string, any> }> {
+    const res = await fetch(`${BASE_URL}/model/status`);
+    return res.json();
+  },
+
+  // Data Quality Diagnostics
+  async getDataQuality(): Promise<DataQualityReport> {
+    const res = await fetch(`${BASE_URL}/data-quality`);
+    if (!res.ok) throw new Error('Failed to load data quality scorecard');
+    return res.json();
+  },
+
+  // System Health
+  async getSystemHealth(): Promise<SystemHealthReport> {
+    const res = await fetch(`${BASE_URL}/system/health`);
+    if (!res.ok) throw new Error('Failed to load system health');
     return res.json();
   },
 
@@ -118,6 +171,7 @@ export const api = {
     return res.json();
   },
 
+  // Waste
   async getWaste(): Promise<{
     metrics: { total_leftover_kg: number; avg_waste_pct: number; highest_waste_meal: string; saved_meals_estimate: number };
     waste_by_meal: Array<{ meal: string; leftover: number; prepared: number; rate: number }>;
@@ -130,7 +184,7 @@ export const api = {
       metrics: {
         total_leftover_kg: data.overview?.total_leftover || 0,
         avg_waste_pct: data.overview?.avg_waste_pct || 0,
-        highest_waste_meal: 'Lunch — Friday', // Mapped from somewhere or default
+        highest_waste_meal: 'Dinner — Friday',
         saved_meals_estimate: 840
       },
       waste_by_meal: data.meal_breakdown || [],
@@ -169,8 +223,9 @@ export const api = {
     day_of_week_demand: DayOfWeekDemand[];
     menu_popularity: MenuPopularity[];
     model_evaluation: ModelEvaluation;
+    benchmarks?: any;
   }> {
-    const res = await fetch(`${BASE_URL}/analytics`);
+    const res = await fetch(`${BASE_URL}/analytics/demand`);
     return res.json();
   },
 
@@ -181,7 +236,7 @@ export const api = {
       pattern_detection: Array<{ pattern: string; observation: string; action: string }>;
       recommendations: Array<{ priority: string; target: string; recommendation: string }>;
       alerts: Array<{ severity: string; message: string }>;
-      model_signals: Array<{ feature: string; influence: string; percentage: number }>;
+      model_signals: Array<{ feature: string; influence?: string; percentage: number; importance?: number }>;
     };
   }> {
     const res = await fetch(`${BASE_URL}/ai-insights`);

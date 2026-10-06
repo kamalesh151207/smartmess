@@ -1,0 +1,372 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SmartMess API Documentation",
+    "description": "Formal REST API Specification connecting the React Frontend, Node/Express Backend, and Python ML Inference Service for AI-Powered Hostel Demand Forecasting.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "SmartMess Engineering Team",
+      "email": "support@smartmess.edu"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "/api",
+      "description": "Relative API Gateway Root"
+    }
+  ],
+  "paths": {
+    "/api/forecast/predict": {
+      "post": {
+        "summary": "Generate AI Meal Demand Prediction",
+        "description": "Calls Python Random Forest inference service to calculate expected headcount, safety buffer headroom, and preparation recommendations.",
+        "tags": ["Forecasting"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PredictionRequest"
+              },
+              "example": {
+                "date": "2026-09-04",
+                "meal": "Lunch",
+                "expected_attendance": 1045,
+                "menu_item": "Paneer Butter Masala & Dal Makhani",
+                "day_type": "Regular",
+                "holiday_event": false,
+                "event_flag": false,
+                "buffer_percent": 3.5
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Prediction computed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PredictionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/500InternalError"
+          }
+        }
+      }
+    },
+    "/api/forecast/batch": {
+      "post": {
+        "summary": "Batch Meal Demand Forecasting",
+        "description": "Generates multiple predictions in a single invocation.",
+        "tags": ["Forecasting"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PredictionRequest"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch forecasts returned"
+          }
+        }
+      }
+    },
+    "/api/forecast/{date}": {
+      "get": {
+        "summary": "Get Forecasts for Specific Date",
+        "tags": ["Forecasting"],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Forecast records for requested date"
+          }
+        }
+      }
+    },
+    "/api/model/evaluation": {
+      "get": {
+        "summary": "Get Model Evaluation Benchmarks (MAE, RMSE, MAPE, R²)",
+        "description": "Returns quantitative benchmark metrics comparing Random Forest vs Baseline on historical test datasets.",
+        "tags": ["Model Governance"],
+        "responses": {
+          "200": {
+            "description": "Evaluation benchmarks returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelEvaluationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/model/status": {
+      "get": {
+        "summary": "Get ML Model Status & Version",
+        "tags": ["Model Governance"],
+        "responses": {
+          "200": {
+            "description": "Model operational status and metadata"
+          }
+        }
+      }
+    },
+    "/api/attendance": {
+      "get": {
+        "summary": "Query Attendance Records with Filters",
+        "tags": ["Attendance Pipeline"],
+        "parameters": [
+          { "name": "date", "in": "query", "schema": { "type": "string" } },
+          { "name": "meal", "in": "query", "schema": { "type": "string" } },
+          { "name": "hostel", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 50 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Attendance list and summary statistics"
+          }
+        }
+      },
+      "post": {
+        "summary": "Record Single Attendance Swipe",
+        "description": "Captures student entry and verifies duplicate constraints.",
+        "tags": ["Attendance Pipeline"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttendanceInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Attendance successfully recorded" },
+          "409": { "description": "Duplicate swipe detected for this student on the selected meal slot" }
+        }
+      }
+    },
+    "/api/attendance/bulk": {
+      "post": {
+        "summary": "Bulk Attendance Ingestion Pipeline (CSV / JSON)",
+        "description": "Validates schema, checks duplicates, inserts valid rows, and outputs comprehensive error reporting.",
+        "tags": ["Attendance Pipeline"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "csv_data": { "type": "string" },
+                  "source": { "type": "string", "default": "import" },
+                  "filename": { "type": "string", "default": "turnstile_logs.csv" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ingestion summary with row counts and error reports"
+          }
+        }
+      }
+    },
+    "/api/attendance/summary": {
+      "get": {
+        "summary": "Get Attendance Statistics & Breakdown",
+        "tags": ["Attendance Pipeline"],
+        "responses": {
+          "200": { "description": "Attendance summary metrics" }
+        }
+      }
+    },
+    "/api/analytics/demand": {
+      "get": {
+        "summary": "Get Longitudinal Turnout & Day-of-Week Patterns",
+        "tags": ["Analytics"],
+        "responses": {
+          "200": { "description": "Analytics dataset" }
+        }
+      }
+    },
+    "/api/data-quality": {
+      "get": {
+        "summary": "Attendance Data Quality & Integrity Diagnostics",
+        "tags": ["Data Engineering"],
+        "responses": {
+          "200": { "description": "Data quality scorecard" }
+        }
+      }
+    },
+    "/api/system/health": {
+      "get": {
+        "summary": "System Health & End-to-End Service Status",
+        "tags": ["System"],
+        "responses": {
+          "200": { "description": "Status of Frontend, Backend API, Database, and Python ML Service" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PredictionRequest": {
+        "type": "object",
+        "required": ["meal", "expected_attendance"],
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "meal": { "type": "string", "enum": ["Breakfast", "Lunch", "Dinner"] },
+          "expected_attendance": { "type": "integer", "example": 1045 },
+          "menu_item": { "type": "string", "example": "Paneer Butter Masala" },
+          "day_type": { "type": "string", "example": "Regular" },
+          "holiday_event": { "type": "boolean", "default": false },
+          "buffer_percent": { "type": "number", "default": 3.5 }
+        }
+      },
+      "PredictionResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "prediction": {
+            "type": "object",
+            "properties": {
+              "predicted_demand": { "type": "integer", "example": 918 },
+              "recommended_preparation": { "type": "integer", "example": 951 },
+              "safety_buffer": { "type": "integer", "example": 33 },
+              "event_adjustment": { "type": "integer", "example": 0 },
+              "confidence": { "type": "string", "example": "High" },
+              "model_type": { "type": "string", "example": "RandomForestRegressor Ensemble" },
+              "explanation": { "type": "string" }
+            }
+          }
+        }
+      },
+      "ModelEvaluationResponse": {
+        "type": "object",
+        "properties": {
+          "model_name": { "type": "string" },
+          "data_mode": { "type": "string" },
+          "benchmarks": {
+            "type": "object",
+            "properties": {
+              "random_forest": {
+                "type": "object",
+                "properties": {
+                  "mae": { "type": "number", "example": 16.8 },
+                  "rmse": { "type": "number", "example": 21.55 },
+                  "mape": { "type": "number", "example": 1.56 },
+                  "r2": { "type": "number", "example": 0.919 }
+                }
+              },
+              "baseline_moving_average": {
+                "type": "object",
+                "properties": {
+                  "mae": { "type": "number", "example": 63.88 },
+                  "rmse": { "type": "number", "example": 80.45 },
+                  "mape": { "type": "number", "example": 5.81 },
+                  "r2": { "type": "number", "example": -0.128 }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AttendanceInput": {
+        "type": "object",
+        "required": ["date", "meal", "student_id"],
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "meal": { "type": "string", "enum": ["Breakfast", "Lunch", "Dinner"] },
+          "student_id": { "type": "string", "example": "STU-2024-001" },
+          "student_name": { "type": "string", "example": "Aarav Sharma" },
+          "hostel": { "type": "string", "example": "Aryabhata North" },
+          "status": { "type": "string", "enum": ["Present", "Absent"], "default": "Present" },
+          "source": { "type": "string", "default": "manual" }
+        }
+      }
+    },
+    "responses": {
+      "400BadRequest": {
+        "description": "Validation Error / Invalid parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "boolean", "example": false },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "VALIDATION_ERROR" },
+                    "message": { "type": "string", "example": "Invalid meal slot specified" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "500InternalError": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "boolean", "example": false },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "INTERNAL_ERROR" },
+                    "message": { "type": "string", "example": "An unexpected error occurred" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

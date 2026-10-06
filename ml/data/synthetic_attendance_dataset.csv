@@ -1,0 +1,271 @@
+date,day_of_week,day_name,meal_type,menu_name,menu_rating,menu_popularity,hostel_population,historical_attendance,rolling_7_day_attendance,rolling_14_day_attendance,prev_same_day_attendance,attendance_rate,weekend_flag,exam_period,holiday_flag,event_flag,actual_attendance,safety_buffer,recommended_quantity
+2026-06-07,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,953,953.0,953.0,953,0.7877,1,0,0,0,957,34,991
+2026-06-07,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,996,996.0,996.0,996,0.8198,1,0,0,0,996,35,1031
+2026-06-07,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1028,1028.0,1028.0,1028,0.851,1,0,0,0,1034,37,1071
+2026-06-08,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,957,957.0,957.0,957,0.8691,0,0,0,0,1056,37,1093
+2026-06-08,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,996,996.0,996.0,996,0.9276,0,0,0,0,1127,40,1167
+2026-06-08,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1034,1034.0,1034.0,1034,0.9432,0,0,0,0,1146,41,1187
+2026-06-09,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1056,1056.0,1056.0,1056,0.7852,0,0,0,0,954,34,988
+2026-06-09,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1127,1127.0,1127.0,1127,0.8642,0,0,0,0,1050,37,1087
+2026-06-09,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1146,1146.0,1146.0,1146,0.9202,0,0,0,0,1118,40,1158
+2026-06-10,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,954,954.0,954.0,954,0.8239,0,0,0,0,1001,36,1037
+2026-06-10,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1050,1050.0,1050.0,1050,0.9119,0,0,0,0,1108,39,1147
+2026-06-10,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1118,1118.0,1118.0,1118,0.9342,0,0,0,0,1135,40,1175
+2026-06-11,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1001,1001.0,1001.0,1001,0.7975,0,0,0,0,969,34,1003
+2026-06-11,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1108,1108.0,1108.0,1108,0.9119,0,0,0,0,1108,39,1147
+2026-06-11,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1135,1135.0,1135.0,1135,0.9465,0,0,0,0,1150,41,1191
+2026-06-12,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,969,969.0,969.0,969,0.8337,0,0,0,0,1013,36,1049
+2026-06-12,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1108,1108.0,1108.0,1108,0.8626,0,0,0,0,1048,37,1085
+2026-06-12,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1150,1150.0,1150.0,1150,0.8107,0,0,0,0,985,35,1020
+2026-06-13,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1013,1013.0,1013.0,1013,0.7852,1,0,0,0,954,34,988
+2026-06-13,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1048,1048.0,1048.0,1048,0.7654,1,0,0,0,930,33,963
+2026-06-13,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,985,985.0,985.0,985,0.8914,1,0,0,0,1083,38,1121
+2026-06-14,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,954,986.3,986.3,957,0.7827,1,0,0,0,951,34,985
+2026-06-14,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,930,1052.4,1052.4,996,0.8206,1,0,0,0,997,35,1032
+2026-06-14,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1083,1093.0,1093.0,1034,0.8362,1,0,0,0,1016,36,1052
+2026-06-15,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,951,985.4,985.4,1056,0.8543,0,0,0,0,1038,37,1075
+2026-06-15,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,997,1052.6,1052.6,1127,0.93,0,0,0,0,1130,40,1170
+2026-06-15,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1016,1090.4,1090.4,1146,0.9366,0,0,0,0,1138,40,1178
+2026-06-16,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1038,982.9,982.9,954,0.777,0,0,0,0,944,34,978
+2026-06-16,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1130,1053.0,1053.0,1050,0.8551,0,0,0,0,1039,37,1076
+2026-06-16,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1138,1089.3,1089.3,1118,0.9218,0,0,0,0,1120,40,1160
+2026-06-17,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,944,981.4,981.4,1001,0.8156,0,0,0,0,991,35,1026
+2026-06-17,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1039,1051.4,1051.4,1108,0.9276,0,0,0,0,1127,40,1167
+2026-06-17,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1120,1089.6,1089.6,1135,0.9374,0,0,0,0,1139,40,1179
+2026-06-18,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,991,980.0,980.0,969,0.7885,0,0,0,0,958,34,992
+2026-06-18,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1127,1054.1,1054.1,1108,0.9309,0,0,0,0,1131,40,1171
+2026-06-18,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1139,1090.1,1090.1,1150,0.9498,0,0,0,0,1154,41,1195
+2026-06-19,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,958,978.4,978.4,1013,0.8387,0,0,0,0,1019,36,1055
+2026-06-19,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1131,1057.4,1057.4,1048,0.856,0,0,0,0,1040,37,1077
+2026-06-19,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1154,1090.7,1090.7,985,0.7992,0,0,0,0,971,34,1005
+2026-06-20,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1019,979.3,979.3,954,0.7926,1,0,0,0,963,34,997
+2026-06-20,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1040,1056.3,1056.3,930,0.7802,1,0,0,0,948,34,982
+2026-06-20,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,971,1088.7,1088.7,1083,0.8823,1,0,0,0,1072,38,1110
+2026-06-21,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,963,980.6,983.4,951,0.8239,1,0,0,1,1001,36,1037
+2026-06-21,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,948,1058.9,1055.6,997,0.8584,1,0,0,1,1043,37,1080
+2026-06-21,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1072,1087.1,1090.1,1016,0.8765,1,0,0,1,1065,38,1103
+2026-06-22,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,1001,987.7,986.6,1038,0.8938,0,0,0,1,1086,39,1125
+2026-06-22,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,1043,1065.4,1059.0,1130,0.9654,0,0,0,1,1173,42,1215
+2026-06-22,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1065,1094.1,1092.3,1138,0.9877,0,0,0,1,1200,43,1243
+2026-06-23,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1086,994.6,988.7,944,0.777,0,0,0,0,944,34,978
+2026-06-23,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1173,1071.6,1062.3,1039,0.8469,0,0,0,0,1029,37,1066
+2026-06-23,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1200,1103.0,1096.1,1120,0.9259,0,0,0,0,1125,40,1165
+2026-06-24,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,944,994.6,988.0,991,0.8173,0,0,0,0,993,35,1028
+2026-06-24,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1029,1070.1,1060.8,1127,0.9103,0,0,0,0,1106,39,1145
+2026-06-24,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1125,1103.7,1096.6,1139,0.9416,0,0,0,0,1144,41,1185
+2026-06-25,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,993,994.9,987.4,958,0.8025,0,0,0,0,975,35,1010
+2026-06-25,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1106,1067.1,1060.6,1131,0.9317,0,0,0,0,1132,40,1172
+2026-06-25,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1144,1104.4,1097.3,1154,0.9523,0,0,0,0,1157,41,1198
+2026-06-26,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,975,997.3,987.9,1019,0.8354,0,0,0,0,1015,36,1051
+2026-06-26,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1132,1067.3,1062.4,1040,0.8716,0,0,0,0,1059,38,1097
+2026-06-26,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1157,1104.9,1097.8,971,0.8156,0,0,0,0,991,35,1026
+2026-06-27,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1015,996.7,988.0,963,0.5078,1,0,1,0,617,22,639
+2026-06-27,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1059,1070.0,1063.1,948,0.4938,1,0,1,0,600,22,622
+2026-06-27,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,991,1107.7,1098.2,1072,0.5934,1,0,1,0,721,26,747
+2026-06-28,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,617,947.3,963.9,1001,0.4963,1,0,1,0,603,22,625
+2026-06-28,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,600,1020.3,1039.6,1043,0.5465,1,0,1,0,664,24,688
+2026-06-28,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,721,1057.6,1072.4,1065,0.5761,1,0,1,0,700,25,725
+2026-06-29,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,603,890.4,939.1,1086,0.5778,0,0,1,0,702,25,727
+2026-06-29,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,664,966.1,1015.8,1173,0.656,0,0,1,0,797,28,825
+2026-06-29,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,700,1005.4,1049.8,1200,0.6667,0,0,1,0,810,29,839
+2026-06-30,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,702,835.6,915.1,944,0.7704,0,0,0,0,936,33,969
+2026-06-30,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,797,912.4,992.0,1029,0.8617,0,0,0,0,1047,37,1084
+2026-06-30,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,810,949.7,1026.4,1125,0.9342,0,0,0,0,1135,40,1175
+2026-07-01,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,936,834.4,914.5,993,0.8198,0,0,0,0,996,35,1031
+2026-07-01,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1047,915.0,992.6,1106,0.9259,0,0,0,0,1125,40,1165
+2026-07-01,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1135,951.1,1027.4,1144,0.9193,0,0,0,0,1117,40,1157
+2026-07-02,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,996,834.9,914.9,975,0.8016,0,0,0,0,974,35,1009
+2026-07-02,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1125,917.7,992.4,1132,0.9259,0,0,0,0,1125,40,1165
+2026-07-02,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1117,947.3,1025.9,1157,0.9564,0,0,0,0,1162,41,1203
+2026-07-03,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,974,834.7,916.0,1015,0.8379,0,0,0,0,1018,36,1054
+2026-07-03,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1125,916.7,992.0,1059,0.856,0,0,0,0,1040,37,1077
+2026-07-03,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1162,948.0,1026.4,991,0.8066,0,0,0,0,980,35,1015
+2026-07-04,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1018,835.1,915.9,617,0.7942,1,0,0,0,965,34,999
+2026-07-04,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1040,914.0,992.0,600,0.7852,1,0,0,0,954,34,988
+2026-07-04,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,980,946.4,1027.1,721,0.8782,1,0,0,0,1067,38,1105
+2026-07-05,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,965,884.9,916.1,603,0.7786,1,0,0,0,946,34,980
+2026-07-05,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,954,964.6,992.4,664,0.8173,1,0,0,0,993,35,1028
+2026-07-05,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1067,995.9,1026.7,700,0.8527,1,0,0,0,1036,37,1073
+2026-07-06,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,946,933.9,912.1,702,0.8609,0,0,0,0,1046,37,1083
+2026-07-06,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,993,1011.6,988.9,797,0.9251,0,0,0,0,1124,40,1164
+2026-07-06,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1036,1043.9,1024.6,810,0.9481,0,0,0,0,1152,41,1193
+2026-07-07,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1046,983.0,909.3,936,0.7753,0,0,0,0,942,33,975
+2026-07-07,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1124,1058.3,985.4,1047,0.8658,0,0,0,0,1052,37,1089
+2026-07-07,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1152,1092.7,1021.2,1135,0.9185,0,0,0,0,1116,40,1156
+2026-07-08,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,942,983.9,909.1,996,0.8181,0,0,0,0,994,35,1029
+2026-07-08,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1052,1059.0,987.0,1125,0.9119,0,0,0,0,1108,39,1147
+2026-07-08,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1116,1090.0,1020.6,1117,0.9276,0,0,0,0,1127,40,1167
+2026-07-09,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,994,983.6,909.2,974,0.7975,0,0,0,0,969,34,1003
+2026-07-09,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1108,1056.6,987.1,1125,0.9276,0,0,0,0,1127,40,1167
+2026-07-09,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1127,1091.4,1019.4,1162,0.9588,0,0,0,0,1165,41,1206
+2026-07-10,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,969,982.9,908.8,1018,0.8362,0,0,0,0,1016,36,1052
+2026-07-10,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1127,1056.9,986.8,1040,0.8593,0,0,0,0,1044,37,1081
+2026-07-10,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1165,1091.9,1019.9,980,0.8058,0,0,0,0,979,35,1014
+2026-07-11,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1016,982.6,908.9,965,0.7893,1,0,0,0,959,34,993
+2026-07-11,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1044,1057.4,985.7,954,0.7695,1,0,0,0,935,33,968
+2026-07-11,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,979,1091.7,1019.1,1067,0.8807,1,0,0,0,1070,38,1108
+2026-07-12,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,959,981.7,933.3,946,0.837,1,1,0,0,1017,36,1053
+2026-07-12,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,935,1054.7,1009.6,993,0.884,1,1,0,0,1074,38,1112
+2026-07-12,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1070,1092.1,1044.0,1036,0.8979,1,1,0,0,1091,39,1130
+2026-07-13,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,1017,991.9,962.9,1046,0.9103,0,1,0,0,1106,39,1145
+2026-07-13,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,1074,1066.3,1038.9,1124,0.9786,0,1,0,0,1189,42,1231
+2026-07-13,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1091,1100.0,1071.9,1152,0.9663,0,1,0,0,1174,42,1216
+2026-07-14,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1106,1000.4,991.7,942,0.8247,0,1,0,0,1002,36,1038
+2026-07-14,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1189,1075.6,1066.9,1052,0.9095,0,1,0,0,1105,39,1144
+2026-07-14,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1174,1103.1,1097.9,1116,0.9909,0,1,0,0,1204,43,1247
+2026-07-15,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,1002,1009.0,996.4,994,0.8683,0,1,0,0,1055,37,1092
+2026-07-15,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1105,1083.1,1071.1,1108,0.9671,0,1,0,0,1175,42,1217
+2026-07-15,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1204,1115.7,1102.9,1127,0.9794,0,1,0,0,1190,42,1232
+2026-07-16,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1055,1017.7,1000.6,969,0.837,0,1,0,0,1017,36,1053
+2026-07-16,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1175,1092.7,1074.6,1127,0.9835,0,1,0,0,1195,42,1237
+2026-07-16,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1190,1124.7,1108.1,1165,0.9852,0,1,0,0,1197,42,1239
+2026-07-17,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,1017,1024.6,1003.7,1016,0.893,0,1,0,0,1085,38,1123
+2026-07-17,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1195,1102.4,1079.6,1044,0.9128,0,1,0,0,1109,39,1148
+2026-07-17,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1197,1129.3,1110.6,979,0.8683,0,1,0,0,1055,37,1092
+2026-07-18,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1085,1034.4,1008.5,959,0.8321,1,1,0,0,1011,36,1047
+2026-07-18,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1109,1111.7,1084.6,935,0.8288,1,1,0,0,1007,36,1043
+2026-07-18,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,1055,1140.1,1115.9,1070,0.9465,1,1,0,0,1150,41,1191
+2026-07-19,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,1011,1041.9,1011.8,1017,0.8272,1,1,0,0,1005,36,1041
+2026-07-19,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,1007,1122.0,1088.4,1074,0.8667,1,1,0,0,1053,37,1090
+2026-07-19,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1150,1151.6,1121.9,1091,0.8971,1,1,0,0,1090,39,1129
+2026-07-20,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,1005,1040.1,1016.0,1106,0.9053,0,1,0,0,1100,39,1139
+2026-07-20,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,1053,1119.0,1092.6,1189,0.9679,0,1,0,0,1176,42,1218
+2026-07-20,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1090,1151.4,1125.7,1174,0.9802,0,1,0,0,1191,42,1233
+2026-07-21,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1100,1039.3,1019.9,1002,0.8173,0,1,0,0,993,35,1028
+2026-07-21,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1176,1117.1,1096.4,1105,0.9119,0,1,0,0,1108,39,1147
+2026-07-21,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1191,1153.9,1128.5,1204,0.9671,0,1,0,0,1175,42,1217
+2026-07-22,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,993,1038.0,1023.5,1055,0.8807,0,1,0,0,1070,38,1108
+2026-07-22,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1108,1117.6,1100.4,1175,0.9597,0,1,0,0,1166,41,1207
+2026-07-22,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1175,1149.7,1132.7,1190,0.9778,0,1,0,0,1188,42,1230
+2026-07-23,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1070,1040.1,1028.9,1017,0.8008,0,0,0,0,973,35,1008
+2026-07-23,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1166,1116.3,1104.5,1195,0.9169,0,0,0,0,1114,39,1153
+2026-07-23,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1188,1149.4,1137.1,1197,0.9605,0,0,0,0,1167,41,1208
+2026-07-24,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,973,1033.9,1029.2,1085,0.8469,0,0,0,0,1029,37,1066
+2026-07-24,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1114,1104.7,1103.6,1109,0.8584,0,0,0,0,1043,37,1080
+2026-07-24,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1167,1145.1,1137.2,1055,0.8099,0,0,0,0,984,35,1019
+2026-07-25,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1029,1025.9,1030.1,1011,0.7934,1,0,0,0,964,34,998
+2026-07-25,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1043,1095.3,1103.5,1007,0.7802,1,0,0,0,948,34,982
+2026-07-25,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,984,1135.0,1137.6,1150,0.8733,1,0,0,0,1061,38,1099
+2026-07-26,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,964,1019.1,1030.5,1005,0.7753,1,0,0,0,942,33,975
+2026-07-26,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,948,1086.9,1104.4,1053,0.8239,1,0,0,0,1001,36,1037
+2026-07-26,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1061,1122.3,1136.9,1090,0.8486,1,0,0,0,1031,37,1068
+2026-07-27,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,942,1010.1,1025.1,1100,0.9004,0,0,0,1,1094,39,1133
+2026-07-27,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,1001,1079.4,1099.2,1176,0.9712,0,0,0,1,1180,42,1222
+2026-07-27,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1031,1113.9,1132.6,1191,0.9753,0,0,0,1,1185,42,1227
+2026-07-28,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1094,1009.3,1024.3,993,0.8165,0,0,0,1,992,35,1027
+2026-07-28,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1180,1080.0,1098.6,1108,0.9012,0,0,0,1,1095,39,1134
+2026-07-28,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1185,1113.0,1133.4,1175,0.9588,0,0,0,1,1165,41,1206
+2026-07-29,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,992,1009.1,1023.6,1070,0.8329,0,0,0,0,1012,36,1048
+2026-07-29,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1095,1078.1,1097.9,1166,0.9185,0,0,0,0,1116,40,1156
+2026-07-29,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1165,1111.6,1130.6,1188,0.9292,0,0,0,0,1129,40,1169
+2026-07-30,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1012,1000.9,1020.5,973,0.8,0,0,0,0,972,35,1007
+2026-07-30,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1116,1071.0,1093.6,1114,0.9185,0,0,0,0,1116,40,1156
+2026-07-30,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1129,1103.1,1126.3,1167,0.9638,0,0,0,0,1171,41,1212
+2026-07-31,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,972,1000.7,1017.3,1029,0.8453,0,0,0,0,1027,36,1063
+2026-07-31,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1116,1071.3,1088.0,1043,0.8634,0,0,0,0,1049,37,1086
+2026-07-31,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1171,1103.7,1124.4,984,0.8156,0,0,0,0,991,35,1026
+2026-08-01,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1027,1000.4,1013.1,964,0.7942,1,0,0,0,965,34,999
+2026-08-01,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1049,1072.1,1083.7,948,0.7811,1,0,0,0,949,34,983
+2026-08-01,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,991,1104.7,1119.9,1061,0.8947,1,0,0,0,1087,39,1126
+2026-08-02,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,965,1000.6,1009.9,942,0.7827,1,0,0,0,951,34,985
+2026-08-02,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,949,1072.3,1079.6,1001,0.8156,1,0,0,0,991,35,1026
+2026-08-02,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1087,1108.4,1115.4,1031,0.8403,1,0,0,0,1021,36,1057
+2026-08-03,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,951,1001.9,1006.0,1094,0.8527,0,0,0,0,1036,37,1073
+2026-08-03,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,991,1070.9,1075.1,1180,0.9284,0,0,0,0,1128,40,1168
+2026-08-03,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1021,1107.0,1110.4,1185,0.9465,0,0,0,0,1150,41,1191
+2026-08-04,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1036,993.6,1001.4,992,0.7761,0,0,0,0,943,34,977
+2026-08-04,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1128,1063.4,1071.7,1095,0.865,0,0,0,0,1051,37,1088
+2026-08-04,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1150,1102.0,1107.5,1165,0.9235,0,0,0,0,1122,40,1162
+2026-08-05,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,943,986.6,997.9,1012,0.8305,0,0,0,0,1009,36,1045
+2026-08-05,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1051,1057.1,1067.6,1116,0.9128,0,0,0,0,1109,39,1148
+2026-08-05,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1122,1095.9,1103.7,1129,0.9564,0,0,0,0,1162,41,1203
+2026-08-06,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1009,986.1,993.5,972,0.5202,0,0,1,0,632,23,655
+2026-08-06,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1109,1056.1,1063.6,1116,0.6395,0,0,1,0,777,28,805
+2026-08-06,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1162,1100.6,1101.9,1171,0.6708,0,0,1,0,815,29,844
+2026-08-07,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,632,937.6,969.1,1027,0.5605,0,0,1,0,681,24,705
+2026-08-07,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,777,1007.7,1039.5,1049,0.5877,0,0,1,0,714,25,739
+2026-08-07,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,815,1049.7,1076.7,991,0.5333,0,0,1,0,648,23,671
+2026-08-08,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,681,888.1,944.3,965,0.5144,1,0,1,0,625,22,647
+2026-08-08,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,714,959.9,1016.0,949,0.4947,1,0,1,0,601,22,623
+2026-08-08,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,648,1000.7,1052.7,1087,0.5959,1,0,1,0,724,26,750
+2026-08-09,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,625,839.6,920.1,951,0.7737,1,0,0,0,940,33,973
+2026-08-09,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,601,910.1,991.2,991,0.8173,1,0,0,0,993,35,1028
+2026-08-09,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,724,948.9,1028.6,1021,0.8527,1,0,0,0,1036,37,1073
+2026-08-10,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,940,838.0,919.9,1036,0.8601,0,0,0,0,1045,37,1082
+2026-08-10,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,993,910.4,990.6,1128,0.9202,0,0,0,0,1118,40,1158
+2026-08-10,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1036,951.0,1029.0,1150,0.9457,0,0,0,0,1149,41,1190
+2026-08-11,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1045,839.3,916.4,943,0.777,0,0,0,0,944,34,978
+2026-08-11,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1118,909.0,986.2,1051,0.8527,0,0,0,0,1036,37,1073
+2026-08-11,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1149,950.9,1026.4,1122,0.9243,0,0,0,0,1123,40,1163
+2026-08-12,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,944,839.4,913.0,1009,0.8206,0,0,0,0,997,35,1032
+2026-08-12,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1036,906.9,982.0,1109,0.907,0,0,0,0,1102,39,1141
+2026-08-12,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1123,951.0,1023.4,1162,0.9399,0,0,0,0,1142,40,1182
+2026-08-13,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,997,837.7,911.9,632,0.7992,0,0,0,0,971,34,1005
+2026-08-13,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1102,905.9,981.0,777,0.9333,0,0,0,0,1134,40,1174
+2026-08-13,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1142,948.1,1024.4,815,0.9663,0,0,0,0,1174,42,1216
+2026-08-14,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,971,886.1,911.9,681,0.828,0,0,0,0,1006,36,1042
+2026-08-14,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1134,956.9,982.3,714,0.8626,0,0,0,0,1048,37,1085
+2026-08-14,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1174,999.4,1024.6,648,0.8123,0,0,0,0,987,35,1022
+2026-08-15,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1006,932.6,910.4,625,0.7951,1,0,0,0,966,34,1000
+2026-08-15,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1048,1004.6,982.2,601,0.7786,1,0,0,0,946,34,980
+2026-08-15,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,987,1047.9,1024.3,724,0.9086,1,0,0,0,1104,39,1143
+2026-08-16,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,966,981.3,910.4,940,0.7885,1,0,0,0,958,34,992
+2026-08-16,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,946,1053.9,982.0,993,0.8288,1,0,0,0,1007,36,1043
+2026-08-16,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1104,1102.1,1025.5,1036,0.8535,1,0,0,0,1037,37,1074
+2026-08-17,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,958,983.9,910.9,1045,0.8634,0,0,0,0,1049,37,1086
+2026-08-17,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,1007,1055.9,983.1,1118,0.9267,0,0,0,0,1126,40,1166
+2026-08-17,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1037,1102.3,1026.6,1149,0.9498,0,0,0,0,1154,41,1195
+2026-08-18,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1049,984.4,911.9,944,0.7687,0,0,0,0,934,33,967
+2026-08-18,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1126,1057.0,983.0,1036,0.8576,0,0,0,0,1042,37,1079
+2026-08-18,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1154,1103.0,1026.9,1123,0.9202,0,0,0,0,1118,40,1158
+2026-08-19,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,934,983.0,911.2,997,0.8206,0,0,0,0,997,35,1032
+2026-08-19,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1042,1057.9,982.4,1102,0.9309,0,0,0,0,1131,40,1171
+2026-08-19,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1118,1102.3,1026.6,1142,0.9243,0,0,0,0,1123,40,1163
+2026-08-20,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,997,983.0,910.4,971,0.8,0,0,0,0,972,35,1007
+2026-08-20,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1131,1062.0,983.9,1134,0.9144,0,0,0,0,1111,39,1150
+2026-08-20,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1123,1099.6,1023.9,1174,0.9556,0,0,0,0,1161,41,1202
+2026-08-21,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,972,983.1,934.6,1006,0.5654,0,0,1,0,687,25,712
+2026-08-21,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1111,1058.7,1007.8,1048,0.5901,0,0,1,0,717,26,743
+2026-08-21,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1161,1097.7,1048.6,987,0.521,0,0,1,0,633,23,656
+2026-08-22,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,687,937.6,935.1,966,0.7868,1,0,0,0,956,34,990
+2026-08-22,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,717,1011.4,1008.0,946,0.7794,1,0,0,0,947,34,981
+2026-08-22,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,633,1047.1,1047.5,1104,0.8765,1,0,0,0,1065,38,1103
+2026-08-23,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,956,936.1,958.7,958,0.786,1,0,0,0,955,34,989
+2026-08-23,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,947,1011.6,1032.7,1007,0.8206,1,0,0,0,997,35,1032
+2026-08-23,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1065,1041.6,1071.9,1037,0.842,1,0,0,0,1023,36,1059
+2026-08-24,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,955,935.7,959.8,1049,0.8733,0,0,0,0,1061,38,1099
+2026-08-24,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,997,1010.1,1033.0,1126,0.9333,0,0,0,0,1134,40,1174
+2026-08-24,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1023,1039.6,1070.9,1154,0.93,0,0,0,0,1130,40,1170
+2026-08-25,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1061,937.4,960.9,934,0.7761,0,0,0,0,943,34,977
+2026-08-25,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1134,1011.3,1034.1,1042,0.8543,0,0,0,0,1038,37,1075
+2026-08-25,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1130,1036.1,1069.6,1118,0.9292,0,0,0,0,1129,40,1169
+2026-08-26,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,943,938.7,960.9,997,0.8642,0,1,0,0,1050,37,1087
+2026-08-26,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1038,1010.7,1034.3,1131,0.9638,0,1,0,0,1171,41,1212
+2026-08-26,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1129,1037.7,1070.0,1123,0.9835,0,1,0,0,1195,42,1237
+2026-08-27,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1050,946.3,964.6,972,0.8519,0,1,0,0,1035,37,1072
+2026-08-27,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1171,1016.4,1039.2,1111,0.9671,0,1,0,0,1175,42,1217
+2026-08-27,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1195,1048.0,1073.8,1161,0.9778,0,1,0,0,1188,42,1230
+2026-08-28,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,1035,955.3,969.2,687,0.884,0,1,0,0,1074,38,1112
+2026-08-28,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1175,1025.6,1042.1,717,0.9152,0,1,0,0,1112,39,1151
+2026-08-28,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1188,1051.9,1074.8,633,0.8708,0,1,0,0,1058,38,1096
+2026-08-29,5,Saturday,Breakfast,Poori Bhaji & Sweet Kesari,4.7,0.94,1215,1074,1010.6,974.1,956,0.8444,1,1,0,0,1026,36,1062
+2026-08-29,5,Saturday,Lunch,"Aloo Gobi Adraki, Dal Fry & Steamed Rice",3.7,0.75,1215,1112,1082.0,1046.7,947,0.8165,1,1,0,0,992,35,1027
+2026-08-29,5,Saturday,Dinner,"Shahi Paneer, Tawa Naan & Moong Dal Khichdi",4.7,0.94,1215,1058,1112.6,1079.9,1065,0.9383,1,1,0,0,1140,40,1180
+2026-08-30,6,Sunday,Breakfast,"Idli, Medu Vada, Sambar & Chutney",4.6,0.92,1215,1026,1020.6,978.4,955,0.8494,1,1,0,0,1032,37,1069
+2026-08-30,6,Sunday,Lunch,"Rajma Masala, Steamed Basmati Rice & Boondi Raita",4.4,0.88,1215,992,1088.4,1050.0,997,0.8774,1,1,0,0,1066,38,1104
+2026-08-30,6,Sunday,Dinner,"Dum Aloo Kashmiri, Dal Tadka & Custard",4.2,0.84,1215,1140,1123.3,1082.4,1023,0.8856,1,1,0,0,1076,38,1114
+2026-08-31,0,Monday,Breakfast,"Masala Dosa, Potato Slices & Chutney",4.8,0.96,1215,1032,1031.6,983.6,1061,0.9053,0,1,0,0,1100,39,1139
+2026-08-31,0,Monday,Lunch,Veg Biryani / Chicken Biryani & Salan,4.9,0.99,1215,1066,1098.3,1054.2,1134,0.9877,0,1,0,0,1200,43,1243
+2026-08-31,0,Monday,Dinner,"Veg Fried Rice, Manchurian Gravy & Spring Rolls",4.6,0.92,1215,1076,1130.9,1085.2,1130,0.9753,0,1,0,0,1185,42,1227
+2026-09-01,1,Tuesday,Breakfast,Upma with Veggies & Filter Coffee,3.5,0.72,1215,1100,1037.1,987.3,943,0.828,0,1,0,0,1006,36,1042
+2026-09-01,1,Tuesday,Lunch,"Kadai Veg, Yellow Dal Tadka & Phulkas",3.9,0.79,1215,1200,1107.7,1059.5,1038,0.9144,0,1,0,0,1111,39,1150
+2026-09-01,1,Tuesday,Dinner,"Palak Paneer, Dal Palak & Chapati",4.3,0.86,1215,1185,1138.7,1087.4,1129,0.9671,0,1,0,0,1175,42,1217
+2026-09-02,2,Wednesday,Breakfast,Bread Omelette / Veg Cutlet & Fruits,4.2,0.85,1215,1006,1046.1,992.4,1050,0.87,0,1,0,0,1057,37,1094
+2026-09-02,2,Wednesday,Lunch,"Paneer Butter Masala, Dal Makhani & Jeera Rice",4.8,0.95,1215,1111,1118.1,1064.4,1171,0.9424,0,1,0,0,1145,41,1186
+2026-09-02,2,Wednesday,Dinner,Egg Curry / Malai Kofta & Jeera Pulao,4.5,0.9,1215,1175,1145.3,1091.5,1195,0.9728,0,1,0,0,1182,42,1224
+2026-09-03,3,Thursday,Breakfast,Poha with Peanuts & Sprouts,3.8,0.78,1215,1057,1047.1,996.7,1035,0.8436,0,1,0,0,1025,36,1061
+2026-09-03,3,Thursday,Lunch,"Chole Bhature, Pulao & Gulab Jamun",4.9,0.98,1215,1145,1114.4,1065.4,1175,0.9671,0,1,0,0,1175,42,1217
+2026-09-03,3,Thursday,Dinner,Pav Bhaji with Butter Pav & Masala Pulao,4.8,0.96,1215,1182,1143.4,1095.7,1188,0.9918,0,1,0,0,1205,43,1248
+2026-09-04,4,Friday,Breakfast,"Aloo Paratha, Curd & Pickle",4.5,0.9,1215,1025,1045.7,1000.5,1074,0.8272,0,0,0,0,1005,36,1041
+2026-09-04,4,Friday,Lunch,"South Indian Meals (Sambar, Rasam, Curd, Appalam)",4.1,0.82,1215,1175,1114.4,1070.0,1112,0.8667,0,0,0,0,1053,37,1090
+2026-09-04,4,Friday,Dinner,"Mix Veg Curry, Phulkas & Steamed Rice",3.8,0.76,1215,1205,1145.9,1098.9,1058,0.8091,0,0,0,0,983,35,1018

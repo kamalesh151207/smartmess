@@ -1,46 +1,54 @@
-import db, { initDatabase } from './db.js';
+import db, { initDatabase, sqliteDb } from './db.js';
+import { spawn } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export async function seedData() {
   await initDatabase();
 
-  console.log('[Seed] Seeding realistic hostel demo data...');
+  console.log('[Seed] Seeding realistic hostel demo dataset...');
 
-  // 1. Clear existing demo data
-  db.exec(`
-    DELETE FROM users;
-    DELETE FROM students;
-    DELETE FROM attendance;
-    DELETE FROM meals;
-    DELETE FROM predictions;
-    DELETE FROM waste_logs;
-    DELETE FROM inventory;
-    DELETE FROM alerts;
-    DELETE FROM settings;
+  // 1. Drop existing tables to refresh schema
+  sqliteDb.exec(`
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS students;
+    DROP TABLE IF EXISTS attendance;
+    DROP TABLE IF EXISTS meals;
+    DROP TABLE IF EXISTS predictions;
+    DROP TABLE IF EXISTS waste_logs;
+    DROP TABLE IF EXISTS inventory;
+    DROP TABLE IF EXISTS alerts;
+    DROP TABLE IF EXISTS settings;
+    DROP TABLE IF EXISTS ingestion_logs;
   `);
+  await initDatabase();
 
   // 2. Settings
-  const insertSetting_sql = 'INSERT INTO settings (key, value) VALUES (?, ?)';
-  db.prepare(insertSetting_sql).run('safety_buffer_percent', '3.5');
-  db.prepare(insertSetting_sql).run('hostel_name', 'Aryabhata Central Dining Hall');
-  db.prepare(insertSetting_sql).run('total_capacity', '1400');
-  db.prepare(insertSetting_sql).run('current_registered_students', '1215');
-  db.prepare(insertSetting_sql).run('mess_manager', 'Prof. R. Venkatesh / Dr. K. Sharma');
-  db.prepare(insertSetting_sql).run('active_academic_term', 'Autumn Semester 2026');
+  const insertSetting = sqliteDb.prepare('INSERT INTO settings (key, value) VALUES (?, ?)');
+  insertSetting.run('safety_buffer_percent', '3.5');
+  insertSetting.run('hostel_name', 'Aryabhata Central Dining Hall');
+  insertSetting.run('total_capacity', '1400');
+  insertSetting.run('current_registered_students', '1215');
+  insertSetting.run('mess_manager', 'Prof. R. Venkatesh / Dr. K. Sharma');
+  insertSetting.run('active_academic_term', 'Autumn Semester 2026');
 
   // 3. User
-  const insertUser_sql = `
+  const insertUser = sqliteDb.prepare(`
     INSERT INTO users (id, email, password, name, role, hostel_assigned)
     VALUES (?, ?, ?, ?, ?, ?)
-  `;
-  db.prepare(insertUser_sql).run('usr_admin_1', 'admin@smartmess.edu', 'admin123', 'Chief Warden / Mess Manager', 'Admin', 'Aryabhata Central Dining Hall');
+  `);
+  insertUser.run('usr_admin_1', 'admin@smartmess.edu', 'admin123', 'Chief Warden / Mess Manager', 'Admin', 'Aryabhata Central Dining Hall');
 
   // 4. Students
-  const insertStudent_sql = `
+  const insertStudent = sqliteDb.prepare(`
     INSERT INTO students (id, student_id, name, hostel, room, dietary_pref, status)
     VALUES (?, ?, ?, ?, ?, ?, ?)
-  `;
+  `);
 
-  const studentNames = [
+  const studentList = [
     ['STU-2024-001', 'Aarav Sharma', 'Aryabhata North', 'A-204', 'Veg'],
     ['STU-2024-002', 'Aditi Verma', 'Kalpana Chawla', 'B-108', 'Standard'],
     ['STU-2024-003', 'Rohan Iyer', 'Ramanujan South', 'C-312', 'Veg'],
@@ -73,25 +81,30 @@ export async function seedData() {
     ['STU-2024-030', 'Pranav Mukherjee', 'Aryabhata North', 'A-407', 'Standard']
   ];
 
-  studentsToSeed.forEach(async (s, idx) => {
-    db.prepare(insertStudent_sql).run(`stu_${idx + 1}`, s[0], s[1], s[2], s[3], s[4], 'Active');
+  studentList.forEach((s, idx) => {
+    insertStudent.run(`stu_${idx + 1}`, s[0], s[1], s[2], s[3], s[4], 'Active');
   });
 
-  // 5. Historical Meals and Waste for the last 14 days
-  const insertMeal_sql = `
+  // 5. Historical Meals and Waste Logs
+  const insertMeal = sqliteDb.prepare(`
     INSERT INTO meals (id, date, meal, menu, planned_qty, predicted_qty, recommended_qty, prepared_qty, consumed_qty, leftover_qty, status, notes, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  `);
 
-  const insertWaste_sql = `
+  const insertWaste = sqliteDb.prepare(`
     INSERT INTO waste_logs (id, date, meal, prepared_qty, consumed_qty, leftover_qty, waste_percentage, highest_waste_item, cause, notes)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  `);
 
-  const insertPrediction_sql = `
-    INSERT INTO predictions (id, date, meal, expected_attendance, menu_item, day_type, holiday_event, predicted_demand, recommended_prep, safety_buffer, confidence, feature_signals, model_type)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  const insertPrediction = sqliteDb.prepare(`
+    INSERT INTO predictions (id, date, meal, expected_attendance, menu_item, day_type, holiday_event, event_flag, predicted_demand, recommended_prep, safety_buffer, event_adjustment, confidence, feature_signals, model_type)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const insertAttendance = sqliteDb.prepare(`
+    INSERT OR IGNORE INTO attendance (id, date, meal, student_id, student_name, hostel, room, status, source, marked_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
 
   const menus = {
     Breakfast: [
@@ -123,10 +136,9 @@ export async function seedData() {
     ]
   };
 
-  // Generate 14 days back up to today
   const today = new Date('2026-09-04T00:00:00Z');
 
-  for (let i = 13; i >= 0; i--) {
+  for (let i = 29; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
@@ -134,26 +146,22 @@ export async function seedData() {
     const isWeekend = dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
     const dayType = isWeekend ? 'Weekend' : 'Regular';
 
-    // 3 meals per day
     const mealConfigs = [
       { meal: 'Breakfast', baseExpected: 1215, turnoutRate: isWeekend ? 0.76 : 0.82, menuIdx: (i * 3) % 7 },
       { meal: 'Lunch', baseExpected: 1215, turnoutRate: isWeekend ? 0.81 : 0.88, menuIdx: (i * 3 + 1) % 7 },
-      { meal: 'Dinner', baseExpected: 1215, turnoutRate: isWeekend ? 0.84 : 0.91, menuIdx: (i * 3 + 2) % 7 }
+      { meal: 'Dinner', baseExpected: 1215, turnoutRate: isWeekend ? 0.84 : (dayOfWeek === 'Friday' ? 0.83 : 0.91), menuIdx: (i * 3 + 2) % 7 }
     ];
 
     for (const m of mealConfigs) {
       const menu = menus[m.meal][m.menuIdx];
       const expectedAttendance = m.baseExpected;
-      // Calculate prediction with deterministic noise
       const varianceNoise = Math.sin(i * 1.5 + (m.meal === 'Lunch' ? 1 : 2)) * 12;
       const predictedDemand = Math.round(expectedAttendance * m.turnoutRate + varianceNoise);
-      const safetyBuffer = Math.round(predictedDemand * 0.035);
+      const safetyBuffer = Math.max(8, Math.round(predictedDemand * 0.035));
       const recommendedPrep = predictedDemand + safetyBuffer;
 
-      // Actual prepared is close to recommended prep
       const preparedQty = i === 0 ? recommendedPrep : Math.round(recommendedPrep + (i % 2 === 0 ? 3 : -2));
-      // Actual consumed
-      const actualConsumed = i === 0 ? Math.round(predictedDemand * 0.98) : Math.round(predictedDemand + (i % 3 === 0 ? 5 : -4));
+      const actualConsumed = i === 0 ? Math.round(predictedDemand * 0.98) : Math.round(predictedDemand + (i % 3 === 0 ? 4 : -3));
       const leftoverQty = Math.max(0, preparedQty - actualConsumed);
       const wastePct = Number(((leftoverQty / preparedQty) * 100).toFixed(1));
 
@@ -178,7 +186,6 @@ export async function seedData() {
         new Date().toISOString()
       );
 
-      // Waste log
       const wasteId = `wst_${dateStr}_${m.meal.toLowerCase()}`;
       const highestItem = m.meal === 'Lunch' ? 'Rice & Dal' : m.meal === 'Breakfast' ? 'Sambar' : 'Roti';
       insertWaste.run(
@@ -194,14 +201,12 @@ export async function seedData() {
         `Logged at mess counter ${m.meal}`
       );
 
-      // Prediction record
       const predId = `prd_${dateStr}_${m.meal.toLowerCase()}`;
       const featureSignals = JSON.stringify([
-        { feature: 'Historical Attendance Pattern', weight: 0.44 },
-        { feature: 'Meal Baseline', weight: 0.22 },
-        { feature: 'Day of Week Modifier', weight: 0.15 },
-        { feature: 'Menu Popularity Factor', weight: 0.11 },
-        { feature: 'Academic Calendar', weight: 0.08 }
+        { feature: 'Meal Slot Baseline', importance: 0.38, impact: 'High' },
+        { feature: '7-Day Moving Avg Turnout', importance: 0.26, impact: 'High' },
+        { feature: 'Day of Week Pattern', importance: 0.16, impact: 'High' },
+        { feature: 'Menu Popularity Index', importance: 0.11, impact: 'Medium' }
       ]);
 
       insertPrediction.run(
@@ -212,9 +217,11 @@ export async function seedData() {
         menu,
         dayType,
         0,
+        0,
         predictedDemand,
         recommendedPrep,
         safetyBuffer,
+        0,
         isWeekend ? 'Medium' : 'High',
         featureSignals,
         'RandomForestRegressor Ensemble'
@@ -222,41 +229,67 @@ export async function seedData() {
     }
   }
 
-  // 6. Realistic Attendance records for today
-  const insertAttendance_sql = `
-    INSERT INTO attendance (id, date, meal, student_id, student_name, hostel, status, marked_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `;
-
+  // 6. Realistic Attendance records for today & yesterday across student roster
   const todayStr = '2026-09-04';
-  for (const [idx, s] of studentNames.slice(0, 25).entries()) {
-    insertAttendance.run(
-      `att_${idx}_bk`,
-      todayStr,
-      'Breakfast',
-      s[0],
-      s[1],
-      s[2],
-      idx % 6 === 0 ? 'Absent' : 'Present',
-      '2026-09-04 08:15:22'
-    );
-    insertAttendance.run(
-      `att_${idx}_ln`,
-      todayStr,
-      'Lunch',
-      s[0],
-      s[1],
-      s[2],
-      idx % 9 === 0 ? 'Absent' : 'Present',
-      '2026-09-04 12:45:10'
-    );
-  }
+  const yesterdayStr = '2026-09-03';
 
-  // 7. Inventory Items linked to meal requirements
-  const insertInventory_sql = `
+  [yesterdayStr, todayStr].forEach(dStr => {
+    studentList.forEach((s, idx) => {
+      // Breakfast swipe
+      const bkStatus = idx % 7 === 0 ? 'Absent' : 'Present';
+      const bkSource = idx % 4 === 0 ? 'qr' : 'biometric_turnstile';
+      insertAttendance.run(
+        `att_${dStr}_bk_${idx}`,
+        dStr,
+        'Breakfast',
+        s[0],
+        s[1],
+        s[2],
+        s[3],
+        bkStatus,
+        bkSource,
+        `${dStr} 08:${(10 + (idx % 45)).toString().padStart(2, '0')}:22`
+      );
+
+      // Lunch swipe
+      const lnStatus = idx % 9 === 0 ? 'Absent' : 'Present';
+      const lnSource = idx % 5 === 0 ? 'qr' : 'biometric_turnstile';
+      insertAttendance.run(
+        `att_${dStr}_ln_${idx}`,
+        dStr,
+        'Lunch',
+        s[0],
+        s[1],
+        s[2],
+        s[3],
+        lnStatus,
+        lnSource,
+        `${dStr} 12:${(30 + (idx % 25)).toString().padStart(2, '0')}:14`
+      );
+
+      // Dinner swipe
+      const dnStatus = idx % 8 === 0 ? 'Absent' : 'Present';
+      const dnSource = idx % 3 === 0 ? 'qr' : 'biometric_turnstile';
+      insertAttendance.run(
+        `att_${dStr}_dn_${idx}`,
+        dStr,
+        'Dinner',
+        s[0],
+        s[1],
+        s[2],
+        s[3],
+        dnStatus,
+        dnSource,
+        `${dStr} 19:${(40 + (idx % 20)).toString().padStart(2, '0')}:50`
+      );
+    });
+  });
+
+  // 7. Inventory Items
+  const insertInventory = sqliteDb.prepare(`
     INSERT INTO inventory (id, item_name, category, current_stock, unit, daily_avg_consumption, reorder_level, status, recommended_purchase, last_updated)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  `);
 
   const inventoryItems = [
     ['inv_1', 'Basmati Rice (Long Grain)', 'Grains', 380, 'kg', 85, 150, 'Healthy', 0],
@@ -277,69 +310,31 @@ export async function seedData() {
 
   for (const item of inventoryItems) {
     insertInventory.run(
-      item[0],
-      item[1],
-      item[2],
-      item[3],
-      item[4],
-      item[5],
-      item[6],
-      item[7],
-      item[8],
-      new Date().toISOString()
+      item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8], new Date().toISOString()
     );
   }
 
   // 8. Alerts
-  const insertAlert_sql = `
+  const insertAlert = sqliteDb.prepare(`
     INSERT INTO alerts (id, title, message, severity, date, is_read, type)
     VALUES (?, ?, ?, ?, ?, ?, ?)
-  `;
+  `);
 
-  insertAlert.run(
-    'alt_1',
-    'Paneer Inventory Critical',
-    'Current stock (18 kg) is below reorder threshold for planned Paneer Butter Masala dinner.',
-    'Critical',
-    todayStr,
-    0,
-    'inventory'
-  );
+  insertAlert.run('alt_1', 'Paneer Inventory Critical', 'Current stock (18 kg) is below reorder threshold for planned Paneer Butter Masala dinner.', 'Critical', todayStr, 0, 'inventory');
+  insertAlert.run('alt_2', 'Friday Lunch Turnout Shift', 'AI Model anticipates 6.8% lower lunch turnout compared to Thursday due to weekend eve departures.', 'Attention', todayStr, 0, 'prediction');
+  insertAlert.run('alt_3', 'Optimal Breakfast Waste Recorded', 'Breakfast food leftover was kept under 2.1% (8 kg vs 380 meals served), meeting zero-waste target.', 'Normal', todayStr, 1, 'waste');
+  insertAlert.run('alt_4', 'Upcoming Holiday Schedule', 'Ganesh Chaturthi festival next week: attendance expected to dip by ~35%. Auto-adjusting models.', 'Attention', todayStr, 0, 'schedule');
 
-  insertAlert.run(
-    'alt_2',
-    'Friday Lunch Turnout Shift',
-    'AI Model anticipates 6.8% lower lunch turnout compared to Thursday due to weekend eve departures.',
-    'Attention',
-    todayStr,
-    0,
-    'prediction'
-  );
+  // 9. Initial Ingestion Log
+  const insertIngLog = sqliteDb.prepare(`
+    INSERT INTO ingestion_logs (id, filename, source, total_rows, valid_rows, invalid_rows, duplicate_rows, inserted_rows, errors_json)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+  insertIngLog.run('ing_init_001', 'turnstile_rfid_sync.csv', 'biometric_turnstile', 90, 90, 0, 0, 90, '[]');
 
-  insertAlert.run(
-    'alt_3',
-    'Optimal Breakfast Waste Recorded',
-    'Breakfast food leftover was kept under 2.1% (8 kg vs 380 meals served), meeting zero-waste target.',
-    'Normal',
-    todayStr,
-    1,
-    'waste'
-  );
-
-  insertAlert.run(
-    'alt_4',
-    'Upcoming Holiday Schedule',
-    'Ganesh Chaturthi festival next week: attendance expected to dip by ~35%. Auto-adjusting models.',
-    'Attention',
-    todayStr,
-    0,
-    'schedule'
-  );
-
-  console.log('[Seed] Demo database populated successfully!');
+  console.log('[Seed] SQLite database seeded successfully!');
 }
 
-// Run directly if called from command line
-if (process.argv[1].endsWith('seed.js')) {
+if (process.argv[1]?.endsWith('seed.js')) {
   seedData();
 }

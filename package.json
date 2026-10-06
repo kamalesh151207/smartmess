@@ -1,0 +1,17 @@
+{
+  "name": "smartmess-ai-platform",
+  "version": "1.0.0",
+  "description": "SmartMess — AI-Powered Hostel Mess Management & Food Demand Forecasting System",
+  "scripts": {
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "dev:ml": "python3 ml/inference_service.py",
+    "train": "python3 ml/train.py",
+    "evaluate": "python3 ml/evaluate.py",
+    "test:ml": "python3 -m unittest ml/test_ml.py",
+    "test:server": "npm --prefix server test",
+    "test": "npm run test:ml && npm run test:server",
+    "seed": "npm --prefix server run seed",
+    "build": "npm --prefix client run build"
+  }
+}
