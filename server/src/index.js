@@ -37,6 +37,22 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Root API Welcome / Health endpoint
+app.get('/', (req, res) => {
+  res.json({
+    name: 'SmartMess API Gateway',
+    status: 'online',
+    version: '1.0.0',
+    documentation: '/api/docs',
+    endpoints: {
+      health: '/api/system/health',
+      predictions: '/api/predictions',
+      attendance: '/api/attendance',
+      model_evaluation: '/api/model/evaluation'
+    }
+  });
+});
+
 // Mount API routes
 app.use('/api', apiRouter);
 
