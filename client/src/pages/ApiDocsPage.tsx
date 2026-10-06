@@ -8,7 +8,11 @@ import {
   Send,
   Layers,
   Sparkles,
-  Server
+  Server,
+  ArrowRight,
+  Workflow,
+  Cpu,
+  ShieldCheck
 } from 'lucide-react';
 
 interface EndpointSpec {
@@ -177,7 +181,6 @@ export const ApiDocsPage: React.FC = () => {
   const [selectedEndpoint, setSelectedEndpoint] = useState<EndpointSpec>(ENDPOINTS[0]);
   const [testResponse, setTestResponse] = useState<any>(null);
   const [testing, setTesting] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const handleTestCall = async () => {
     setTesting(true);
@@ -204,8 +207,6 @@ export const ApiDocsPage: React.FC = () => {
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
@@ -235,6 +236,64 @@ export const ApiDocsPage: React.FC = () => {
           <ExternalLink className="w-3.5 h-3.5" />
           <span>Open Full Swagger UI (/docs/api)</span>
         </a>
+      </div>
+
+      {/* Formal Architecture Flow Banner */}
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 text-white shadow-xl space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+            <Workflow className="w-4 h-4 text-indigo-400" /> End-to-End System API Communication Topology
+          </h3>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-900 text-indigo-300 border border-indigo-700">
+            Node → Python Gateway
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-center">
+          <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-indigo-400 block">1. User Interface</span>
+            <span className="text-xs font-bold text-white block">React Frontend (Vite)</span>
+            <span className="text-[10px] text-slate-400 block font-mono">Port 3000 / Browser</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-blue-400 block">2. API Gateway</span>
+            <span className="text-xs font-bold text-white block">Node.js / Express REST API</span>
+            <span className="text-[10px] text-slate-400 block font-mono">Port 3001</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-emerald-400 block">3. Inference Microservice</span>
+            <span className="text-xs font-bold text-white block">Python FastAPI ML Service</span>
+            <span className="text-[10px] text-slate-400 block font-mono">Port 8000</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-indigo-600/40 border border-indigo-500/80 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-indigo-300 block">4. Demand Predictor</span>
+            <span className="text-xs font-bold text-white block">Random Forest Regressor</span>
+            <span className="text-[10px] text-slate-300 block font-mono">joblib Model Artifact</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-2">
+          <div className="p-3 rounded-xl bg-emerald-950/50 border border-emerald-800/60 text-emerald-200">
+            <span className="font-bold flex items-center gap-1 text-emerald-400 mb-0.5">
+              <CheckCircle className="w-3.5 h-3.5" /> Primary Execution Path:
+            </span>
+            <p className="text-[11px] text-slate-300">
+              Node.js Express forwards prediction requests via HTTP POST to Python FastAPI at <code className="text-emerald-300 font-mono">http://localhost:8000/predict</code>.
+            </p>
+          </div>
+
+          <div className="p-3 rounded-xl bg-amber-950/50 border border-amber-800/60 text-amber-200">
+            <span className="font-bold flex items-center gap-1 text-amber-400 mb-0.5">
+              <ShieldCheck className="w-3.5 h-3.5" /> High-Availability Fallback Path:
+            </span>
+            <p className="text-[11px] text-slate-300">
+              If Python microservice is unreachable, Node.js transparently executes the embedded JS Random Forest engine without failing user requests.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Main Grid: Endpoints list on Left, Schema Explorer on Right */}
