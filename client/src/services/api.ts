@@ -16,7 +16,11 @@ import {
   IngestionSummary
 } from '../types';
 
-const BASE_URL = '/api';
+// In production (Netlify), set VITE_API_URL to your deployed backend URL.
+// In development, Vite's proxy forwards /api → http://localhost:3001, so no env var needed.
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : '/api';
 
 export const api = {
   // Auth

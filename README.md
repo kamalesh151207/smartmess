@@ -131,7 +131,46 @@ npm --prefix server test
 
 ---
 
-## 4. Documentation Index
+---
+
+## 5. Deployment Architecture & Netlify Settings
+
+### Deployment Topology
+
+```
+                    USER / BROWSER
+                          │
+                          ▼
+                       NETLIFY
+              (React / Vite Single Page App)
+                          │
+                          ▼ HTTPS REST API
+                   NODE / EXPRESS
+                  (API Gateway Server)
+                          │
+                          ▼ HTTPS
+                   PYTHON FASTAPI
+             (Random Forest ML Microservice)
+                          │
+                          ▼
+                 DATABASE (PostgreSQL / SQLite)
+```
+
+### Netlify Deployment Settings
+
+For deploying the React frontend on Netlify:
+
+| Setting | Exact Value |
+| :--- | :--- |
+| **Base directory** | `client` |
+| **Build command** | `npm run build` |
+| **Publish directory** | `dist` (or `client/dist`) |
+| **Build image** | Ubuntu Focal / Default |
+| **Environment Variable** | `VITE_API_URL=<DEPLOYED_BACKEND_URL>` |
+
+---
+
+## 6. Documentation Index
 
 - [Architecture & Sequence Diagrams](docs/architecture.md)
 - [REST API Specification & OpenAPI 3.0](docs/api.md)
@@ -141,3 +180,4 @@ npm --prefix server test
 - [Database Schema & ER Diagram](docs/database.md)
 - [Deployment & Operations](docs/deployment.md)
 - [Project Status & Milestone Report](docs/project-status.md)
+
