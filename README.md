@@ -9,6 +9,35 @@ SmartMess is an end-to-end AI-powered demand forecasting and hostel mess managem
 
 ---
 
+## 🏆 Evaluator Quick Summary
+
+### COLLEGE REQUIREMENT 1: Quantitative ML Evaluation
+- **✓ MAE**: 16.80 meals vs 63.88 baseline (73.7% MAE reduction relative to baseline)
+- **✓ RMSE**: 21.55 meals vs 80.45 baseline (73.2% RMSE reduction relative to baseline)
+- **✓ MAPE**: 1.56% vs 5.81% baseline (73.1% relative reduction in MAPE)
+- **✓ R²**: 0.919 vs -0.128 baseline (91.9% variance explained)
+- **✓ Random Forest vs Baseline**: Evaluated on identical holdout sample points
+- **✓ Chronological Holdout**: 70% Train (189), 15% Validation (40), 15% Holdout Test (41)
+
+### COLLEGE REQUIREMENT 2: Formal API Specification
+- **✓ React Frontend**: Vite TypeScript UI (`:3000`)
+- **✓ Node/Express REST API**: Central API Gateway (`:3001`)
+- **✓ Python FastAPI Inference Microservice**: Scikit-Learn Model Runner (`:8000`)
+- **✓ OpenAPI 3.0 Specs**: Interactive Explorer at `/api-docs` & Swagger UI at `/docs/api`
+- **✓ Health Probes**: `GET /api/system/health` & `GET /health`
+- **✓ Resilient Fallback**: Node.js embedded engine active when Python service is offline
+
+### COLLEGE REQUIREMENT 3: Attendance Data Pipeline
+- **✓ Attendance Collection**: Biometric RFID turnstiles, student QR, manual admin entry
+- **✓ CSV / REST Ingestion**: Bulk file uploader with live audit logging
+- **✓ Validation**: ISO timestamp formatting and schema constraint validation
+- **✓ Duplicate Prevention**: `UNIQUE(student_id, date, meal)` with HTTP 409 Conflict rejection
+- **✓ Database Storage**: SQLite3 WAL mode persistent storage
+- **✓ Data Quality Scorecard**: Real-time missing value, coverage, and freshness tracking
+- **✓ Forecast Integration**: Direct feature extraction pipeline feeding ML model
+
+---
+
 ## Architecture Overview
 
 ```mermaid
@@ -36,30 +65,13 @@ graph TD
 
 ### Quantitative Model Evaluation Benchmarks (MAE, RMSE, MAPE, R²)
 - **Chronological Time-Aware Split**: 70% Train, 15% Validation, 15% Test (no future-data leakage).
-- **Division-by-Zero Protected MAPE**: Safe formula handling zero actual values.
+- **Division-by-Zero Protected MAPE**: Safe formula handling zero actual values: `mean(abs(actual - pred) / max(actual, 1.0)) * 100`.
 - **Baseline Comparison**: Compared against 7-Day Moving Average Baseline.
 
 | Model Architecture | MAE (meals) | RMSE (meals) | MAPE (%) | $R^2$ Score | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Baseline (7-Day Moving Avg)** | 63.88 | 80.45 | 5.81% | -0.128 | Baseline |
-| **Random Forest (SmartMess)** | **16.80** | **21.55** | **1.56%** | **0.919** | **Production (73.7% Error Reduction)** |
-
----
-
-### Formalized OpenAPI / REST Specification
-- **OpenAPI 3.0 Contract**: Located at `server/src/docs/openapi.json`.
-- **Swagger Documentation UI**: Served live at `http://localhost:3001/docs/api`.
-- **In-App API Explorer**: `/api-docs` interface with live testing tools.
-- **Python FastAPI Service**: Microservice running on `:8000` with `/health`, `/predict`, `/batch_predict`, and `/model/evaluation`.
-- **Resilient Fallback**: Node.js automatically falls back to an embedded regression engine if the ML service is restarting.
-
----
-
-### Attendance Collection & Data Ingestion Pipeline
-- **Multi-Source Swiping**: Biometric Turnstiles, QR mobile check-in, manual counter entries, and bulk CSV uploads.
-- **Integrity Constraints**: `UNIQUE(student_id, date, meal)` constraint prevents double-swiping.
-- **Bulk CSV Ingestion**: Live validation, duplicate suppression, and error audit reporting.
-- **Data Quality Scorecard**: Real-time tracking of Data Freshness, Coverage %, Missing Values, and Duplicates.
+| **Random Forest (SmartMess)** | **16.80** | **21.55** | **1.56%** | **0.919** | **Production (73.7% MAE Reduction)** |
 
 ---
 

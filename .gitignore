@@ -7,3 +7,4 @@ smart_mess.db-shm
 dist/
 build/
 *.log
+server/.env
